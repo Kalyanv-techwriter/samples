@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kalyan Voolse | Agentic Documentation Lifecycle</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#1a1a2e;--body:#3d3d5c;--muted:#8888a0;--bg:#fafaf8;--card:#fff;--border:#e8e8e4;--accent:#2e5cb8;--purple:#7c3aed;--purple-light:#f3eeff;--teal:#0bbead;--navy:#0d2b4e;--green:#16a34a;--amber:#d97706;--gray:#9ca3af;--tag-bg:#f0f0ec}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'DM Sans',-apple-system,sans-serif;background:var(--bg);color:var(--body);line-height:1.65;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin:0 auto;padding:0 40px}
+.divider hr{border:none;border-top:1.5px solid var(--border)}
+
+/* HEADER */
+.masthead{padding:60px 0 32px}
+.masthead-back{font-size:13px;color:var(--muted);text-decoration:none;display:inline-flex;align-items:center;gap:4px;margin-bottom:20px}
+.masthead-back:hover{color:var(--accent)}
+.masthead-label{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--purple);font-weight:600;margin-bottom:12px}
+.masthead h1{font-family:'Instrument Serif',Georgia,serif;font-size:44px;font-weight:400;color:var(--ink);line-height:1.15;margin-bottom:16px}
+.masthead-sub{font-size:17px;color:var(--body);max-width:720px;margin-bottom:8px}
+.masthead-author{font-size:13px;color:var(--muted)}
+
+/* VISION BOX */
+.vision-box{background:linear-gradient(135deg,#f3eeff 0%,#fff 100%);border:1.5px solid #d4bfff;border-radius:12px;padding:32px;margin:32px 0}
+.vision-box h2{font-family:'Instrument Serif',Georgia,serif;font-size:24px;color:var(--ink);font-weight:400;margin-bottom:12px}
+.vision-box p{font-size:15px;max-width:800px}
+
+/* 4-LAYER STACK */
+.stack-section{padding:48px 0}
+.section-title{font-family:'Instrument Serif',Georgia,serif;font-size:32px;color:var(--ink);font-weight:400;margin-bottom:8px}
+.section-desc{font-size:14px;color:var(--muted);margin-bottom:32px;max-width:640px}
+
+.stack{display:flex;flex-direction:column;gap:0;margin-bottom:40px}
+.stack-layer{border:1.5px solid var(--border);background:var(--card);padding:24px 28px;position:relative;transition:border-color .2s,box-shadow .2s}
+.stack-layer:first-child{border-radius:12px 12px 0 0}
+.stack-layer:last-child{border-radius:0 0 12px 12px}
+.stack-layer:not(:first-child){border-top:none}
+.stack-layer:hover{border-color:var(--purple);z-index:1;box-shadow:0 4px 20px rgba(124,58,237,.1)}
+.stack-layer:not(:first-child):hover{border-top:1.5px solid var(--purple);margin-top:-1.5px}
+.layer-num{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;letter-spacing:1px;color:var(--purple);margin-bottom:4px}
+.layer-title{font-size:18px;font-weight:700;color:var(--ink);margin-bottom:6px}
+.layer-desc{font-size:14px;color:var(--body);margin-bottom:10px;max-width:680px}
+.layer-tech{display:flex;flex-wrap:wrap;gap:6px}
+.layer-tech span{font-family:'JetBrains Mono',monospace;font-size:11px;padding:3px 10px;background:var(--purple-light);color:var(--purple);border-radius:4px;font-weight:500}
+
+/* 7 AGENTS GRID */
+.agents-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+.agent-card{background:var(--card);border:1.5px solid var(--border);border-radius:10px;padding:18px;transition:border-color .2s,box-shadow .2s}
+.agent-card:hover{border-color:var(--purple);box-shadow:0 4px 16px rgba(124,58,237,.08)}
+.agent-card.orchestrator{grid-column:1/-1;background:linear-gradient(135deg,#1a1a2e 0%,#2a2a48 100%);color:#fff;border-color:#2a2a48}
+.agent-card.orchestrator .agent-name{color:#fff}
+.agent-card.orchestrator .agent-desc{color:rgba(255,255,255,.75)}
+.agent-card.orchestrator .agent-model{background:rgba(255,255,255,.15);color:rgba(255,255,255,.9)}
+.agent-icon{font-size:24px;margin-bottom:8px}
+.agent-name{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:4px}
+.agent-desc{font-size:12px;color:var(--muted);margin-bottom:8px;line-height:1.5}
+.agent-model{font-family:'JetBrains Mono',monospace;font-size:10px;padding:2px 8px;background:var(--tag-bg);border-radius:3px;color:var(--body);display:inline-block}
+.agent-io{font-size:11px;color:var(--muted);margin-top:8px;line-height:1.5}
+.agent-io strong{color:var(--body)}
+
+/* 5 HUMAN GATES */
+.gates{display:flex;gap:0;margin:32px 0;position:relative}
+.gates::before{content:'';position:absolute;top:50%;left:24px;right:24px;height:3px;background:repeating-linear-gradient(90deg,var(--purple) 0,var(--purple) 8px,transparent 8px,transparent 16px);z-index:0}
+.gate{flex:1;text-align:center;position:relative;z-index:1}
+.gate-dot{width:40px;height:40px;border-radius:50%;background:var(--purple);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;margin:0 auto 8px}
+.gate-label{font-size:11px;font-weight:600;color:var(--ink);line-height:1.4}
+.gate-who{font-size:10px;color:var(--muted);margin-top:2px}
+
+/* EDITIONS COMPARISON */
+.editions{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:32px 0}
+.edition{border:1.5px solid var(--border);border-radius:12px;padding:28px;background:var(--card);transition:border-color .2s}
+.edition:hover{border-color:var(--purple)}
+.edition-badge{font-size:10px;letter-spacing:2px;text-transform:uppercase;font-weight:700;margin-bottom:8px}
+.edition-badge.ent{color:var(--navy)}
+.edition-badge.per{color:var(--teal)}
+.edition h3{font-family:'Instrument Serif',Georgia,serif;font-size:20px;color:var(--ink);font-weight:400;margin-bottom:10px}
+.edition p{font-size:13px;margin-bottom:12px}
+.edition-table{width:100%;font-size:12px;border-collapse:collapse}
+.edition-table td{padding:6px 0;border-bottom:1px solid var(--border);vertical-align:top}
+.edition-table td:first-child{font-weight:600;color:var(--ink);width:35%;padding-right:12px}
+
+/* USE CASES */
+.use-cases{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0}
+.uc{background:var(--card);border:1.5px solid var(--border);border-radius:10px;padding:20px;transition:border-color .2s}
+.uc:hover{border-color:var(--purple)}
+.uc-num{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--purple);font-weight:600;margin-bottom:4px}
+.uc-title{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:6px;line-height:1.35}
+.uc-desc{font-size:12.5px;color:var(--muted);line-height:1.5}
+
+/* PROGRESS TIMELINE */
+.timeline{position:relative;padding-left:32px;margin:32px 0}
+.timeline::before{content:'';position:absolute;left:11px;top:8px;bottom:8px;width:3px;background:linear-gradient(180deg,var(--green) 0%,var(--green) 45%,var(--amber) 45%,var(--amber) 65%,var(--gray) 65%,var(--gray) 100%);border-radius:2px}
+.tl-item{position:relative;padding-bottom:28px}
+.tl-item:last-child{padding-bottom:0}
+.tl-dot{position:absolute;left:-27px;top:4px;width:13px;height:13px;border-radius:50%;border:2.5px solid var(--card)}
+.tl-dot.done{background:var(--green)}
+.tl-dot.progress{background:var(--amber)}
+.tl-dot.planned{background:var(--gray)}
+.tl-status{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:3px}
+.tl-status.done{color:var(--green)}
+.tl-status.progress{color:var(--amber)}
+.tl-status.planned{color:var(--gray)}
+.tl-title{font-size:15px;font-weight:600;color:var(--ink);margin-bottom:4px}
+.tl-desc{font-size:13px;color:var(--muted);max-width:640px}
+
+/* ROI */
+.roi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:24px 0}
+.roi{background:var(--card);border:1.5px solid var(--border);border-radius:10px;padding:20px;text-align:center}
+.roi-num{font-family:'Instrument Serif',Georgia,serif;font-size:36px;color:var(--purple);font-weight:400}
+.roi-label{font-size:12px;color:var(--muted);margin-top:4px}
+.roi-source{font-size:10px;color:var(--border);margin-top:4px}
+
+/* FOOTER */
+.page-footer{padding:40px 0;text-align:center}
+.page-footer p{font-size:13px;color:var(--muted)}
+.page-footer a{color:var(--accent);text-decoration:none}
+
+@media(max-width:700px){
+  .wrap{padding:0 20px}
+  .masthead h1{font-size:32px}
+  .agents-grid{grid-template-columns:1fr 1fr}
+  .editions{grid-template-columns:1fr}
+  .use-cases{grid-template-columns:1fr}
+  .roi-grid{grid-template-columns:1fr}
+  .gates{flex-direction:column;gap:12px}
+  .gates::before{display:none}
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+<!-- HEADER -->
+<header class="masthead">
+  <a href="samples.html" class="masthead-back">&larr; Back to Writing Samples</a>
+  <div class="masthead-label">Agentic Documentation Lifecycle</div>
+  <h1>End-to-End Documentation Agents: Architecture, Implementation, and Progress</h1>
+  <p class="masthead-sub">A practitioner's framework for building AI-powered documentation systems that automate intake, authoring, QA, and publishing while keeping humans in control of accuracy and judgment.</p>
+  <div class="masthead-author">Kalyan Voolse | Lead Technical Writer and AI Documentation Architect | March 2026</div>
+</header>
+
+<!-- VISION -->
+<div class="vision-box">
+  <h2>The Core Idea</h2>
+  <p>Documentation agents are not chatbots that write articles. They are structured agentic workflows where an orchestrator breaks documentation tasks into subtasks, delegates them to specialist agents, enforces quality gates, and routes every piece of content through mandatory human approval before publishing. The LLM is the reasoning engine. Skills teach it your rules. MCP connectors let it act on your tools. Governance keeps it auditable.</p>
+</div>
+
+<div class="divider"><hr></div>
+
+<!-- ============================================================ -->
+<!-- THE 4-LAYER ARCHITECTURE                                     -->
+<!-- ============================================================ -->
+<div class="stack-section">
+  <div class="section-title">The 4-Layer Architecture</div>
+  <div class="section-desc">Every documentation agent system, whether enterprise-scale or running locally on a laptop, shares this same structure. The layers are the same. Only the software filling each layer changes.</div>
+
+  <div class="stack">
+    <div class="stack-layer">
+      <div class="layer-num">LAYER 4</div>
+      <div class="layer-title">Governance</div>
+      <div class="layer-desc">Every agent action must be logged, scoped, and auditable. Data classification filters prevent sensitive content from reaching the API. 5 mandatory human approval gates cannot be automated away. Per-agent least-privilege boundaries ensure no single agent has unchecked access.</div>
+      <div class="layer-tech"><span>Audit Logs</span><span>SSO / RBAC</span><span>Cost Controls</span><span>Data Classification</span><span>Human Gates</span></div>
+    </div>
+    <div class="stack-layer">
+      <div class="layer-num">LAYER 3</div>
+      <div class="layer-title">Orchestrator</div>
+      <div class="layer-desc">A Claude instance (or local LLM) acting as coordinator. It receives tasks, breaks them into subtasks, spawns specialist agents, enforces quality gates, and maintains sprint state. Uses the most capable model available for complex reasoning and multi-agent coordination.</div>
+      <div class="layer-tech"><span>claude-opus-4-6</span><span>deepseek-r1:14b (local)</span><span>Task Routing</span><span>Quality Gates</span><span>Sprint State</span></div>
+    </div>
+    <div class="stack-layer">
+      <div class="layer-num">LAYER 2</div>
+      <div class="layer-title">Agent Skills</div>
+      <div class="layer-desc">SKILL.md files that package domain expertise as reusable instructions. They teach agents DITA authoring rules, Diataxis classification, your style guide, your terminology, and your templates. Skills are human-readable Markdown. Non-developers can author and maintain them. Portable across Claude, ChatGPT, and any compliant agent.</div>
+      <div class="layer-tech"><span>SKILL.md</span><span>DITA Authoring</span><span>Diataxis</span><span>Style Guide</span><span>Templates</span><span>Glossary</span></div>
+    </div>
+    <div class="stack-layer">
+      <div class="layer-num">LAYER 1</div>
+      <div class="layer-title">MCP Tools</div>
+      <div class="layer-desc">Model Context Protocol connects agents to external systems. Over 75 connectors available. Agents read from Git, write to Jira, validate DITA in Oxygen XML, query vector databases for duplicate detection, and publish to Confluence. MCP is the plumbing; Skills are the brain.</div>
+      <div class="layer-tech"><span>GitHub</span><span>Jira</span><span>Oxygen XML</span><span>Confluence</span><span>Vector DB</span><span>Filesystem</span><span>GA4</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"><hr></div>
+
+<!-- ============================================================ -->
+<!-- THE 7 AGENTS                                                 -->
+<!-- ============================================================ -->
+<div class="stack-section">
+  <div class="section-title">The 7 Documentation Agents</div>
+  <div class="section-desc">Each specialist agent runs with tailored SKILL.md files and scoped tool access. The orchestrator coordinates them. No agent publishes without passing through all 5 human gates.</div>
+
+  <div class="agents-grid">
+    <div class="agent-card orchestrator">
+      <div class="agent-icon">&#9881;</div>
+      <div class="agent-name">Doc Manager (Orchestrator)</div>
+      <div class="agent-desc">Routes tasks, enforces quality gates, delegates to specialists, maintains sprint state, sends daily digest</div>
+      <div class="agent-model">claude-opus-4-6</div>
+    </div>
+    <div class="agent-card">
+      <div class="agent-icon">&#128229;</div>
+      <div class="agent-name">Intake Processing</div>
+      <div class="agent-desc">Converts raw source files (PDFs, PRDs, meeting notes) into structured drafts</div>
+      <div class="agent-model">claude-sonnet-4-6</div>
+      <div class="agent-io"><strong>In:</strong> 00_intake/ <strong>Out:</strong> 01_active/</div>
+    </div>
+    <div class="agent-card">
+      <div class="agent-icon">&#128221;</div>
+      <div class="agent-name">Release Notes</div>
+      <div class="agent-desc">Generates audience-calibrated release notes from Git commits and Jira tickets</div>
+      <div class="agent-model">claude-sonnet-4-6</div>
+      <div class="agent-io"><strong>In:</strong> Git + Jira <strong>Out:</strong> MD file</div>
+    </div>
+    <div class="agent-card">
+      <div class="agent-icon">&#128214;</div>
+      <div class="agent-name">User Guide</div>
+      <div class="agent-desc">Creates and updates DITA user guide topics from PRDs and SME notes</div>
+      <div class="agent-model">claude-sonnet-4-6</div>
+      <div class="agent-io"><strong>In:</strong> PRDs, specs <strong>Out:</strong> .dita + .ditamap</div>
+    </div>
+    <div class="agent-card">
+      <div class="agent-icon">&#128161;</div>
+      <div class="agent-name">Online Help</div>
+      <div class="agent-desc">Creates context-sensitive WebHelp topics tied to UI component IDs</div>
+      <div class="agent-model">claude-sonnet-4-6</div>
+      <div class="agent-io"><strong>In:</strong> UI strings, CSH map <strong>Out:</strong> CSH .dita</div>
+    </div>
+    <div class="agent-card">
+      <div class="agent-icon">&#128218;</div>
+      <div class="agent-name">Knowledge Base</div>
+      <div class="agent-desc">Creates, updates, and health-checks KB articles from support signals</div>
+      <div class="agent-model">claude-sonnet-4-6</div>
+      <div class="agent-io"><strong>In:</strong> Tickets, analytics <strong>Out:</strong> KB articles</div>
+    </div>
+    <div class="agent-card">
+      <div class="agent-icon">&#128268;</div>
+      <div class="agent-name">API Docs</div>
+      <div class="agent-desc">Generates API reference from OpenAPI specs or source code</div>
+      <div class="agent-model">claude-sonnet-4-6</div>
+      <div class="agent-io"><strong>In:</strong> OpenAPI YAML <strong>Out:</strong> Endpoint refs</div>
+    </div>
+    <div class="agent-card">
+      <div class="agent-icon">&#9989;</div>
+      <div class="agent-name">QA and Validation</div>
+      <div class="agent-desc">Validates quality, DITA structure, links, and style across all deliverables</div>
+      <div class="agent-model">claude-sonnet-4-6</div>
+      <div class="agent-io"><strong>In:</strong> Any doc file <strong>Out:</strong> Score + fix queue</div>
+    </div>
+  </div>
+</div>
+
+<!-- 5 HUMAN GATES -->
+<div class="section-title" style="font-size:24px;margin-bottom:8px">The 5 Mandatory Human Approval Gates</div>
+<div class="section-desc">No content advances without human sign-off. Agents augment writers. They do not replace them.</div>
+<div class="gates">
+  <div class="gate"><div class="gate-dot">1</div><div class="gate-label">After Intake</div><div class="gate-who">Manager</div></div>
+  <div class="gate"><div class="gate-dot">2</div><div class="gate-label">After First Draft</div><div class="gate-who">SME</div></div>
+  <div class="gate"><div class="gate-dot">3</div><div class="gate-label">After QA Review</div><div class="gate-who">Writer</div></div>
+  <div class="gate"><div class="gate-dot">4</div><div class="gate-label">Before Publish</div><div class="gate-who">Manager</div></div>
+  <div class="gate"><div class="gate-dot">5</div><div class="gate-label">Post-Publish Check</div><div class="gate-who">Writer</div></div>
+</div>
+
+<div class="divider" style="margin-top:48px"><hr></div>
+
+<!-- ============================================================ -->
+<!-- TWO EDITIONS                                                 -->
+<!-- ============================================================ -->
+<div class="stack-section">
+  <div class="section-title">Two Editions, Same Architecture</div>
+  <div class="section-desc">The enterprise edition uses Claude API and paid connectors. The personal edition replaces every paid component with free, open-source equivalents while preserving the full architectural power.</div>
+
+  <div class="editions">
+    <div class="edition">
+      <div class="edition-badge ent">Enterprise Edition</div>
+      <h3>Claude API, MCP Connectors, Admin Console</h3>
+      <p>For teams of 6+ writers processing 20+ topics per month. Full governance, monitoring, and centralised skill deployment.</p>
+      <table class="edition-table">
+        <tr><td>LLM Runtime</td><td>Claude API (Opus / Sonnet / Haiku)</td></tr>
+        <tr><td>MCP Connectors</td><td>75+ from Claude directory</td></tr>
+        <tr><td>Skills Deploy</td><td>API workspace-wide (/v1/skills)</td></tr>
+        <tr><td>Orchestration</td><td>Claude Code / Cowork</td></tr>
+        <tr><td>Vector DB</td><td>Pinecone (cloud)</td></tr>
+        <tr><td>Monitoring</td><td>Anthropic admin console</td></tr>
+        <tr><td>Guide</td><td>18-page implementation guide</td></tr>
+      </table>
+    </div>
+    <div class="edition">
+      <div class="edition-badge per">Personal Edition (Zero-Cost)</div>
+      <h3>Ollama, Open-Source MCPs, Local LLMs</h3>
+      <p>Runs entirely on a local machine with 16GB RAM. No API keys, no subscriptions, no cloud costs. Adds DITA and Diataxis training modules.</p>
+      <table class="edition-table">
+        <tr><td>LLM Runtime</td><td>Ollama (local, free)</td></tr>
+        <tr><td>Models</td><td>deepseek-r1:14b, mistral:7b, phi3</td></tr>
+        <tr><td>MCP Connectors</td><td>Open-source (filesystem, git, browser)</td></tr>
+        <tr><td>Orchestration</td><td>Open WebUI Pipelines / LangGraph</td></tr>
+        <tr><td>Vector DB</td><td>ChromaDB / Qdrant (local, free)</td></tr>
+        <tr><td>Monitoring</td><td>Prometheus + Grafana (free)</td></tr>
+        <tr><td>Bonus</td><td>Full DITA + Diataxis training module</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- 4 USE CASES -->
+  <div class="section-title" style="font-size:24px;margin-bottom:8px;margin-top:40px">4 Use Cases the System Handles</div>
+  <div class="use-cases">
+    <div class="uc">
+      <div class="uc-num">UC 1</div>
+      <div class="uc-title">Reverse Engineer and Automate an Existing Style</div>
+      <div class="uc-desc">You have a corpus of existing docs. The system learns its style, tone, structure, and terminology, then replicates it automatically for new content.</div>
+    </div>
+    <div class="uc">
+      <div class="uc-num">UC 2</div>
+      <div class="uc-title">Reverse Engineer Documentation Flaws and Fix Them</div>
+      <div class="uc-desc">You have broken, inconsistent docs. The system audits against DITA, Diataxis, and your style guide, then generates a prioritised fix queue with auto-remediation where safe.</div>
+    </div>
+    <div class="uc">
+      <div class="uc-num">UC 3</div>
+      <div class="uc-title">Reverse Engineer a Competitor's Documentation Style</div>
+      <div class="uc-desc">You want to match or exceed a competitor's doc quality. The system analyses their public docs for structure, taxonomy, voice, and IA, then builds SKILL.md files that embed that pattern.</div>
+    </div>
+    <div class="uc">
+      <div class="uc-num">UC 4</div>
+      <div class="uc-title">Start From Scratch with World-Class Content Strategy</div>
+      <div class="uc-desc">No existing documentation. The system applies Diataxis, DITA, Docs-as-Code, topic-based authoring, and content ops to define strategy, architecture, and pipeline from day one.</div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"><hr></div>
+
+<!-- ============================================================ -->
+<!-- PROGRESS TIMELINE                                            -->
+<!-- ============================================================ -->
+<div class="stack-section">
+  <div class="section-title">Where This Work Stands Today</div>
+  <div class="section-desc">What has been completed, what is actively in progress, and what comes next.</div>
+
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-dot done"></div>
+      <div class="tl-status done">Completed</div>
+      <div class="tl-title">Enterprise architecture designed and documented (18 pages)</div>
+      <div class="tl-desc">Full implementation guide: 4-layer stack, 7-agent specifications, orchestrator design with subagent configs, 5 human approval gates, governance framework, security controls, monitoring metrics, model update protocol, org assessment playbook, ROI calculations with benchmarks from documented enterprise deployments (Deloitte, Thomson Reuters, Doctolib, Rakuten).</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot done"></div>
+      <div class="tl-status done">Completed</div>
+      <div class="tl-title">Personal zero-cost edition adapted and documented</div>
+      <div class="tl-desc">Every paid component replaced with open-source equivalent. Ollama for LLM runtime, open-source MCP servers, ChromaDB for vector storage. Full DITA authoring and Diataxis classification training modules. All 4 use case implementations with agent configs and SKILL.md templates.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot done"></div>
+      <div class="tl-status done">Validated in Production</div>
+      <div class="tl-title">AI content architecture proven at AssetPanda (Ursa AI)</div>
+      <div class="tl-desc">Structured documentation corpus trained for RAG retrieval. Dual content architecture (standard KB vs AI use case). Three AI interaction modes documented. Single-capability pages for retrieval precision. Escalation boundaries defined. Live at prohelp.assetpanda.com.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot progress"></div>
+      <div class="tl-status progress">In Progress</div>
+      <div class="tl-title">Agent prototypes: Release Notes, QA Validation, API Doc Generation</div>
+      <div class="tl-desc">Building working prototypes using Claude Code with SKILL.md enforcement. Testing against real documentation projects. Measuring quality score improvement and time-to-draft reduction against manual baselines.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot planned"></div>
+      <div class="tl-status planned">Planned</div>
+      <div class="tl-title">Full orchestrator deployment with MCP Gateway</div>
+      <div class="tl-desc">Centralised MCP Gateway for multi-agent coordination. Monitoring dashboard with Prometheus and Grafana. Automated daily health checks. Integration test suite running end-to-end across all 7 agents.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot planned"></div>
+      <div class="tl-status planned">Planned</div>
+      <div class="tl-title">Publishable methodology and consulting framework</div>
+      <div class="tl-desc">Package the enterprise guide and personal edition into a shareable methodology for organisations adopting AI documentation workflows. Org assessment framework, implementation playbook, and ROI pitch deck.</div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"><hr></div>
+
+<!-- ============================================================ -->
+<!-- ROI BENCHMARKS                                               -->
+<!-- ============================================================ -->
+<div class="stack-section">
+  <div class="section-title">Expected Impact (Enterprise Benchmarks)</div>
+  <div class="section-desc">Benchmarks from documented enterprise deployments: Deloitte, Novo Nordisk, Cox Automotive, Thomson Reuters, Doctolib, Rakuten.</div>
+  <div class="roi-grid">
+    <div class="roi"><div class="roi-num">3-5x</div><div class="roi-label">Faster draft creation</div><div class="roi-source">4-hour topics in 45-90 min</div></div>
+    <div class="roi"><div class="roi-num">+40%</div><div class="roi-label">Writer capacity freed</div><div class="roi-source">Agents handle intake, formatting, QA admin</div></div>
+    <div class="roi"><div class="roi-num">50%</div><div class="roi-label">Time-to-publish reduction</div><div class="roi-source">Docs ship same sprint as feature</div></div>
+    <div class="roi"><div class="roi-num">+25-40%</div><div class="roi-label">Fewer review cycles</div><div class="roi-source">Automated QA catches issues pre-review</div></div>
+    <div class="roi"><div class="roi-num">60-80%</div><div class="roi-label">Doc debt reduction in 6 months</div><div class="roi-source">QA agent weekly scans + fix queue</div></div>
+    <div class="roi"><div class="roi-num">40-60%</div><div class="roi-label">Cost per published topic reduction</div><div class="roi-source">Agent cost &lt;&lt; writer hourly rate for first draft</div></div>
+  </div>
+</div>
+
+</div><!-- /wrap -->
+
+<!-- FOOTER -->
+<div class="wrap">
+<div class="divider"><hr></div>
+<footer class="page-footer">
+  <p>Kalyan Voolse | Lead Technical Writer and AI Documentation Architect</p>
+  <p style="margin-top:6px"><a href="mailto:ToVkalyan@gmail.com">ToVkalyan&#64;gmail.com</a> &middot; +91-8886922244 &middot; <a href="https://linkedin.com/in/kalyan-voolse" target="_blank">LinkedIn</a> &middot; <a href="samples.html">Back to Writing Samples<

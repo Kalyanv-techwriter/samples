@@ -1,0 +1,1213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kalyan Voolse | Knowledge Base Migration Case Study | AssetPanda</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Serif+Display&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #1a1a2e;
+  --body: #3d3d5c;
+  --muted: #8888a0;
+  --accent: #4361ee;
+  --accent-light: #eef1ff;
+  --success: #10b981;
+  --danger: #ef4444;
+  --warning: #f59e0b;
+  --bg: #fefefe;
+  --card: #fff;
+  --border: #e8e8f0;
+  --red-bg: #fef2f2;
+  --green-bg: #ecfdf5;
+  --blue-bg: #eff6ff;
+  --yellow-bg: #fffbeb;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  color: var(--body);
+  background: var(--bg);
+  line-height: 1.75;
+  font-size: 17px;
+  -webkit-font-smoothing: antialiased;
+}
+
+.container { max-width: 900px; margin: 0 auto; padding: 0 32px; }
+.wide-container { max-width: 1100px; margin: 0 auto; padding: 0 32px; }
+
+/* ===== HERO ===== */
+.hero {
+  padding: 80px 0 60px;
+  border-bottom: 1px solid var(--border);
+}
+
+.hero-label {
+  font-size: 13px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+
+.hero h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 48px;
+  color: var(--ink);
+  line-height: 1.15;
+  margin-bottom: 20px;
+  font-weight: 400;
+}
+
+.hero-subtitle {
+  font-size: 20px;
+  color: var(--muted);
+  max-width: 680px;
+  line-height: 1.6;
+}
+
+/* Meta grid */
+.meta-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  margin-top: 48px;
+  padding-top: 40px;
+  border-top: 1px solid var(--border);
+}
+
+.meta-item label {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+.meta-item p {
+  font-size: 15px;
+  color: var(--ink);
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+/* ===== PROBLEM / SOLUTION ===== */
+.ps-section {
+  padding: 64px 0;
+}
+
+.ps-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+}
+
+.ps-card {
+  padding: 32px;
+  border-radius: 12px;
+}
+
+.ps-card.problem {
+  background: var(--red-bg);
+  border-left: 4px solid var(--danger);
+}
+
+.ps-card.solution {
+  background: var(--green-bg);
+  border-left: 4px solid var(--success);
+}
+
+.ps-card h3 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 22px;
+  color: var(--ink);
+  margin-bottom: 12px;
+  font-weight: 400;
+}
+
+.ps-card p { font-size: 15px; line-height: 1.7; }
+
+/* ===== BEFORE / AFTER ===== */
+.ba-section {
+  padding: 64px 0;
+  background: #f8f8fc;
+}
+
+.section-label {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+
+.section-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 36px;
+  color: var(--ink);
+  margin-bottom: 16px;
+  font-weight: 400;
+}
+
+.section-desc {
+  font-size: 17px;
+  color: var(--muted);
+  max-width: 640px;
+  margin-bottom: 48px;
+}
+
+.ba-comparison {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+
+.ba-panel {
+  background: var(--card);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+}
+
+.ba-panel-header {
+  padding: 16px 24px;
+  font-weight: 700;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ba-panel-header.before {
+  background: var(--red-bg);
+  color: var(--danger);
+}
+
+.ba-panel-header.after {
+  background: var(--green-bg);
+  color: var(--success);
+}
+
+.ba-panel-body {
+  padding: 24px;
+  font-size: 14px;
+}
+
+.ba-panel-body h4 {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--muted);
+  margin: 16px 0 8px;
+}
+
+.ba-panel-body h4:first-child { margin-top: 0; }
+
+.ba-panel-body ul {
+  list-style: none;
+  padding: 0;
+}
+
+.ba-panel-body li {
+  padding: 6px 0 6px 20px;
+  position: relative;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.ba-panel.before-panel li::before { content: '✕'; position: absolute; left: 0; color: var(--danger); font-weight: 700; font-size: 12px; }
+.ba-panel.after-panel li::before { content: '✓'; position: absolute; left: 0; color: var(--success); font-weight: 700; font-size: 13px; }
+
+.ba-url {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  padding: 4px 10px;
+  border-radius: 4px;
+  margin-bottom: 12px;
+}
+
+.before-panel .ba-url { background: var(--red-bg); color: var(--danger); }
+.after-panel .ba-url { background: var(--green-bg); color: var(--success); }
+
+/* ===== PROCESS ===== */
+.process-section {
+  padding: 80px 0;
+}
+
+.process-steps {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+  margin: 48px 0 64px;
+}
+
+.process-step {
+  text-align: center;
+  padding: 24px 12px;
+  border-radius: 12px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  transition: all 0.2s;
+  position: relative;
+}
+
+.process-step:not(:last-child)::after {
+  content: '→';
+  position: absolute;
+  right: -14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--muted);
+  font-size: 18px;
+  z-index: 1;
+}
+
+.process-step .step-num {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.process-step h4 {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+
+.process-step p {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* ===== PHASE DETAIL ===== */
+.phase {
+  padding: 48px 0;
+  border-top: 1px solid var(--border);
+}
+
+.phase-num {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+
+.phase h2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 30px;
+  color: var(--ink);
+  margin-bottom: 20px;
+  font-weight: 400;
+}
+
+.phase p { margin-bottom: 16px; }
+
+/* Insight cards */
+.flag-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 24px 0;
+}
+
+.flag-card {
+  padding: 20px;
+  border-radius: 10px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.flag-card.red { background: var(--red-bg); border-left: 3px solid var(--danger); }
+.flag-card.green { background: var(--green-bg); border-left: 3px solid var(--success); }
+.flag-card.blue { background: var(--blue-bg); border-left: 3px solid var(--accent); }
+.flag-card.yellow { background: var(--yellow-bg); border-left: 3px solid var(--warning); }
+
+.flag-card strong {
+  display: block;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+}
+
+.flag-card.red strong { color: var(--danger); }
+.flag-card.green strong { color: var(--success); }
+.flag-card.blue strong { color: var(--accent); }
+.flag-card.yellow strong { color: var(--warning); }
+
+/* Reframing table */
+.reframe-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 24px 0;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 1px 10px rgba(0,0,0,0.05);
+}
+
+.reframe-table th {
+  background: var(--ink);
+  color: #fff;
+  padding: 14px 20px;
+  text-align: left;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.reframe-table td {
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--border);
+  font-size: 15px;
+  vertical-align: top;
+}
+
+.reframe-table tr:last-child td { border-bottom: none; }
+.reframe-table tr:nth-child(even) td { background: #fafaff; }
+
+.reframe-table .num {
+  font-weight: 700;
+  color: var(--accent);
+  font-size: 14px;
+}
+
+/* IA Diagram */
+.ia-diagram {
+  margin: 32px 0;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 32px;
+  overflow-x: auto;
+}
+
+.ia-diagram .diagram-caption {
+  font-size: 13px;
+  color: var(--muted);
+  text-align: center;
+  margin-top: 16px;
+  font-style: italic;
+}
+
+/* Metrics */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin: 40px 0;
+}
+
+.metric-card {
+  text-align: center;
+  padding: 28px 16px;
+  background: var(--card);
+  border-radius: 12px;
+  border: 1px solid var(--border);
+}
+
+.metric-card .number {
+  font-family: 'DM Serif Display', serif;
+  font-size: 40px;
+  color: var(--accent);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.metric-card .label {
+  font-size: 13px;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+/* CTA / Footer */
+.case-footer {
+  padding: 64px 0;
+  border-top: 1px solid var(--border);
+  text-align: center;
+}
+
+.case-footer p {
+  font-size: 15px;
+  color: var(--muted);
+}
+
+.case-footer a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero h1 { font-size: 32px; }
+  .meta-grid { grid-template-columns: 1fr; gap: 16px; }
+  .ps-grid, .ba-comparison, .flag-grid { grid-template-columns: 1fr; }
+  .process-steps { grid-template-columns: 1fr; }
+  .process-step::after { display: none; }
+  .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-label">Case Study: Information Architecture</div>
+    <h1>Rebuilding AssetPanda's Knowledge Base from the Ground Up</h1>
+    <p class="hero-subtitle">Migrating a flat HTML FAQ site through a phased platform evolution (ProProfs to GitBook), building a structured enterprise-grade documentation portal, then training an AI assistant on the new content architecture.</p>
+
+    <div class="meta-grid">
+      <div class="meta-item">
+        <label>My Role</label>
+        <p>Lead Technical Writer<br>Information Architect</p>
+      </div>
+      <div class="meta-item">
+        <label>Company</label>
+        <p>Webkorps Services<br>(Client: AssetPanda, USA)</p>
+      </div>
+      <div class="meta-item">
+        <label>Duration</label>
+        <p>July 2024 to November 2025<br>Remote (IST overlap with CST)</p>
+      </div>
+      <div class="meta-item">
+        <label>Scope</label>
+        <p>Full KB migration, IA design,<br>style guide, AI enablement</p>
+      </div>
+      <div class="meta-item">
+        <label>Tools</label>
+        <p>GitBook, ProProfs, Readme.io,<br>Figma, Jira</p>
+      </div>
+      <div class="meta-item">
+        <label>Skills</label>
+        <p>Information Architecture, Content Strategy, Technical Writing, AI/RAG Optimization</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PROBLEM / SOLUTION ===== -->
+<section class="ps-section">
+  <div class="container">
+    <div class="ps-grid">
+      <div class="ps-card problem">
+        <h3>Problem</h3>
+        <p>AssetPanda's knowledge centre (<strong>help.assetpanda.com</strong>) was a flat, informally written HTML site that had evolved organically without content governance, taxonomy, or structural planning. Users couldn't find what they needed and filed repeat support tickets. The content was not structured for AI retrieval, making bot-assisted support impossible.</p>
+      </div>
+      <div class="ps-card solution">
+        <h3>Solution</h3>
+        <p>Conducted a full content audit, designed a topic-based information architecture from scratch, initially migrated content to ProProfs as a quick-win solution under infrastructure and budget constraints, then evolved the platform to GitBook (<strong>prohelp.assetpanda.com</strong>) for enterprise-grade structure. Established style governance across both phases and trained AssetPanda's AI assistant (Ursa AI) on the final documentation corpus for RAG-based retrieval.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== BEFORE / AFTER ===== -->
+<section class="ba-section">
+  <div class="wide-container">
+    <div class="section-label">Before &amp; After</div>
+    <div class="section-title">Two Sites, Two Worlds</div>
+    <p class="section-desc">A side-by-side comparison of the legacy knowledge centre and the new Pro Knowledge Base I architected.</p>
+
+    <div class="ba-comparison">
+      <!-- BEFORE -->
+      <div class="ba-panel before-panel">
+        <div class="ba-panel-header before">✕ Before: Legacy Knowledge Centre</div>
+        <div class="ba-panel-body">
+          <span class="ba-url">help.assetpanda.com</span>
+
+          <h4>Structure</h4>
+          <ul>
+            <li>Flat HTML pages with no hierarchy or categories</li>
+            <li>No left-nav, no breadcrumbs, no taxonomy</li>
+            <li>Articles are standalone .html files (e.g., Integrations.html, Support_Menu.html)</li>
+            <li>No logical grouping of related content</li>
+          </ul>
+
+          <h4>Content Quality</h4>
+          <ul>
+            <li>Informal, conversational tone ("Exciting, isn't it? If you're like us, you just can't wait to unwrap this new toy")</li>
+            <li>No style guide, no consistent formatting</li>
+            <li>Mixed content types on single pages</li>
+            <li>Outdated content and feature descriptions</li>
+            <li>No embedded videos or visual walkthroughs</li>
+          </ul>
+
+          <h4>Navigation</h4>
+          <ul>
+            <li>Users navigate via in-text hyperlinks only</li>
+            <li>No search functionality</li>
+            <li>No "Related articles" or "Next steps"</li>
+            <li>3+ clicks to reach common tasks</li>
+          </ul>
+
+          <h4>AI Readiness</h4>
+          <ul>
+            <li>Not viable for AI consumption or RAG retrieval</li>
+            <li>Multi-topic pages prevent accurate chunking</li>
+            <li>No structured content organisation for AI retrieval</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- AFTER -->
+      <div class="ba-panel after-panel">
+        <div class="ba-panel-header after">✓ After: Pro Knowledge Base</div>
+        <div class="ba-panel-body">
+          <span class="ba-url">prohelp.assetpanda.com</span>
+
+          <h4>Structure</h4>
+          <ul>
+            <li>8 top-level categories with 30+ sub-sections</li>
+            <li>Persistent left-nav with collapsible hierarchy</li>
+            <li>Topic-based authoring: one article = one topic</li>
+            <li>Logical grouping by user goals (Setup, Maintain, Integrate)</li>
+          </ul>
+
+          <h4>Content Quality</h4>
+          <ul>
+            <li>Professional, second-person, task-oriented tone</li>
+            <li>Style guide with enforced templates across all articles</li>
+            <li>Step-by-step procedures with clear UI path references</li>
+            <li>Monthly release notes tied to sprint cycles</li>
+            <li>Embedded product adoption training videos within relevant articles</li>
+          </ul>
+
+          <h4>Platform Evolution</h4>
+          <ul>
+            <li>Stage 1: ProProfs (low-cost, fast deployment under budget constraints)</li>
+            <li>Stage 2: GitBook (enterprise-grade, current production platform)</li>
+            <li>Full-text search with keyboard shortcut (Cmd+K)</li>
+            <li>Breadcrumb navigation on every page</li>
+            <li>Previous/Next article links</li>
+            <li>Home page cards for goal-oriented entry points</li>
+          </ul>
+
+          <h4>AI Readiness</h4>
+          <ul>
+            <li>Ursa AI trained on full documentation corpus</li>
+            <li>Content structured for RAG: single-topic articles with clear scope boundaries</li>
+            <li>Escalation boundaries defined for AI vs human handoff</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PROCESS ===== -->
+<section class="process-section">
+  <div class="container">
+    <div class="section-label">Process</div>
+    <div class="section-title">How I Rebuilt It</div>
+
+    <div class="process-steps">
+      <div class="process-step">
+        <div class="step-num">1</div>
+        <h4>Audit</h4>
+        <p>Content inventory + support ticket analysis</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">2</div>
+        <h4>Architect</h4>
+        <p>Taxonomy design + site map</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">3</div>
+        <h4>Govern</h4>
+        <p>Style guide + templates</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">4</div>
+        <h4>Migrate</h4>
+        <p>ProProfs first, then GitBook at scale</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">5</div>
+        <h4>AI Enable</h4>
+        <p>Ursa AI training + RAG optimization</p>
+      </div>
+    </div>
+
+    <!-- ===== PHASE 1: AUDIT ===== -->
+    <div class="phase">
+      <div class="phase-num">Phase 1</div>
+      <h2>Content Audit and Gap Analysis</h2>
+      <p>I started by inventorying every page on help.assetpanda.com. Each article was catalogued, assessed for accuracy against the current product, and tagged by topic area. Simultaneously, I analysed support ticket patterns to identify recurring questions that lacked corresponding documentation.</p>
+      <p>This dual approach (existing content audit + support data analysis) produced a prioritised gap report that became the roadmap for the migration.</p>
+
+      <div class="flag-grid">
+        <div class="flag-card red">
+          <strong>🚩 Red Flag</strong>
+          Informal tone throughout. Example from the Getting Started page: "So you've got this great, new Asset Panda application. Exciting, isn't it? If you're like us, you just can't wait to unwrap this new toy and see it in action." This reads as marketing copy, not user documentation.
+        </div>
+        <div class="flag-card red">
+          <strong>🚩 Red Flag</strong>
+          Flat file structure with no hierarchy. Pages like Integrations.html, Support_Menu.html, and Asset_Panda_Navigation.html exist as isolated HTML files with no parent-child relationships or categorical grouping.
+        </div>
+        <div class="flag-card red">
+          <strong>🚩 Red Flag</strong>
+          Navigation relies entirely on in-text hyperlinks. There is no sidebar, no breadcrumb trail, no site map, and no search. Users who land on a deep page have no way to orient themselves.
+        </div>
+        <div class="flag-card red">
+          <strong>🚩 Red Flag</strong>
+          Integration documentation is minimal. The Integrations page says "integrations!" with a drum roll emoji, then provides a generic two-step instruction. No SSO guides, no prerequisite frameworks, no data flow explanations.
+        </div>
+      </div>
+
+      <h3>Reframing Problems as User Questions</h3>
+      <p>To ensure the new IA was user-centred, I reframed the audit findings as questions real users would ask. This shifted the focus from "what content exists" to "what do users need to accomplish."</p>
+
+      <table class="reframe-table">
+        <thead>
+          <tr><th></th><th>Audit Finding</th><th>User Question It Reveals</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="num">#1</td>
+            <td>Users can't find SSO setup instructions</td>
+            <td>How do I connect my company's identity provider to AssetPanda?</td>
+          </tr>
+          <tr>
+            <td class="num">#2</td>
+            <td>Support tickets repeat for basic setup tasks</td>
+            <td>What are the first things I need to configure after signing up?</td>
+          </tr>
+          <tr>
+            <td class="num">#3</td>
+            <td>Mobile app features are undocumented</td>
+            <td>What can I do in the mobile app that I can't do on the web?</td>
+          </tr>
+          <tr>
+            <td class="num">#4</td>
+            <td>No release notes exist</td>
+            <td>What changed in the latest update and how does it affect my workflow?</td>
+          </tr>
+          <tr>
+            <td class="num">#5</td>
+            <td>Integration docs lack decision guidance</td>
+            <td>Which integration is right for my use case, and what do I need before I start?</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ===== PHASE 2: ARCHITECT ===== -->
+    <div class="phase">
+      <div class="phase-num">Phase 2</div>
+      <h2>Information Architecture Design</h2>
+      <p>I designed a topic-based taxonomy from scratch, organised around user goals rather than internal feature names. The structure had to serve three audiences: new users learning the platform, experienced admins configuring advanced features, and integration engineers connecting third-party systems.</p>
+
+      <!-- IA Diagram -->
+      <div class="ia-diagram">
+        <svg viewBox="0 0 840 520" xmlns="http://www.w3.org/2000/svg" font-family="DM Sans, sans-serif">
+          <rect width="840" height="520" fill="#fafaff" rx="8"/>
+
+          <!-- Root -->
+          <g transform="translate(320, 20)">
+            <rect width="200" height="44" rx="8" fill="#4361ee"/>
+            <text x="100" y="27" text-anchor="middle" fill="#fff" font-size="14" font-weight="700">prohelp.assetpanda.com</text>
+          </g>
+
+          <!-- Lines from root -->
+          <line x1="420" y1="64" x2="420" y2="90" stroke="#d0d5e8" stroke-width="2"/>
+
+          <!-- Horizontal connector -->
+          <line x1="70" y1="90" x2="770" y2="90" stroke="#d0d5e8" stroke-width="2"/>
+
+          <!-- Category boxes + vertical lines -->
+          <!-- 1. Quick Start -->
+          <g transform="translate(10, 90)">
+            <line x1="60" y1="0" x2="60" y2="20" stroke="#d0d5e8" stroke-width="2"/>
+            <rect y="20" width="120" height="36" rx="6" fill="#10b981" opacity="0.15"/>
+            <rect y="20" width="120" height="36" rx="6" fill="none" stroke="#10b981" stroke-width="1.5"/>
+            <text x="60" y="43" text-anchor="middle" fill="#10b981" font-size="12" font-weight="600">Quick Start</text>
+            <text x="60" y="72" text-anchor="middle" fill="#8888a0" font-size="10">Onboarding checklist</text>
+          </g>
+
+          <!-- 2. Setting Up -->
+          <g transform="translate(140, 90)">
+            <line x1="70" y1="0" x2="70" y2="20" stroke="#d0d5e8" stroke-width="2"/>
+            <rect y="20" width="140" height="36" rx="6" fill="#4361ee" opacity="0.12"/>
+            <rect y="20" width="140" height="36" rx="6" fill="none" stroke="#4361ee" stroke-width="1.5"/>
+            <text x="70" y="43" text-anchor="middle" fill="#4361ee" font-size="12" font-weight="600">Setting Up Org</text>
+            <!-- Sub-items -->
+            <line x1="70" y1="56" x2="70" y2="76" stroke="#d0d5e8" stroke-width="1"/>
+            <text x="70" y="90" text-anchor="middle" fill="#8888a0" font-size="10">Entities &amp; Fields</text>
+            <text x="70" y="106" text-anchor="middle" fill="#8888a0" font-size="10">Users &amp; Permissions</text>
+            <text x="70" y="122" text-anchor="middle" fill="#8888a0" font-size="10">Workflows</text>
+            <text x="70" y="138" text-anchor="middle" fill="#8888a0" font-size="10">Notifications</text>
+            <text x="70" y="154" text-anchor="middle" fill="#8888a0" font-size="10">Custom Fields</text>
+          </g>
+
+          <!-- 3. Maintaining -->
+          <g transform="translate(290, 90)">
+            <line x1="70" y1="0" x2="70" y2="20" stroke="#d0d5e8" stroke-width="2"/>
+            <rect y="20" width="140" height="36" rx="6" fill="#4361ee" opacity="0.12"/>
+            <rect y="20" width="140" height="36" rx="6" fill="none" stroke="#4361ee" stroke-width="1.5"/>
+            <text x="70" y="43" text-anchor="middle" fill="#4361ee" font-size="12" font-weight="600">Maintaining Org</text>
+            <line x1="70" y1="56" x2="70" y2="76" stroke="#d0d5e8" stroke-width="1"/>
+            <text x="70" y="90" text-anchor="middle" fill="#8888a0" font-size="10">Bulk Updates</text>
+            <text x="70" y="106" text-anchor="middle" fill="#8888a0" font-size="10">Data Cleanup</text>
+            <text x="70" y="122" text-anchor="middle" fill="#8888a0" font-size="10">Reporting</text>
+            <text x="70" y="138" text-anchor="middle" fill="#8888a0" font-size="10">Audits</text>
+          </g>
+
+          <!-- 4. Mobile App -->
+          <g transform="translate(440, 90)">
+            <line x1="60" y1="0" x2="60" y2="20" stroke="#d0d5e8" stroke-width="2"/>
+            <rect y="20" width="120" height="36" rx="6" fill="#f59e0b" opacity="0.15"/>
+            <rect y="20" width="120" height="36" rx="6" fill="none" stroke="#f59e0b" stroke-width="1.5"/>
+            <text x="60" y="43" text-anchor="middle" fill="#f59e0b" font-size="12" font-weight="600">Mobile App</text>
+            <line x1="60" y1="56" x2="60" y2="76" stroke="#d0d5e8" stroke-width="1"/>
+            <text x="60" y="90" text-anchor="middle" fill="#8888a0" font-size="10">Barcode Scanning</text>
+            <text x="60" y="106" text-anchor="middle" fill="#8888a0" font-size="10">Reservations</text>
+            <text x="60" y="122" text-anchor="middle" fill="#8888a0" font-size="10">Check-in/out</text>
+          </g>
+
+          <!-- 5. Integrations Store -->
+          <g transform="translate(570, 90)">
+            <line x1="80" y1="0" x2="80" y2="20" stroke="#d0d5e8" stroke-width="2"/>
+            <rect y="20" width="160" height="36" rx="6" fill="#ef4444" opacity="0.1"/>
+            <rect y="20" width="160" height="36" rx="6" fill="none" stroke="#ef4444" stroke-width="1.5"/>
+            <text x="80" y="43" text-anchor="middle" fill="#ef4444" font-size="12" font-weight="600">Integrations Store</text>
+            <line x1="80" y1="56" x2="80" y2="76" stroke="#d0d5e8" stroke-width="1"/>
+
+            <!-- Sub-categories -->
+            <text x="80" y="90" text-anchor="middle" fill="#8888a0" font-size="10">SSO Integrations</text>
+            <text x="80" y="106" text-anchor="middle" fill="#8888a0" font-size="10">Data Management</text>
+            <text x="80" y="122" text-anchor="middle" fill="#8888a0" font-size="10">Device Management</text>
+            <text x="80" y="138" text-anchor="middle" fill="#8888a0" font-size="10">Ticket Management</text>
+            <text x="80" y="154" text-anchor="middle" fill="#8888a0" font-size="10">User Management</text>
+            <text x="80" y="170" text-anchor="middle" fill="#8888a0" font-size="10">Warranty Management</text>
+            <text x="80" y="186" text-anchor="middle" fill="#8888a0" font-size="10">Record Management</text>
+            <text x="80" y="202" text-anchor="middle" fill="#8888a0" font-size="10">Collaboration</text>
+          </g>
+
+          <!-- Bottom row: Use Cases, Release Notes, Pricing -->
+          <line x1="70" y1="380" x2="770" y2="380" stroke="#d0d5e8" stroke-width="1" stroke-dasharray="4,3"/>
+
+          <g transform="translate(110, 390)">
+            <rect width="140" height="36" rx="6" fill="#8888a0" opacity="0.1"/>
+            <rect width="140" height="36" rx="6" fill="none" stroke="#8888a0" stroke-width="1"/>
+            <text x="70" y="23" text-anchor="middle" fill="#8888a0" font-size="12" font-weight="600">Use Cases</text>
+            <text x="70" y="50" text-anchor="middle" fill="#8888a0" font-size="10">IT Assets, Facilities, Fleet</text>
+          </g>
+
+          <g transform="translate(350, 390)">
+            <rect width="140" height="36" rx="6" fill="#8888a0" opacity="0.1"/>
+            <rect width="140" height="36" rx="6" fill="none" stroke="#8888a0" stroke-width="1"/>
+            <text x="70" y="23" text-anchor="middle" fill="#8888a0" font-size="12" font-weight="600">Release Notes</text>
+            <text x="70" y="50" text-anchor="middle" fill="#8888a0" font-size="10">Monthly sprint releases</text>
+          </g>
+
+          <g transform="translate(590, 390)">
+            <rect width="140" height="36" rx="6" fill="#8888a0" opacity="0.1"/>
+            <rect width="140" height="36" rx="6" fill="none" stroke="#8888a0" stroke-width="1"/>
+            <text x="70" y="23" text-anchor="middle" fill="#8888a0" font-size="12" font-weight="600">Pricing</text>
+            <text x="70" y="50" text-anchor="middle" fill="#8888a0" font-size="10">Plan comparison</text>
+          </g>
+
+          <!-- SSO expansion detail -->
+          <g transform="translate(40, 440)">
+            <rect width="760" height="65" rx="8" fill="#eff6ff" stroke="#4361ee" stroke-width="1" stroke-dasharray="4,2"/>
+            <text x="20" y="22" fill="#4361ee" font-size="11" font-weight="700" letter-spacing="1">SSO INTEGRATIONS (EXPANDED)</text>
+            <text x="20" y="42" fill="#3d3d5c" font-size="12">Microsoft Entra ID SSO</text>
+            <text x="230" y="42" fill="#3d3d5c" font-size="12">Google Workspace SSO</text>
+            <text x="430" y="42" fill="#3d3d5c" font-size="12">Okta SSO</text>
+            <text x="20" y="57" fill="#8888a0" font-size="10">Each: Prerequisites → Step-by-step → Troubleshooting → Related</text>
+          </g>
+        </svg>
+        <p class="diagram-caption">Figure 1: New Information Architecture for prohelp.assetpanda.com (8 top-level categories, 30+ sub-sections)</p>
+      </div>
+    </div>
+
+    <!-- ===== PHASE 3: GOVERN ===== -->
+    <div class="phase">
+      <div class="phase-num">Phase 3</div>
+      <h2>Style Guide and Content Templates</h2>
+      <p>I established a documentation style guide and a standardised article template to ensure consistency at scale. Every article followed the same structure:</p>
+
+      <div class="flag-grid">
+        <div class="flag-card blue">
+          <strong>Template Structure</strong>
+          Goal-oriented title (action verb + user outcome) → Brief introduction (what, who, why) → Prerequisites → Step-by-step procedure with UI navigation paths → Embedded video walkthrough (where available, repurposed from product adoption training) → Expected outcome → Troubleshooting (2 to 3 common issues) → Related articles
+        </div>
+        <div class="flag-card blue">
+          <strong>Voice and Tone Rules</strong>
+          Second-person ("You can configure..."), professional but approachable, present tense for instructions, consistent action verbs: "Click" for buttons, "Select" for dropdowns, "Enter" for text fields, "Toggle" for switches
+        </div>
+        <div class="flag-card blue">
+          <strong>Visual Content Strategy</strong>
+          No static screenshots. Instead, embedded product adoption training videos within relevant articles for visual guidance. Written procedures use explicit UI navigation paths (e.g., "Go to Settings > Preferences > Ursa AI") so content stays accurate across product updates without requiring image maintenance.
+        </div>
+        <div class="flag-card blue">
+          <strong>Content Governance Model</strong>
+          Controlled-access publishing so product managers can update content autonomously. Version tracking aligned with sprint release cycles. "Last updated" timestamps on every article to signal content freshness. Prerequisite chains linking dependent articles through navigation (Previous/Next) and in-text cross-references.
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== PHASE 4: MIGRATE ===== -->
+    <div class="phase">
+      <div class="phase-num">Phase 4</div>
+      <h2>Phased Migration and Content Production</h2>
+      <p>The migration happened in two deliberate stages, driven by real-world constraints.</p>
+
+      <h3>Stage 1: ProProfs (Quick Win)</h3>
+      <p>When I joined, there was no dedicated documentation infrastructure and limited budget for tooling. I chose ProProfs as the initial platform because it was low-cost, required no engineering support to set up, and gave us an immediate publishing capability. This allowed me to start migrating and rewriting legacy content right away rather than waiting for infrastructure decisions to be finalised. During this stage, I established the content templates, style guide, and began the systematic rewrite of all legacy articles.</p>
+      <p>To accelerate content coverage, I repurposed video recordings from product adoption training sessions that had been delivered directly to customers. These walkthroughs were embedded within relevant KB articles, giving users both written step-by-step instructions and a visual demonstration of the same workflow. This approach maximised existing assets without additional production effort, bridging documentation gaps while the written content was being built out.</p>
+
+      <div class="flag-grid">
+        <div class="flag-card green">
+          <strong>💡 Why This Mattered</strong>
+          Starting with ProProfs meant the documentation improvement was visible to stakeholders within weeks, not months. It built confidence in the documentation programme and created momentum for the eventual platform upgrade.
+        </div>
+        <div class="flag-card green">
+          <strong>💡 Resourcefulness</strong>
+          Reusing product adoption training videos as embedded KB content meant users got visual guidance immediately, without waiting for purpose-built tutorials. It also validated which workflows users struggled with most, informing the written documentation priority.
+        </div>
+        <div class="flag-card yellow">
+          <strong>⚡ Constraint</strong>
+          ProProfs served the immediate need but lacked the structured navigation, version control, search sophistication, and controlled-access publishing that a growing B2B SaaS product required at enterprise scale.
+        </div>
+      </div>
+
+      <h3>Stage 2: GitBook (Enterprise Scale)</h3>
+      <p>Once the content strategy was proven and the documentation programme had stakeholder buy-in, I migrated the entire corpus to GitBook (prohelp.assetpanda.com). GitBook provided the capabilities that ProProfs could not: hierarchical left-nav with collapsible sections, full-text search with keyboard shortcuts, version control, controlled-access publishing for PM self-service updates, and a content structure that supported AI retrieval.</p>
+      <p>All content was restructured into the final IA during this migration. Net-new content was authored for previously undocumented features. Integration documentation (Okta SSO, Microsoft Entra ID, Google Workspace, Lenovo Warranty, and others) was authored from scratch with prerequisite frameworks, decision trees, and governance checklists.</p>
+
+      <div class="flag-grid">
+        <div class="flag-card green">
+          <strong>💡 Key Decision</strong>
+          I designed a controlled-access publishing model on GitBook that enabled product managers to update documentation autonomously, reducing the documentation turnaround dependency on the writing team.
+        </div>
+        <div class="flag-card green">
+          <strong>💡 Key Decision</strong>
+          Content was version-controlled and aligned with sprint release cycles. Documentation updates shipped with every product release, not as an afterthought weeks later.
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== PHASE 5: AI ENABLE ===== -->
+    <div class="phase">
+      <div class="phase-num">Phase 5</div>
+      <h2>AI Enablement: Training Ursa AI</h2>
+      <p>The structured knowledge base became the training corpus for AssetPanda's built-in AI assistant, Ursa AI. But documenting an AI feature required a fundamentally different content architecture from standard KB topics. I designed the Ursa documentation as a dedicated use case section with its own IA, distinct from the feature-centric structure used across the rest of the knowledge base.</p>
+
+      <h3>Two Architectures, One Knowledge Base</h3>
+      <p>The Ursa use case section at <code>prohelp.assetpanda.com/use-cases/ursa</code> follows a different structural pattern from standard KB topics like "Setting Up the Organization." Here is why, and how.</p>
+
+      <!-- Comparison table -->
+      <table class="reframe-table">
+        <thead>
+          <tr><th>Dimension</th><th>Standard KB Topics</th><th>Ursa Use Case Section</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Organisation principle</strong></td>
+            <td>Feature-centric. Organised by platform modules: Logging In, Settings, Collections, Forms, Automations, Reporting.</td>
+            <td>Capability-centric. Organised by what the AI can do for you: Answer questions, Build automations, Generate filters, Create collections.</td>
+          </tr>
+          <tr>
+            <td><strong>Audience segmentation</strong></td>
+            <td>Single audience per section (typically admins or all users).</td>
+            <td>Multi-audience within one section: AI Overview (all users), Administrator Guide (admins managing Ursa), feature-specific guides (Chat, Filtering, Account Builder, File Upload) for task-specific users.</td>
+          </tr>
+          <tr>
+            <td><strong>Content pattern</strong></td>
+            <td>Procedural: "Go to Settings > Select X > Click Y." Step-by-step with explicit UI navigation paths and embedded training videos.</td>
+            <td>Conversational + Procedural hybrid. Includes natural language prompt examples ("Show me all laptops assigned to Denver"), expected AI responses, and tips for crafting effective prompts alongside traditional step-by-step instructions.</td>
+          </tr>
+          <tr>
+            <td><strong>Nesting depth</strong></td>
+            <td>Typically one level: Category > Article.</td>
+            <td>Two to three levels: Ursa > Overview > FAQs; Ursa > Admin Guide > Automations, Forms. Deeper nesting reflects the AI feature's multiple interaction modes.</td>
+          </tr>
+          <tr>
+            <td><strong>Governance content</strong></td>
+            <td>Not applicable. Standard features don't require usage monitoring documentation.</td>
+            <td>Dedicated Admin Guide covering: enable/disable controls, AI chat log review, usage monitoring, feedback rating analysis, and quality assurance patterns. AI-specific governance that doesn't exist elsewhere in the KB.</td>
+          </tr>
+          <tr>
+            <td><strong>FAQ inclusion</strong></td>
+            <td>No dedicated FAQ sub-pages for individual features.</td>
+            <td>Dedicated Ursa FAQs sub-page. AI features generate unique user questions about accuracy, trust, data access, and limitations that don't arise with deterministic features.</td>
+          </tr>
+          <tr>
+            <td><strong>Interaction modes</strong></td>
+            <td>Not applicable. Standard features have a single behaviour model.</td>
+            <td>Three distinct modes documented on a dedicated Chat Modes page: Ask Mode (read-only, information retrieval), Agent Mode (read-write, can create forms/automations/filters and process files), and Account Builder Mode (context-restricted, setup-only). Each mode has its own prompt examples, capability boundaries, and a comparison table. This is closer to documenting a product within a product.</td>
+          </tr>
+          <tr>
+            <td><strong>Example content</strong></td>
+            <td>UI navigation paths and embedded training videos showing feature workflows.</td>
+            <td>Prompt-and-response examples showing what users type and what Ursa returns. Includes suggested prompts for different use cases, teaching users how to interact with an AI (a form of prompt engineering for end users).</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Ursa Documentation Architecture (Site Map)</h3>
+      <div class="ia-diagram">
+        <svg viewBox="0 0 840 360" xmlns="http://www.w3.org/2000/svg" font-family="DM Sans, sans-serif">
+          <rect width="840" height="360" fill="#fafaff" rx="8"/>
+
+          <!-- Root -->
+          <g transform="translate(330, 15)">
+            <rect width="180" height="38" rx="8" fill="#4361ee"/>
+            <text x="90" y="24" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">Use Cases / Ursa</text>
+          </g>
+          <line x1="420" y1="53" x2="420" y2="75" stroke="#d0d5e8" stroke-width="2"/>
+
+          <!-- Horizontal connector -->
+          <line x1="85" y1="75" x2="755" y2="75" stroke="#d0d5e8" stroke-width="2"/>
+
+          <!-- Branch 1: AI Overview -->
+          <g transform="translate(20, 75)">
+            <line x1="65" y1="0" x2="65" y2="18" stroke="#d0d5e8" stroke-width="2"/>
+            <rect y="18" width="130" height="34" rx="6" fill="#10b981" opacity="0.15"/>
+            <rect y="18" width="130" height="34" rx="6" fill="none" stroke="#10b981" stroke-width="1.5"/>
+            <text x="65" y="39" text-anchor="middle" fill="#10b981" font-size="11" font-weight="600">AI Overview</text>
+            <!-- Sub -->
+            <line x1="65" y1="52" x2="65" y2="68" stroke="#d0d5e8" stroke-width="1"/>
+            <rect y="68" width="130" height="28" rx="5" fill="#ecfdf5" stroke="#10b981" stroke-width="1"/>
+            <text x="65" y="86" text-anchor="middle" fill="#10b981" font-size="10">Ursa FAQs</text>
+            <text x="65" y="114" text-anchor="middle" fill="#8888a0" font-size="9">What Ursa can do</text>
+            <text x="65" y="128" text-anchor="middle" fill="#8888a0" font-size="9">Platform availability</text>
+            <text x="65" y="142" text-anchor="middle" fill="#8888a0" font-size="9">6 capability sections</text>
+            <text x="65" y="156" text-anchor="middle" fill="#8888a0" font-size="9">Prompt examples</text>
+            <text x="65" y="170" text-anchor="middle" fill="#8888a0" font-size="9">Tips for best results</text>
+          </g>
+
+          <!-- Branch 2: Admin Guide -->
+          <g transform="translate(170, 75)">
+            <line x1="75" y1="0" x2="75" y2="18" stroke="#d0d5e8" stroke-width="2"/>
+            <rect y="18" width="150" height="34" rx="6" fill="#ef4444" opacity="0.1"/>
+            <rect y="18" width="150" height="34" rx="6" fill="none" stroke="#ef4444" stroke-width="1.5"/>
+            <text x="75" y="39" text-anchor="middle" fill="#ef4444" font-size="11" font-weight="600">Administrator Guide</text>
+            <!-- Sub -->
+            <line x1="75" y1="52" x2="75" y2="68" stroke="#d0d5e8" stroke-width="1"/>
+            <rect x="0" y="68" width="150" height="28" rx="5" fill="#fef2f2" stroke="#ef4444" stroke-width="1"/>
+            <text x="75" y="86" text-anchor="middle" fill="#ef4444" font-size="10">Ursa Automations</text>
+            <rect x="0" y="102" width="150" height="28" rx="5" fill="#fef2f2" stroke="#ef4444" stroke-width="1"/>
+            <text x="75" y="120" text-anchor="middle" fill="#ef4444" font-size="10">Ursa Forms</text>
+            <text x="75" y="152" text-anchor="middle" fill="#8888a0" font-size="9">Enable/disable controls</text>
+            <text x="75" y="166" text-anchor="middle" fill="#8888a0" font-size="9">AI chat log review</text>
+            <text x="75" y="180" text-anchor="middle" fill="#8888a0" font-size="9">Usage monitoring</text>
+            <text x="75" y="194" text-anchor="middle" fill="#8888a0" font-size="9">Feedback analysis</text>
+          </g>
+
+          <!-- Branch 3: Account Builder -->
+          <g transform="translate(345, 75)">
+            <line x1="65" y1="0" x2="65" y2="18" stroke="#d0d5e8" stroke-width="2"/>
+            <rect y="18" width="130" height="34" rx="6" fill="#f59e0b" opacity="0.12"/>
+            <rect y="18" width="130" height="34" rx="6" fill="none" stroke="#f59e0b" stroke-width="1.5"/>
+            <text x="65" y="39" text-anchor="middle" fill="#f59e0b" font-size="11" font-weight="600">Account Builder</text>
+            <text x="65" y="72" text-anchor="middle" fill="#8888a0" font-size="9">AI-assisted setup</text>
+            <text x="65" y="86" text-anchor="middle" fill="#8888a0" font-size="9">Collection creation</text>
+            <text x="65" y="100" text-anchor="middle" fill="#8888a0" font-size="9">Field suggestions</text>
+          </g>
+
+          <!-- Branch 4: File Upload -->
+          <g transform="translate(490, 75)">
+            <line x1="60" y1="0" x2="60" y2="18" stroke="#d0d5e8" stroke-width="2"/>
+            <rect y="18" width="120" height="34" rx="6" fill="#f59e0b" opacity="0.12"/>
+            <rect y="18" width="120" height="34" rx="6" fill="none" stroke="#f59e0b" stroke-width="1.5"/>
+            <text x="60" y="39" text-anchor="middle" fill="#f59e0b" font-size="11" font-weight="600">File Upload</text>
+            <text x="60" y="72" text-anchor="middle" fill="#8888a0" font-size="9">AI-processed imports</text>
+          </g>
+
+          <!-- Branch 5: Chat -->
+          <g transform="translate(625, 75)">
+            <line x1="55" y1="0" x2="55" y2="18" stroke="#d0d5e8" stroke-width="2"/>
+            <rect y="18" width="110" height="34" rx="6" fill="#4361ee" opacity="0.12"/>
+            <rect y="18" width="110" height="34" rx="6" fill="none" stroke="#4361ee" stroke-width="1.5"/>
+            <text x="55" y="39" text-anchor="middle" fill="#4361ee" font-size="11" font-weight="600">Ursa Chat</text>
+            <line x1="55" y1="52" x2="55" y2="68" stroke="#d0d5e8" stroke-width="1"/>
+            <rect x="0" y="68" width="110" height="24" rx="4" fill="#eff6ff" stroke="#4361ee" stroke-width="1"/>
+            <text x="55" y="84" text-anchor="middle" fill="#4361ee" font-size="9">Chat Conversations</text>
+            <rect x="0" y="98" width="110" height="24" rx="4" fill="#eff6ff" stroke="#4361ee" stroke-width="1"/>
+            <text x="55" y="114" text-anchor="middle" fill="#4361ee" font-size="9">Chat Modes</text>
+            <text x="55" y="140" text-anchor="middle" fill="#8888a0" font-size="8">Ask Mode (read-only)</text>
+            <text x="55" y="152" text-anchor="middle" fill="#8888a0" font-size="8">Agent Mode (read-write)</text>
+            <text x="55" y="164" text-anchor="middle" fill="#8888a0" font-size="8">Account Builder Mode</text>
+          </g>
+
+          <!-- Branch 6: Filtering -->
+          <g transform="translate(750, 75)">
+            <line x1="45" y1="0" x2="45" y2="18" stroke="#d0d5e8" stroke-width="2"/>
+            <rect y="18" width="90" height="34" rx="6" fill="#4361ee" opacity="0.12"/>
+            <rect y="18" width="90" height="34" rx="6" fill="none" stroke="#4361ee" stroke-width="1.5"/>
+            <text x="45" y="39" text-anchor="middle" fill="#4361ee" font-size="11" font-weight="600">Filtering</text>
+            <text x="45" y="72" text-anchor="middle" fill="#8888a0" font-size="9">AI-generated filters</text>
+          </g>
+
+          <!-- Annotation box -->
+          <g transform="translate(30, 270)">
+            <rect width="780" height="70" rx="8" fill="#fffbeb" stroke="#f59e0b" stroke-width="1" stroke-dasharray="4,2"/>
+            <text x="20" y="22" fill="#f59e0b" font-size="11" font-weight="700" letter-spacing="1">WHY THIS ARCHITECTURE IS DIFFERENT</text>
+            <text x="20" y="40" fill="#3d3d5c" font-size="11">Each Ursa sub-page is a self-contained, single-capability topic optimised for RAG retrieval. When a user asks Ursa "How do I create a filter?",</text>
+            <text x="20" y="55" fill="#3d3d5c" font-size="11">the retrieval system can pull the Ursa Filtering page as a precise, scoped answer. Multi-topic pages would return noisy, irrelevant chunks.</text>
+          </g>
+        </svg>
+        <p class="diagram-caption">Figure 3: Ursa Use Case Content Architecture (6 sub-pages, nested children including 3 distinct Chat Modes)</p>
+      </div>
+
+      <h3>Key Architectural Decisions for AI Documentation</h3>
+
+      <div class="flag-grid">
+        <div class="flag-card yellow">
+          <strong>Capability-first, not feature-first</strong>
+          Standard KB topics are organised by platform module (Settings, Collections, Automations). The Ursa section is organised by what users can accomplish with AI: answer questions, build automations via natural language, generate filters, create collections with suggested fields. This matches how users think about AI ("What can it do for me?") rather than how the platform is built internally.
+        </div>
+        <div class="flag-card yellow">
+          <strong>Prompt examples as a content pattern</strong>
+          Regular KB articles use explicit UI navigation paths and embedded training videos to guide users through workflows. Ursa articles introduce a completely different content pattern: natural language prompt examples and expected responses ("Show me all laptops assigned to Denver"). This is effectively end-user prompt engineering guidance, a content type that doesn't exist anywhere else in the KB. It teaches users how to converse with AI, not just how to navigate menus.
+        </div>
+        <div class="flag-card yellow">
+          <strong>AI governance as a first-class topic</strong>
+          No standard KB feature needs a dedicated admin governance page. Ursa's Administrator Guide covers enable/disable controls, AI chat log review, usage monitoring, and feedback rating analysis. This content type exists because AI features require oversight that deterministic features do not. I created this as a distinct article so admins could find governance controls without wading through end-user content.
+        </div>
+        <div class="flag-card yellow">
+          <strong>Single-capability pages for RAG precision</strong>
+          Each Ursa sub-page (Chat, Filtering, Account Builder, File Upload) covers exactly one capability. This was a deliberate choice for AI retrieval: when Ursa itself needs to answer a question about one of its own capabilities, the retrieval system can pull a precise, scoped article rather than a chunk from a multi-topic page. The documentation serves both human readers AND the AI that reads it.
+        </div>
+      </div>
+
+      <h3>Documenting AI Interaction Modes: A New Content Challenge</h3>
+      <p>Ursa operates in distinct modes, each with different capabilities, constraints, and documentation needs. This is something that has no parallel in traditional feature documentation. A standard platform feature like "Automations" has one behaviour. Ursa's Chat Modes page documents three separate interaction paradigms within a single feature.</p>
+
+      <!-- Modes comparison -->
+      <table class="reframe-table">
+        <thead>
+          <tr><th>Mode</th><th>Behaviour</th><th>Documentation Challenge</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Ask Mode</strong><br><span style="font-size:12px;color:#8888a0;">(Default, read-only)</span></td>
+            <td>Information retrieval only. Ursa answers questions and looks up data but cannot modify anything. Fastest response times, no file upload support.</td>
+            <td>Had to clearly communicate the safety boundary: users can explore freely without risk of changing data. Content uses "read-only" framing to set expectations and reduce anxiety for new AI users.</td>
+          </tr>
+          <tr>
+            <td><strong>Agent Mode</strong><br><span style="font-size:12px;color:#8888a0;">(Advanced, read-write)</span></td>
+            <td>Full action capability. Ursa can create forms, build automations, apply filters, and process uploaded files. Uses specialised tools behind the scenes.</td>
+            <td>Needed to document both capability and caution. Users must understand what Agent Mode can do AND that they should review outputs before saving. Content includes "review before activating" guardrails that don't exist for Ask Mode.</td>
+          </tr>
+          <tr>
+            <td><strong>Account Builder Mode</strong><br><span style="font-size:12px;color:#8888a0;">(Specialised, setup-only)</span></td>
+            <td>Available only on the Account Builder page. Generates a complete account hierarchy (collections, fields, categories) from a business description.</td>
+            <td>Context-restricted mode needed its own content scope. Unlike Ask and Agent which are available everywhere, this mode only appears in a specific UI context. Documentation had to prevent users from searching for it in the wrong place.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="flag-grid">
+        <div class="flag-card yellow">
+          <strong>Why this required a different content architecture</strong>
+          Standard KB features don't have "modes." A feature either does something or it doesn't. Ursa's modal design meant I had to create a content structure that explains when and why a user should switch modes, with a comparison table showing capability differences across all three modes. This is closer to documenting a product within a product than documenting a single feature.
+        </div>
+        <div class="flag-card yellow">
+          <strong>Prompt examples per mode</strong>
+          Each mode needed its own set of example prompts to teach users the right interaction pattern. Ask Mode examples are questions ("How many records...?"). Agent Mode examples are instructions ("Create a form for..."). Account Builder examples are descriptions ("Set up a fleet tracking account"). The prompt style changes with the mode, and the documentation reflects that.
+        </div>
+        <div class="flag-card green">
+          <strong>Mode switching as a documented workflow</strong>
+          I documented the mode-switching interaction itself as a procedure (open chat drawer, find mode dropdown, select mode) and included a practical tip: "Start with Ask Mode for quick questions. Switch to Agent Mode when you need Ursa to create something or process a file." This kind of usage guidance doesn't exist in standard feature documentation because standard features don't have interaction modes.
+        </div>
+      </div>
+
+      <h3>Content Structured for Dual Consumption</h3>
+      <p>The Ursa documentation serves two consumers simultaneously. Human users read it to learn how to use the AI assistant. Ursa AI itself retrieves from this same corpus when users ask questions about its capabilities. Every structural decision (single-topic pages, consistent terminology, clear scope boundaries, logical hierarchy) was made to optimise for both consumption paths.</p>
+
+      <div class="flag-grid">
+        <div class="flag-card blue">
+          <strong>Chunking for retrieval</strong>
+          One topic per article. Each section is self-contained and can stand alone as a meaningful retrieval result without requiring context from other sections.
+        </div>
+        <div class="flag-card blue">
+          <strong>Hierarchy for context</strong>
+          The category and sub-section structure (e.g., Use Cases > Ursa > Ursa Chat > Chat Modes) provides implicit context for retrieval. The AI can infer scope from the article's position in the hierarchy without needing explicit tags.
+        </div>
+        <div class="flag-card blue">
+          <strong>Terminology for matching</strong>
+          All product terms standardised to exact UI labels. No ambiguous synonyms. The AI matches user queries against consistent terminology.
+        </div>
+        <div class="flag-card blue">
+          <strong>Escalation for safety</strong>
+          Defined which queries Ursa AI should answer vs route to human support. Account-specific issues, billing, bug reports, and security incidents always escalate.
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== METRICS ===== -->
+    <div class="section-label" style="margin-top:64px;">Impact</div>
+    <div class="section-title">By the Numbers</div>
+
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="number">8</div>
+        <div class="label">Top-level categories<br>(from 0)</div>
+      </div>
+      <div class="metric-card">
+        <div class="number">30+</div>
+        <div class="label">Sub-sections<br>in the new taxonomy</div>
+      </div>
+      <div class="metric-card">
+        <div class="number">11</div>
+        <div class="label">Ursa documentation pages<br>(3 AI interaction modes)</div>
+      </div>
+      <div class="metric-card">
+        <div class="number">2</div>
+        <div class="label">Content architectures<br>(Standard KB + AI Use Case)</div>
+      </div>
+      <div class="metric-card">
+        <div class="number">1</div>
+        <div class="label">AI assistant trained<br>on the docs (Ursa AI)</div>
+      </div>
+      <div class="metric-card">
+        <div class="number">0→1</div>
+        <div class="label">Style guide, templates,<br>governance model</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<section class="case-footer">
+  <div class="container">
+    <p><strong>Kalyan Voolse</strong> · Lead Technical Writer &amp; AI Documentation Architect</p>
+    <p style="margin-top:8px;">
+      <a href="mailto:ToVkalyan@gmail.com">ToVkalyan@gmail.com</a> · 
+      <a href="https://linkedin.com/in/kalyan-voolse">LinkedIn</a> · 
+      <a href="https://prohelp.assetpanda.com">View the live KB →</a>
+    </p>
+    <p style="margin-top:24px; font-size:13px; color: var(--muted);">
+      This case study docum

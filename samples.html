@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kalyan Voolse | Writing Samples</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#1a1a2e;--body:#3d3d5c;--muted:#8888a0;--bg:#fafaf8;--card:#fff;--border:#e8e8e4;--accent:#2e5cb8;--accent-light:#eef2fa;--sf-blue:#00a1e0;--ap-teal:#0bbead;--act-navy:#0d2b4e;--ora-red:#c74634;--tag-bg:#f0f0ec;--adlc:#7c3aed}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'DM Sans',-apple-system,sans-serif;background:var(--bg);color:var(--body);line-height:1.65;-webkit-font-smoothing:antialiased}
+.masthead{max-width:1080px;margin:0 auto;padding:60px 40px 32px}
+.masthead-label{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:12px}
+.masthead h1{font-family:'Instrument Serif',Georgia,serif;font-size:48px;font-weight:400;color:var(--ink);line-height:1.15;margin-bottom:16px}
+.masthead-sub{font-size:17px;color:var(--body);max-width:720px;margin-bottom:24px}
+.masthead-contact{display:flex;gap:24px;font-size:13px;color:var(--muted);flex-wrap:wrap}
+.masthead-contact a{color:var(--accent);text-decoration:none}
+.divider{max-width:1080px;margin:0 auto;padding:0 40px}
+.divider hr{border:none;border-top:1.5px solid var(--border)}
+
+/* HERO TILES */
+.hero-tiles{max-width:1080px;margin:0 auto;padding:32px 40px 0;display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+.hero-tile{border-radius:12px;padding:28px 28px 24px;text-decoration:none;transition:transform .2s,box-shadow .2s;display:flex;flex-direction:column;position:relative;overflow:hidden}
+.hero-tile:hover{transform:translateY(-3px);box-shadow:0 8px 32px rgba(0,0,0,.1)}
+.hero-tile-ap{background:linear-gradient(135deg,#0a9e90 0%,#0bbead 50%,#14d4c0 100%);color:#fff}
+.hero-tile-act{background:linear-gradient(135deg,#081e38 0%,#0d2b4e 50%,#1a4a7a 100%);color:#fff}
+.hero-tile-hire{background:linear-gradient(135deg,#1a3a5c 0%,#2e5cb8 50%,#4a7ae0 100%);color:#fff}
+.hero-tile-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;opacity:.7;font-weight:700;margin-bottom:10px}
+.hero-tile-title{font-family:'Instrument Serif',Georgia,serif;font-size:20px;font-weight:400;line-height:1.3;margin-bottom:10px}
+.hero-tile-desc{font-size:12.5px;line-height:1.55;opacity:.85;flex:1}
+.hero-tile-cta{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin-top:16px;opacity:.9}
+.hero-tile-cta svg{width:14px;height:14px}
+
+/* TOC */
+.toc{max-width:1080px;margin:0 auto;padding:28px 40px 0}
+.toc-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:24px 32px}
+.toc-title{font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+.toc-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 48px}
+.toc-section{margin-bottom:14px}
+.toc-section-link{display:block;font-family:'Instrument Serif',Georgia,serif;font-size:17px;color:var(--ink);text-decoration:none;margin-bottom:4px;transition:color .2s}
+.toc-section-link:hover{color:var(--accent)}
+.toc-section-link .toc-num{color:var(--border);margin-right:8px;font-size:15px}
+.toc-sub{list-style:none;padding-left:28px}
+.toc-sub li{margin-bottom:2px}
+.toc-sub a{font-size:13px;color:var(--muted);text-decoration:none;transition:color .2s}
+.toc-sub a:hover{color:var(--accent)}
+.toc-sub a::before{content:"›";margin-right:6px;color:var(--border);font-size:12px}
+.toc-sub .toc-company{padding-left:14px;font-size:12px}
+.toc-sub .toc-company::before{content:"·";margin-right:6px;color:var(--border)}
+
+/* SECTIONS */
+.section{max-width:1080px;margin:0 auto;padding:48px 40px 20px}
+.section-header{display:flex;align-items:baseline;gap:16px;margin-bottom:8px}
+.section-num{font-family:'Instrument Serif',Georgia,serif;font-size:56px;color:var(--border);line-height:1;font-weight:400}
+.section-title{font-family:'Instrument Serif',Georgia,serif;font-size:28px;color:var(--ink);font-weight:400}
+.subsection{margin-top:28px;margin-bottom:36px}
+.subsection-label{font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:16px;padding-left:2px}
+.company-group{margin-bottom:20px}
+.company-label{font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:6px 14px;border-radius:6px 6px 0 0;display:inline-block;margin-bottom:-1px;position:relative;z-index:1}
+.samples-grid{display:flex;flex-direction:column;gap:16px}
+
+/* CARDS */
+.sample-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:24px 28px;display:grid;grid-template-columns:5px 1fr auto;gap:0 20px;align-items:start;transition:box-shadow .25s,border-color .25s}
+.sample-card:hover{box-shadow:0 4px 24px rgba(0,0,0,.06);border-color:#d0d0cc}
+.card-stripe{width:5px;border-radius:3px;align-self:stretch}
+.card-body{min-width:0}
+.card-company{font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:600;margin-bottom:5px}
+.card-title{font-family:'Instrument Serif',Georgia,serif;font-size:20px;color:var(--ink);font-weight:400;margin-bottom:6px;line-height:1.3}
+.card-desc{font-size:14px;color:var(--body);margin-bottom:10px;max-width:640px}
+.card-meta{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
+.tag{display:inline-block;padding:3px 10px;border-radius:4px;font-size:11px;font-weight:600;letter-spacing:.3px;background:var(--tag-bg);color:var(--body)}
+.card-note{font-size:12px;color:var(--muted);font-style:italic}
+.card-actions{display:flex;flex-direction:column;align-self:center;gap:6px;flex-shrink:0}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:7px 16px;border-radius:6px;font-size:12px;font-weight:600;text-decoration:none;transition:all .2s;white-space:nowrap;border:1.5px solid transparent}
+.btn-primary{background:var(--ink);color:#fff}
+.btn-primary:hover{background:#2a2a48}
+.btn-outline{background:transparent;border-color:var(--border);color:var(--body)}
+.btn-outline:hover{border-color:var(--ink);color:var(--ink)}
+.btn svg{width:13px;height:13px;flex-shrink:0}
+.ext-icon{display:inline}
+
+/* CONTRIB */
+.contrib-box{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:20px 24px}
+.contrib-box h4{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:4px}
+.contrib-box .note{font-size:12px;color:var(--muted);margin-bottom:12px}
+.contrib-items{display:flex;flex-wrap:wrap;gap:6px}
+.contrib-item{display:inline-block;padding:4px 12px;background:var(--tag-bg);border-radius:4px;font-size:12px;color:var(--muted);text-decoration:none}
+a.contrib-item{color:var(--accent)}
+a.contrib-item:hover{background:var(--accent-light)}
+
+/* ADLC SECTION */
+.adlc-card{background:linear-gradient(135deg,#f8f5ff 0%,#fff 100%);border:1.5px solid #d4bfff;border-radius:10px;padding:28px 32px;margin-bottom:16px}
+.adlc-card h4{font-family:'Instrument Serif',Georgia,serif;font-size:18px;color:var(--ink);font-weight:400;margin-bottom:8px}
+.adlc-card p{font-size:14px;color:var(--body);margin-bottom:10px}
+.adlc-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0}
+.adlc-item{background:#fff;border:1px solid var(--border);border-radius:8px;padding:16px}
+.adlc-item-label{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--adlc);font-weight:700;margin-bottom:4px}
+.adlc-item-title{font-size:14px;font-weight:600;color:var(--ink);margin-bottom:4px}
+.adlc-item-desc{font-size:12.5px;color:var(--muted)}
+.status-done{color:#27ae60;font-weight:600;font-size:11px}
+.status-progress{color:#f39c12;font-weight:600;font-size:11px}
+.status-planned{color:var(--muted);font-weight:600;font-size:11px}
+
+/* FOOTER */
+.page-footer{max-width:1080px;margin:0 auto;padding:40px;text-align:center}
+.page-footer p{font-size:13px;color:var(--muted)}
+.page-footer a{color:var(--accent);text-decoration:none}
+
+@media(max-width:700px){
+  .masthead{padding:40px 20px 24px}.masthead h1{font-size:32px}
+  .hero-tiles{grid-template-columns:1fr;padding:24px 20px 0}
+  .section{padding:32px 20px 16px}.toc{padding:20px 20px 0}
+  .toc-grid{grid-template-columns:1fr}
+  .sample-card{grid-template-columns:4px 1fr;padding:18px}
+  .card-actions{grid-column:2;margin-top:10px;flex-direction:row}
+  .section-num{font-size:40px}.divider{padding:0 20px}
+  .adlc-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== MASTHEAD ===== -->
+<header class="masthead">
+  <div class="masthead-label">Writing Samples</div>
+  <h1>Kalyan Voolse</h1>
+  <p class="masthead-sub">Lead Technical Writer and AI Documentation Architect with 14+ years of enterprise SaaS documentation across Salesforce, Pegasystems, Oracle, Verizon, Persistent Systems, and AssetPanda.</p>
+  <div class="masthead-contact">
+    <span>ToVkalyan&#64;gmail.com</span>
+    <span>+91-8886922244</span>
+    <a href="https://linkedin.com/in/kalyan-voolse" target="_blank">LinkedIn</a>
+  </div>
+</header>
+
+<!-- ===== HERO TILES ===== -->
+<div class="hero-tiles">
+  <a href="Sample_3_AssetPanda_KB_Migration_CaseStudy.html" class="hero-tile hero-tile-ap">
+    <div class="hero-tile-label">Documentation Project Walkthrough</div>
+    <div class="hero-tile-title">AssetPanda: From Legacy HTML to AI-Ready Enterprise Knowledge Base</div>
+    <div class="hero-tile-desc">End-to-end documentation rebuild: content audit, IA design, phased platform migration (HTML to ProProfs to GitBook), style governance, and training Ursa AI on the structured corpus for RAG retrieval.</div>
+    <div class="hero-tile-cta">View Walkthrough <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+  </a>
+  <a href="Sample_5_Actifio_VDP_API_Documentation.html" class="hero-tile hero-tile-act">
+    <div class="hero-tile-label">Documentation Project Walkthrough</div>
+    <div class="hero-tile-title">Actifio VDP: Business-Process-Driven API Reference Design</div>
+    <div class="hero-tile-desc">Workflow-first API documentation: endpoints organised by business phase (Authenticate, Discover, Protect, Access, Monitor), embedded diagrams, developer-focused curl examples, and CI/CD integration patterns.</div>
+    <div class="hero-tile-cta">View Walkthrough <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+  </a>
+  <a href="#hire-me" class="hero-tile hero-tile-hire">
+    <div class="hero-tile-label">What Hiring Me Looks Like</div>
+    <div class="hero-tile-title">Day-One Impact: Documentation Audit, AI Agents, and Scalable KB Strategy</div>
+    <div class="hero-tile-desc">I audit existing documentation, identify structural and content flaws, design improvement roadmaps, and build AI-powered documentation systems that scale. Here is how I work and what I have built.</div>
+    <div class="hero-tile-cta">See My Approach <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+  </a>
+</div>
+
+<!-- ===== TABLE OF CONTENTS ===== -->
+<nav class="toc">
+  <div class="toc-card">
+    <div class="toc-title">Quick Navigation</div>
+    <div class="toc-grid">
+      <div>
+        <div class="toc-section">
+          <a href="#user-facing" class="toc-section-link"><span class="toc-num">01</span>User-Facing Product Documentation</a>
+          <ul class="toc-sub">
+            <li><a href="#api-docs">API Documentation</a></li>
+            <li class="toc-company"><a href="#api-assetpanda">AssetPanda</a></li>
+            <li class="toc-company"><a href="#api-actifio">Actifio (Persistent Systems)</a></li>
+            <li><a href="#end-user-guides">End-User Guides</a></li>
+            <li class="toc-company"><a href="#eug-assetpanda">AssetPanda</a></li>
+            <li class="toc-company"><a href="#eug-salesforce">Salesforce</a></li>
+            <li><a href="#kb-articles">Knowledge Base Articles</a></li>
+            <li class="toc-company"><a href="#kb-actifio">Actifio (Persistent Systems)</a></li>
+            <li><a href="#troubleshooting">Troubleshooting Guides</a></li>
+            <li class="toc-company"><a href="#ts-actifio">Actifio (Persistent Systems)</a></li>
+          </ul>
+        </div>
+        <div class="toc-section">
+          <a href="#ux-writing" class="toc-section-link"><span class="toc-num">02</span>UX Writing Samples</a>
+          <ul class="toc-sub">
+            <li><a href="#ux-salesforce">Salesforce</a></li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div class="toc-section">
+          <a href="#process-docs" class="toc-section-link"><span class="toc-num">03</span>Process or System Documentation</a>
+          <ul class="toc-sub">
+            <li><a href="#rn-assetpanda">AssetPanda</a></li>
+            <li><a href="#rn-salesforce">Salesforce</a></li>
+          </ul>
+        </div>
+        <div class="toc-section">
+          <a href="#walkthroughs" class="toc-section-link"><span class="toc-num">04</span>Sample Walkthrough or Tutorial</a>
+          <ul class="toc-sub">
+            <li><a href="#onboarding-actifio">Actifio (Persistent Systems)</a></li>
+            <li><a href="#video-oracle">Oracle</a></li>
+            <li><a href="#vwo-bonus">VWO SmartCode Guide (Bonus)</a></li>
+          </ul>
+        </div>
+        <div class="toc-section">
+          <a href="#hire-me" class="toc-section-link"><span class="toc-num">05</span>What Hiring Me Looks Like</a>
+        </div>
+        <div class="toc-section">
+          <a href="#adlc" class="toc-section-link"><span class="toc-num">06</span>AI Documentation Practice</a>
+          <ul class="toc-sub">
+            <li><a href="#adlc-enterprise">Enterprise DocAgent System</a></li>
+            <li><a href="#adlc-personal">Personal Edition (Zero-Cost)</a></li>
+            <li><a href="#adlc-status">Progress and Roadmap</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ============================================================ -->
+<!-- 01. USER-FACING PRODUCT DOCUMENTATION                        -->
+<!-- ============================================================ -->
+<div class="section" id="user-facing">
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <div><div class="section-title">User-Facing Product Documentation</div></div>
+  </div>
+
+  <!-- API DOCS -->
+  <div class="subsection" id="api-docs">
+    <div class="subsection-label">API Documentation (for developer audiences)</div>
+    <div class="samples-grid">
+      <div class="sample-card" id="api-assetpanda">
+        <div class="card-stripe" style="background:var(--ap-teal)"></div>
+        <div class="card-body">
+          <div class="card-company" style="color:var(--ap-teal)">AssetPanda</div>
+          <div class="card-title">AssetPanda REST API Reference (v3)</div>
+          <div class="card-desc">Created and updated all topics under v3 APIs. Earlier v1 and v2 APIs are now deprecated. Covers authentication, CRUD operations, webhooks, and error handling.</div>
+          <div class="card-meta"><span class="tag">REST API</span><span class="tag">Developer Audience</span><span class="tag">Readme.io</span></div>
+        </div>
+        <div class="card-actions"><a href="https://team-asset-panda.readme.io/reference/http-status-codes" target="_blank" class="btn btn-primary"><svg class="ext-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>View on Readme.io</a></div>
+      </div>
+      <div class="sample-card" id="api-actifio">
+        <div class="card-stripe" style="background:var(--act-navy)"></div>
+        <div class="card-body">
+          <div class="card-company" style="color:var(--act-navy)">Persistent Systems (Client: Actifio, acquired by Google)</div>
+          <div class="card-title">Actifio VDP REST API Reference and Programmer's Guide</div>
+          <div class="card-desc">Maintained the complete API reference and Programmer's Guide for the Actifio Virtual Data Pipeline. Covers session management, application discovery, SLA-driven backup orchestration, instant mount virtualisation, and job monitoring across 200+ pages.</div>
+          <div class="card-meta"><span class="tag">REST API</span><span class="tag">Developer Audience</span><span class="tag">FrameMaker</span><span class="tag">MadCap Flare</span></div>
+        </div>
+        <div class="card-actions">
+          <a href="https://docs.actifio.com/static/10.0/PDFs/API.pdf" target="_blank" class="btn btn-outline">API Technical Overview</a>
+          <a href="https://docs.actifio.com/static/10.0/PDFs/Programmers.pdf" target="_blank" class="btn btn-outline">Programmer's Guide</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- END-USER GUIDES -->
+  <div class="subsection" id="end-user-guides">
+    <div class="subsection-label">End-User Guides (for admin or end users)</div>
+    <div class="samples-grid">
+      <div class="sample-card" id="eug-assetpanda">
+        <div class="card-stripe" style="background:var(--ap-teal)"></div>
+        <div class="card-body">
+          <div class="card-company" style="color:var(--ap-teal)">AssetPanda (via Webkorps Services)</div>
+          <div class="card-title">AssetPanda Pro Knowledge Base</div>
+          <div class="card-desc">Complete enterprise knowledge base built from the ground up. 8 top-level categories, 30+ sub-sections. Includes Quick Start guides, admin configuration, integrations (SSO with Okta, Entra ID, Google Workspace), mobile app docs, and Ursa AI user guides. Trained the AI assistant on this documentation corpus for RAG-based retrieval.</div>
+          <div class="card-meta"><span class="tag">End-User Guide</span><span class="tag">Admin Guide</span><span class="tag">GitBook</span></div>
+          <div class="card-note">Live site | Jul 2024 to Nov 2025</div>
+        </div>
+        <div class="card-actions"><a href="https://prohelp.assetpanda.com" target="_blank" class="btn btn-primary"><svg class="ext-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>View Live KB</a></div>
+      </div>
+      <div class="sample-card" id="eug-salesforce">
+        <div class="card-stripe" style="background:var(--sf-blue)"></div>
+        <div class="card-body">
+          <div class="card-company" style="color:var(--sf-blue)">Salesforce</div>
+          <div class="card-title">Consumer Goods Cloud: Set Up and Maintain Retail Execution</div>
+          <div class="card-desc">Product documentation for Salesforce Consumer Goods Cloud. Covers Base Model setup, Enhanced Model with managed packages, Consumer Goods Cloud for Service, Einstein Visit Recommendations, and FAQ. Owned end-to-end across Agile sprints.</div>
+          <div class="card-meta"><span class="tag">Admin Guide</span><span class="tag">Setup Guide</span><span class="tag">Oxygen XML</span><span class="tag">Perforce</span></div>
+        </div>
+        <div class="card-actions"><a href="https://help.salesforce.com/s/articleView?id=ind.retail_concept_getting_started_re.htm&language=en_US&type=5" target="_blank" class="btn btn-primary"><svg class="ext-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>View on Salesforce Help</a></div>
+      </div>
+      <div class="contrib-box">
+        <h4>Additional Salesforce topics I contributed to (team-owned documentation)</h4>
+        <div class="note">Content authored within a shared ownership model across the Consumer Goods Cloud documentation team.</div>
+        <div class="contrib-items">
+          <span class="contrib-item">Sales Excellence</span><span class="contrib-item">Common Features (Sales &amp; Service)</span><span class="contrib-item">Agentforce for Retail Execution</span><span class="contrib-item">Additional Agentforce Features</span><span class="contrib-item">Einstein Generative AI</span><span class="contrib-item">Data Cloud Integration</span><span class="contrib-item">Sync Management</span><span class="contrib-item">Mobile App Customization</span><span class="contrib-item">Analytics for Consumer Goods</span><span class="contrib-item">Analytics Advanced Data Model</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- KB ARTICLES -->
+  <div class="subsection" id="kb-articles">
+    <div class="subsection-label">Knowledge Base Articles</div>
+    <div class="samples-grid">
+      <div class="sample-card" id="kb-actifio">
+        <div class="card-stripe" style="background:var(--act-navy)"></div>
+        <div class="card-body">
+          <div class="card-company" style="color:var(--act-navy)">Persistent Systems (Client: Actifio)</div>
+          <div class="card-title">Actifio Short RPO Configuration Guide</div>
+          <div class="card-desc">Knowledge base article covering Short RPO (Recovery Point Objective) configuration for the Actifio 10.0 data protection platform.</div>
+          <div class="card-meta"><span class="tag">KB Article</span><span class="tag">Admin Audience</span><span class="tag">FrameMaker</span></div>
+        </div>
+        <div class="card-actions"><a href="https://docs.actifio.com/static/10.0/PDFs/ShortRPO.pdf" target="_blank" class="btn btn-outline">View PDF</a></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TROUBLESHOOTING -->
+  <div class="subsection" id="troubleshooting">
+    <div class="subsection-label">Troubleshooting Guides</div>
+    <div class="samples-grid">
+      <div class="sample-card" id="ts-actifio">
+        <div class="card-stripe" style="background:var(--act-navy)"></div>
+        <div class="card-body">
+          <div class="card-company" style="color:var(--act-navy)">Persistent Systems (Client: Actifio)</div>
+          <div class="card-title">Actifio Platform Troubleshooting Guide</div>
+          <div class="card-desc">Comprehensive troubleshooting documentation for the Actifio 10.0 platform covering common issues, diagnostic procedures, and resolution steps.</div>
+          <div class="card-meta"><span class="tag">Troubleshooting</span><span class="tag">Admin Audience</span></div>
+        </div>
+        <div class="card-actions"><a href="https://docs.actifio.com/10.0/PDFs/Troubleshooting.pdf" target="_blank" class="btn btn-outline">View PDF</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"><hr></div>
+
+<!-- ============================================================ -->
+<!-- 02. UX WRITING SAMPLES                                       -->
+<!-- ============================================================ -->
+<div class="section" id="ux-writing">
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <div><div class="section-title">UX Writing Samples</div></div>
+  </div>
+  <div class="subsection">
+    <div class="subsection-label">In-app help content (tooltips, modals, onboarding flows) and UI text (button labels, error messages, empty states)</div>
+    <div class="samples-grid">
+      <div class="sample-card" id="ux-salesforce">
+        <div class="card-stripe" style="background:var(--sf-blue)"></div>
+        <div class="card-body">
+          <div class="card-company" style="color:var(--sf-blue)">Salesforce</div>
+          <div class="card-title">Consumer Goods Cloud: UX Writing Samples</div>
+          <div class="card-desc">In-app help content including tooltips, modals, and onboarding flows. UI text for button labels, error messages, and empty states. Led UX writing for Retail Execution across cross-functional Agile sprints with Product, Engineering, and UX teams.</div>
+          <div class="card-meta"><span class="tag">Tooltips</span><span class="tag">Error Messages</span><span class="tag">Empty States</span><span class="tag">Onboarding Flows</span></div>
+        </div>
+        <div class="card-actions"><a href="https://docs.google.com/document/d/1FACA7VsoZNeNv58IUp_osOMAL7SsX5ZR/edit" target="_blank" class="btn btn-primary"><svg class="ext-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>View on Google Docs</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"><hr></div>
+
+<!-- ============================================================ -->
+<!-- 03. PROCESS OR SYSTEM DOCUMENTATION                          -->
+<!-- ============================================================ -->
+<div class="section" id="process-docs">
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <div><div class="section-title">Process or System Documentation</div></div>
+  </div>
+  <div class="subsection">
+    <div class="subsection-label">Release Notes</div>
+    <div class="samples-grid">
+      <div class="sample-card" id="rn-assetpanda">
+        <div class="card-stripe" style="background:var(--ap-teal)"></div>
+        <div class="card-body">
+          <div class="card-company" style="color:var(--ap-teal)">AssetPanda</div>
+          <div class="card-title">AssetPanda 2025 Release Notes</div>
+          <div class="card-desc">Drafted complete release notes from January 2025 through November 2025, covering monthly feature releases, enhancements, and bug fixes aligned with sprint cycles.</div>
+          <div class="card-meta"><span class="tag">Release Notes</span><span class="tag">GitBook</span></div>
+        </div>
+        <div class="card-actions"><a href="https://prohelp.assetpanda.com/release-notes/2025-release-notes" target="_blank" class="btn btn-primary"><svg class="ext-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>View Release Notes</a></div>
+      </div>
+      <div class="sample-card" id="rn-salesforce">
+        <div class="card-stripe" style="background:var(--sf-blue)"></div>
+        <div class="card-body">
+          <div class="card-company" style="color:var(--sf-blue)">Salesforce</div>
+          <div class="card-title">Salesforce Retail Execution Release Notes</div>
+          <div class="card-desc">Release notes across multiple Salesforce releases covering Retail Execution features: Penny Perfect Pricing, Store Audits and Surveys, Job Lists for visit planning, Inventory Management, Store Operating Hours, and enhanced product filters.</div>
+          <div class="card-meta"><span class="tag">Release Notes</span><span class="tag">Oxygen XML</span></div>
+        </div>
+        <div class="card-actions"><a href="https://help.salesforce.com/s/articleView?id=release-notes.rn_retail.htm&release=236&type=5" target="_blank" class="btn btn-outline">Release 236</a><a href="https://help.salesforce.com/s/articleView?id=release-notes.rn_retail_execution.htm&release=238&type=5" target="_blank" class="btn btn-outline">Release 238</a><a href="https://help.salesforce.com/s/articleView?id=release-notes.rn_retail_execution.htm&release=244&type=5" target="_blank" class="btn btn-outline">Release 244</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"><hr></div>
+
+<!-- ============================================================ -->
+<!-- 04. SAMPLE WALKTHROUGH OR TUTORIAL                           -->
+<!-- ============================================================ -->
+<div class="section" id="walkthroughs">
+  <div class="section-header">
+    <span class="section-num">04</span>
+    <div><div class="section-title">Sample Walkthrough or Tutorial</div></div>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-label">Step-by-step guides for feature onboarding</div>
+    <div class="samples-grid">
+      <div class="sample-card" id="onboarding-actifio">
+        <div class="card-stripe" style="background:var(--act-navy)"></div>
+        <div class="card-body">
+          <div class="card-company" style="color:var(--act-navy)">Persistent Systems (Client: Actifio)</div>
+          <div class="card-title">Introducing Actifio GO: Feature Onboarding Guide</div>
+          <div class="card-desc">Step-by-step onboarding guide for Actifio GO, the SaaS-based data protection platform. Covers initial setup, dashboard walkthrough, first backup configuration, and key feature orientation.</div>
+          <div class="card-meta"><span class="tag">Getting Started</span><span class="tag">Onboarding</span></div>
+        </div>
+        <div class="card-actions"><a href="https://docs.actifio.com/Actifio-GO/PDFs/Introducing.pdf" target="_blank" class="btn btn-outline">View PDF</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-label">Video Scripts and Tutorials</div>
+    <div class="samples-grid">
+      <div class="sample-card" id="video-oracle">
+        <div class="card-stripe" style="background:var(--ora-red)"></div>
+        <div class="card-body">
+          <div class="card-company" style="color:var(--ora-red)">Oracle</div>
+          <div class="card-title">Oracle Documaker Add-In for Microsoft Word: Tutorial Series</div>
+          <div class="card-desc">Series of interactive tutorial viewlets for Oracle Documaker 12m R1. Each tutorial includes narrated walkthrough, interactive quiz, and step-by-step task guidance. Created using Viewlet Builder.</div>
+          <div class="card-meta"><span class="tag">Video Tutorial</span><span class="tag">Interactive Quiz</span><span class="tag">Viewlet Builder</span></div>
+          <div class="card-note">SWF format (Adobe Flash, January 2015). Tutorials verified at the Oracle docs index page.</div>
+        </div>
+        <div class="card-actions"><a href="https://docs.oracle.com/cd/E57339_01/e57339_01_index.html" target="_blank" class="btn btn-primary"><svg class="ext-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>View Tutorial Index</a></div>
+      </div>
+      <div class="contrib-box">
+        <h4>Individual Tutorials (each includes narrated walkthrough + interactive quiz)</h4>
+        <div class="contrib-items">
+          <a href="https://docs.oracle.com/cd/E57339_01/navigating_viewlet_swf.html" target="_blank" class="contrib-item">Lesson 1: Navigating the Add-In</a>
+          <a href="https://docs.oracle.com/cd/E57339_01/resources_viewlet_swf.html" target="_blank" class="contrib-item">Lesson 2: Documaker Resources</a>
+          <a href="https://docs.oracle.com/cd/E57339_01/configuring_viewlet_swf.html" target="_blank" class="contrib-item">Lesson 3: Configuring the Add-In</a>
+          <a href="https://docs.oracle.com/cd/E57339_01/managing_wdf_viewlet_swf.html" target="_blank" class="contrib-item">Lesson 4: Managing WDF Files</a>
+          <a href="https://docs.oracle.com/cd/E57339_01/working_with_resources_and_elements_viewlet_swf.html" target="_blank" class="contrib-item">Lesson 5: Resources and Elements</a>
+          <a href="https://docs.oracle.com/cd/E57339_01/sections_and_paragraphs_viewlet_swf.html" target="_blank" class="contrib-item">Lesson 6: Sections and Paragraphs</a>
+          <a href="https://docs.oracle.com/cd/E57339_01/silanissetupanduse_viewlet_swf.html" target="_blank" class="contrib-item">Silanis e-SignLive Integration (7 min)</a>
+          <a href="https://docs.oracle.com/cd/E57339_01/contractviewlet_viewlet_swf.html" target="_blank" class="contrib-item">Contracts Use Case Tutorial (11 min)</a>
+        </div>
+      </div>
+    </div>
+
+  <div class="subsection">
+    <div class="subsection-label">Bonus: Documentation Improvement Sample</div>
+    <div class="samples-grid">
+      <div class="sample-card" id="vwo-bonus">
+        <div class="card-stripe" style="background:var(--accent)"></div>
+        <div class="card-body">
+          <div class="card-company" style="color:var(--accent)">VWO (Documentation Improvement Exercise)</div>
+          <div class="card-title">Install and Configure VWO SmartCode: Quick Start Guide</div>
+          <div class="card-desc">A redesigned version of VWO's most critical KB article. Adds a visual workflow diagram, Async vs Sync decision table, framework-specific installation cards (Next.js, Nuxt, Gatsby, React Helmet, Shopify Hydrogen, WordPress), integrated troubleshooting, and a verification checklist. Demonstrates my approach to auditing and improving existing documentation.</div>
+          <div class="card-meta"><span class="tag">KB Article Redesign</span><span class="tag">Visual Workflow</span><span class="tag">Troubleshooting</span><span class="tag">Quick Start</span></div>
+        </div>
+        <div class="card-actions"><a href="vwo-smartcode-guide.html" class="btn btn-primary"><svg class="ext-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>View Sample</a></div>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>
+
+<div class="divider"><hr></div>
+
+<!-- ============================================================ -->
+<!-- 05. WHAT HIRING ME LOOKS LIKE                                -->
+<!-- ============================================================ -->
+<div class="section" id="hire-me">
+  <div class="section-header">
+    <span class="section-num">05</span>
+    <div><div class="section-title">What Hiring Me Looks Like</div></div>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-label">Day-one diagnostic capability and systems-level execution</div>
+    <div class="samples-grid">
+      <div class="sample-card">
+        <div class="card-stripe" style="background:var(--accent)"></div>
+        <div class="card-body">
+          <div class="card-company" style="color:var(--accent)">My Working Pattern</div>
+          <div class="card-title">Audit, Architect, Govern, Build, Enable AI</div>
+          <div class="card-desc">I do not write articles and move on. I audit what exists, identify structural and content flaws, design the information architecture, establish style governance, migrate content through phased platform evolution, and then enable AI systems on top of the structured corpus. Every project I have led follows this pattern, from AssetPanda (flat HTML to GitBook to Ursa AI) to Pegasystems (MadCap Flare to DITA via Oxygen XML across 60 global contributors).</div>
+          <div class="card-meta"><span class="tag">Documentation Audit</span><span class="tag">Information Architecture</span><span class="tag">Content Strategy</span><span class="tag">AI Enablement</span><span class="tag">Style Governance</span></div>
+        </div>
+      </div>
+      <div class="sample-card">
+        <div class="card-stripe" style="background:var(--accent)"></div>
+        <div class="card-body">
+          <div class="card-company" style="color:var(--accent)">What You Get in Week One</div>
+          <div class="card-title">A documentation audit with a prioritised improvement roadmap</div>
+          <div class="card-desc">Within the first week I audit the existing knowledge base, developer docs, and release notes. I produce a structured findings report covering: inconsistent naming conventions, missing content types (troubleshooting, onboarding tutorials), AI feature documentation gaps, navigation and discoverability issues, and the absence of visual learning assets. Each finding comes with a specific fix and a sample demonstrating what the improvement looks like.</div>
+          <div class="card-meta"><span class="tag">Week-One Deliverable</span><span class="tag">Documentation Audit</span><span class="tag">Improvement Roadmap</span></div>
+        </div>
+      </div>
+      <div class="sample-card">
+        <div class="card-stripe" style="background:var(--accent)"></div>
+        <div class="card-body">
+          <div class="card-company" style="color:var(--accent)">What You Get in Month One</div>
+          <div class="card-title">AI documentation agents reducing manual effort without compromising quality</div>
+          <div class="card-desc">I design and deploy documentation agents that automate intake processing, release note drafting, QA validation, and KB article creation. These are not chatbots. They are structured agentic workflows with human approval gates, style guide enforcement via SKILL.md files, and MCP connectors to your existing tools (Jira, GitHub, Zendesk, Confluence). Writers focus on accuracy and judgment. Agents handle the repetitive work.</div>
+          <div class="card-meta"><span class="tag">Documentation Agents</span><span class="tag">Claude Code</span><span class="tag">MCP Connectors</span><span class="tag">Human-in-the-Loop</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"><hr></div>
+
+<!-- ============================================================ -->
+<!-- 06. AI DOCUMENTATION PRACTICE (ADLC)                         -->
+<!-- ============================================================ -->
+<div class="section" id="adlc">
+  <div class="section-header">
+    <span class="section-num">06</span>
+    <div><div class="section-title">AI Documentation Practice</div></div>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-label">Agentic Documentation Lifecycle: vision, architecture, and current progress</div>
+    <div style="margin-bottom:16px"><a href="adlc.html" style="display:inline-flex;align-items:center;gap:6px;padding:8px 20px;background:#7c3aed;color:#fff;border-radius:7px;font-size:13px;font-weight:600;text-decoration:none">View Full Architecture and Progress &rarr;</a></div>
+
+    <div class="adlc-card" id="adlc-enterprise">
+      <h4>Enterprise DocAgent System: 7-Agent Architecture with Claude</h4>
+      <p>A complete implementation guide for deploying end-to-end documentation agents in enterprise environments. Built on Anthropic's Agent Skills open standard and Model Context Protocol (MCP), now under the Linux Foundation's Agentic AI Foundation. The system uses a 4-layer architecture: MCP Tools (75+ connectors), Agent Skills (SKILL.md files with domain expertise), an Orchestrator (claude-opus-4-6 coordinating specialist agents), and a Governance layer (audit logs, human gates, cost controls).</p>
+      <div class="adlc-grid">
+        <div class="adlc-item">
+          <div class="adlc-item-label">7 Specialist Agents</div>
+          <div class="adlc-item-title">Intake, Release Notes, User Guide, Online Help, KB, API Docs, QA</div>
+          <div class="adlc-item-desc">Each agent runs claude-sonnet-4-6 with tailored SKILL.md files. Orchestrator uses claude-opus-4-6 for task routing and quality gates.</div>
+        </div>
+        <div class="adlc-item">
+          <div class="adlc-item-label">5 Human Approval Gates</div>
+          <div class="adlc-item-title">After Intake, After Draft, After QA, Before Publish, Post-Publish Spot-Check</div>
+          <div class="adlc-item-desc">No content advances without human approval. Agents augment writers, they do not replace them.</div>
+        </div>
+        <div class="adlc-item">
+          <div class="adlc-item-label">Governance Framework</div>
+          <div class="adlc-item-title">Data classification, per-agent least-privilege, audit logging, cost controls</div>
+          <div class="adlc-item-desc">Every agent action logged with timestamp, agent ID, input/output. API keys in secrets manager, rotated quarterly.</div>
+        </div>
+        <div class="adlc-item">
+          <div class="adlc-item-label">Org Assessment Playbook</div>
+          <div class="adlc-item-title">Content maturity, technical readiness, team size, budget tiers</div>
+          <div class="adlc-item-desc">3-phase implementation roadmap: Pilot (0-90 days), Expansion (3-9 months), Enterprise (9-18 months). ROI benchmarks from documented deployments.</div>
+        </div>
+      </div>
+      <div class="card-meta"><span class="tag">18-Page Guide</span><span class="tag">Claude API</span><span class="tag">MCP Protocol</span><span class="tag">Agent Skills</span><span class="tag">DITA</span><span class="tag">Docs-as-Code</span></div>
+    </div>
+
+    <div class="adlc-card" id="adlc-personal">
+      <h4>Personal Edition: Zero-Cost Implementation with Local LLMs</h4>
+      <p>Adapted from the enterprise guide. Replaces every paid component with free, open-source equivalents while preserving the full 7-agent architecture. Runs entirely on a local machine with 16GB RAM. Adds a complete DITA and Diataxis style training module not covered in the enterprise edition.</p>
+      <div class="adlc-grid">
+        <div class="adlc-item">
+          <div class="adlc-item-label">Local Stack</div>
+          <div class="adlc-item-title">Ollama + Open-Source MCP Servers + ChromaDB</div>
+          <div class="adlc-item-desc">deepseek-r1:14b (orchestrator), mistral:7b (authoring), phi3 (QA), nomic-embed-text (embeddings). No API keys, no cloud costs.</div>
+        </div>
+        <div class="adlc-item">
+          <div class="adlc-item-label">4 Use Cases</div>
+          <div class="adlc-item-title">Style replication, flaw detection, competitor analysis, greenfield strategy</div>
+          <div class="adlc-item-desc">Each use case has its own workflow, agents, and SKILL.md configurations. Not mutually exclusive.</div>
+        </div>
+      </div>
+      <div class="card-meta"><span class="tag">Zero-Cost</span><span class="tag">Ollama</span><span class="tag">Open-Source MCP</span><span class="tag">ChromaDB</span><span class="tag">DITA Training</span><span class="tag">Diataxis</span></div>
+    </div>
+
+    <div class="adlc-card" id="adlc-status">
+      <h4>Progress and Roadmap</h4>
+      <p>Where this work stands today, what has been validated, and what comes next.</p>
+      <div class="adlc-grid">
+        <div class="adlc-item">
+          <div class="adlc-item-label"><span class="status-done">&#10003; Completed</span></div>
+          <div class="adlc-item-title">Enterprise architecture designed and documented</div>
+          <div class="adlc-item-desc">Full 18-page implementation guide: 4-layer stack, 7-agent specs, orchestrator design, 5 human gates, governance framework, org assessment playbook, ROI calculations.</div>
+        </div>
+        <div class="adlc-item">
+          <div class="adlc-item-label"><span class="status-done">&#10003; Completed</span></div>
+          <div class="adlc-item-title">Personal edition adapted and documented</div>
+          <div class="adlc-item-desc">Zero-cost implementation with Ollama, open-source MCP, ChromaDB. DITA and Diataxis training modules. All 4 use cases specified with agent configs.</div>
+        </div>
+        <div class="adlc-item">
+          <div class="adlc-item-label"><span class="status-done">&#10003; Validated in Production</span></div>
+          <div class="adlc-item-title">AI content architecture proven at AssetPanda</div>
+          <div class="adlc-item-desc">Structured documentation corpus trained for RAG retrieval. Dual content architecture (standard KB + AI use case). Three AI interaction modes documented. Ursa AI live at prohelp.assetpanda.com.</div>
+        </div>
+        <div class="adlc-item">
+          <div class="adlc-item-label"><span class="status-progress">&#9679; In Progress</span></div>
+          <div class="adlc-item-title">Agent prototypes: Release Notes, QA Validation, API Doc Generation</div>
+          <div class="adlc-item-desc">Building working prototypes using Claude Code with SKILL.md enforcement. Testing against real documentation projects. Measuring quality score improvement and time reduction.</div>
+        </div>
+        <div class="adlc-item">
+          <div class="adlc-item-label"><span class="status-planned">&#9675; Planned</span></div>
+          <div class="adlc-item-title">Full orchestrator deployment with MCP Gateway</div>
+          <div class="adlc-item-desc">Centralised MCP Gateway for multi-agent coordination. Monitoring dashboard (Prometheus + Grafana). Automated daily health checks.</div>
+        </div>
+        <div class="adlc-item">
+          <div class="adlc-item-label"><span class="status-planned">&#9675; Planned</span></div>
+          <div class="adlc-item-title">Publishable methodology and consulting framework</div>
+          <div class="adlc-item-desc">Package the enterprise guide and personal edition into a shareable methodology for organisations adopting AI documentation workflows.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<div class="divider"><hr></div>
+<footer class="page-footer">
+  <p>Kalyan Voolse | Lead Technical Writer and AI Documentation Architect</p>
+  <p style="margin-top:6px"><a href="mailto:ToVkalyan@gmail.com">ToVkalyan&#64;gmail.com</a> &middot; +91-8886922244 &middot; <a href="https://linkedin.com/in/kalyan-voolse" target="_blank">Li

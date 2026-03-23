@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Actifio VDP API Documentation | Data Protection Lifecycle</title>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --primary: #0D2B4E;
+  --accent: #2E86C1;
+  --accent-light: #EBF5FB;
+  --success: #27AE60;
+  --warning: #F39C12;
+  --danger: #E74C3C;
+  --text: #2C3E50;
+  --text-light: #7F8C8D;
+  --border: #E0E6ED;
+  --bg: #FAFBFC;
+  --code-bg: #F4F6F9;
+  --sidebar-bg: #0D2B4E;
+  --method-get: #2E86C1;
+  --method-post: #27AE60;
+  --method-delete: #E74C3C;
+  --method-put: #F39C12;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Source Sans Pro', -apple-system, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.7;
+  font-size: 16px;
+}
+
+/* Layout */
+.doc-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 280px;
+  background: var(--sidebar-bg);
+  color: #B0C4DE;
+  padding: 24px 0;
+  position: fixed;
+  height: 100vh;
+  overflow-y: auto;
+  font-size: 14px;
+}
+
+.sidebar-logo {
+  padding: 0 24px 24px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  margin-bottom: 16px;
+}
+
+.sidebar-logo h2 {
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.sidebar-logo span {
+  color: var(--accent);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.sidebar nav a {
+  display: block;
+  padding: 8px 24px;
+  color: #B0C4DE;
+  text-decoration: none;
+  transition: all 0.2s;
+  border-left: 3px solid transparent;
+}
+
+.sidebar nav a:hover,
+.sidebar nav a.active {
+  color: #fff;
+  background: rgba(255,255,255,0.05);
+  border-left-color: var(--accent);
+}
+
+.sidebar nav .section-title {
+  padding: 16px 24px 6px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: #6B8EB5;
+  font-weight: 600;
+}
+
+.main-content {
+  margin-left: 280px;
+  flex: 1;
+  max-width: 960px;
+  padding: 48px 64px;
+}
+
+/* Typography */
+h1 {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+
+h1 + .subtitle {
+  font-size: 18px;
+  color: var(--text-light);
+  margin-bottom: 32px;
+  font-weight: 300;
+}
+
+h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--primary);
+  margin: 48px 0 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--border);
+}
+
+h3 {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text);
+  margin: 32px 0 12px;
+}
+
+h4 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text);
+  margin: 24px 0 8px;
+}
+
+p { margin-bottom: 16px; }
+
+/* Breadcrumb */
+.breadcrumb {
+  font-size: 13px;
+  color: var(--text-light);
+  margin-bottom: 24px;
+}
+
+.breadcrumb a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+/* Callout boxes */
+.callout {
+  border-left: 4px solid;
+  padding: 16px 20px;
+  margin: 24px 0;
+  border-radius: 0 6px 6px 0;
+  font-size: 15px;
+}
+
+.callout.info {
+  border-color: var(--accent);
+  background: var(--accent-light);
+}
+
+.callout.warning {
+  border-color: var(--warning);
+  background: #FEF9E7;
+}
+
+.callout.tip {
+  border-color: var(--success);
+  background: #E8F8F0;
+}
+
+.callout strong {
+  display: block;
+  margin-bottom: 4px;
+}
+
+/* Process flow diagram */
+.process-diagram {
+  margin: 32px 0;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 32px;
+  overflow-x: auto;
+}
+
+.process-diagram .diagram-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-light);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* API endpoint blocks */
+.endpoint-block {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  margin: 24px 0;
+  overflow: hidden;
+}
+
+.endpoint-header {
+  display: flex;
+  align-items: center;
+  padding: 16px 20px;
+  background: var(--code-bg);
+  border-bottom: 1px solid var(--border);
+  gap: 12px;
+}
+
+.method-badge {
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 700;
+  font-family: 'Source Code Pro', monospace;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.method-badge.get { background: var(--method-get); }
+.method-badge.post { background: var(--method-post); }
+.method-badge.delete { background: var(--method-delete); }
+.method-badge.put { background: var(--method-put); }
+
+.endpoint-path {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--primary);
+}
+
+.endpoint-body { padding: 20px; }
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+  font-size: 14px;
+}
+
+th {
+  background: var(--primary);
+  color: #fff;
+  padding: 10px 14px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+
+tr:nth-child(even) td { background: #FAFBFC; }
+
+td code {
+  background: var(--code-bg);
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-family: 'Source Code Pro', monospace;
+  font-size: 13px;
+  color: var(--accent);
+}
+
+/* Code blocks */
+.code-block {
+  background: #1E2A3A;
+  color: #E0E6ED;
+  padding: 20px;
+  border-radius: 6px;
+  margin: 16px 0;
+  overflow-x: auto;
+  font-family: 'Source Code Pro', monospace;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.code-block .comment { color: #6B8EB5; }
+.code-block .string { color: #A3D977; }
+.code-block .key { color: #79B8FF; }
+.code-block .number { color: #F9A825; }
+
+/* Phase markers */
+.phase-marker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--accent);
+  color: #fff;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 16px;
+}
+
+.phase-marker .num {
+  background: rgba(255,255,255,0.3);
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+}
+
+/* Data flow list */
+.data-flow-list {
+  list-style: none;
+  padding: 0;
+}
+
+.data-flow-list li {
+  padding: 12px 0 12px 40px;
+  position: relative;
+  border-left: 2px solid var(--accent);
+  margin-left: 10px;
+}
+
+.data-flow-list li::before {
+  content: '';
+  position: absolute;
+  left: -7px;
+  top: 16px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid #fff;
+  box-shadow: 0 0 0 2px var(--accent);
+}
+
+.data-flow-list li:last-child { border-left-color: transparent; }
+
+.data-flow-list li strong { color: var(--primary); }
+
+/* Disclaimer banner */
+.disclaimer {
+  background: #FFF3CD;
+  border: 1px solid #FFEAA7;
+  padding: 16px 20px;
+  border-radius: 6px;
+  margin-bottom: 32px;
+  font-size: 14px;
+}
+
+.disclaimer strong { color: #856404; }
+
+/* Section divider */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--border), transparent);
+  margin: 48px 0;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .sidebar { display: none; }
+  .main-content { margin-left: 0; padding: 32px 24px; }
+}
+
+@media print {
+  .sidebar { display: none; }
+  .main-content { margin-left: 0; }
+}
+</style>
+</head>
+<body>
+
+<div class="doc-layout">
+
+<!-- Sidebar Navigation -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <h2>Actifio VDP</h2>
+    <span>API Documentation</span>
+  </div>
+  <nav>
+    <div class="section-title">Overview</div>
+    <a href="#overview" class="active">Data Protection Lifecycle</a>
+    <a href="#architecture">Architecture Overview</a>
+    <a href="#phase1">Authentication</a>
+
+    <div class="section-title">Phase 1: Authenticate</div>
+    <a href="#phase1">Session Management</a>
+    <a href="#ep-create-session">POST /session</a>
+    <a href="#ep-delete-session">DELETE /session</a>
+
+    <div class="section-title">Phase 2: Discover</div>
+    <a href="#phase2">Application Discovery</a>
+    <a href="#ep-list-apps">GET /application</a>
+    <a href="#ep-list-apps">GET /application/{id}</a>
+
+    <div class="section-title">Phase 3: Protect</div>
+    <a href="#phase3">Backup Orchestration</a>
+    <a href="#phase3">GET /sla</a>
+    <a href="#phase3">POST /application/{id}/sla</a>
+    <a href="#ep-run-backup">POST /backup</a>
+
+    <div class="section-title">Phase 4: Access</div>
+    <a href="#phase4">Data Virtualisation</a>
+    <a href="#phase4">GET /backup</a>
+    <a href="#ep-mount">POST /backup/{id}/mount</a>
+
+    <div class="section-title">Phase 5: Monitor</div>
+    <a href="#phase5">Job Monitoring</a>
+    <a href="#ep-list-jobs">GET /jobstatus</a>
+
+    <div class="section-title">Reference</div>
+    <a href="#errors">Error Codes</a>
+    <a href="#best-practices">Best Practices</a>
+  </nav>
+</aside>
+
+<!-- Main Content -->
+<main class="main-content">
+
+<div class="breadcrumb">
+  <a href="#">Actifio VDP</a> &rsaquo;
+  <a href="#">API Documentation</a> &rsaquo;
+  Data Protection Lifecycle
+</div>
+
+<div class="disclaimer">
+  <strong>Recreated Sample:</strong> This documentation demonstrates an API documentation approach based on patterns from work at Persistent Systems (client: Actifio, acquired by Google). All structures shown reflect general REST API methodology applied to the Actifio VDP domain. Original documentation is proprietary.
+</div>
+
+<h1 id="overview">Actifio VDP Data Protection Lifecycle</h1>
+<p class="subtitle">A business-process-driven guide to the Virtual Data Pipeline RESTful API</p>
+
+<p>The Actifio Virtual Data Pipeline (VDP) RESTful API enables programmatic control over the complete data protection lifecycle. Rather than presenting endpoints as isolated references, this guide follows the <strong>business workflow</strong> that enterprise teams execute when protecting, managing, and accessing their data through VDP.</p>
+
+<p>VDP virtualises enterprise data by capturing a single golden copy from production and maintaining incremental-forever snapshots. Virtual read/write copies can then be instantly mounted for any purpose: disaster recovery, test/dev provisioning, analytics, or compliance reporting.</p>
+
+<div class="callout info">
+  <strong>Who is this guide for?</strong>
+  System administrators, DevOps engineers, and integration developers who need to automate data protection workflows, integrate VDP with CI/CD pipelines, or build custom orchestration around Actifio's copy data management capabilities.
+</div>
+
+<!-- ===== PROCESS FLOW DIAGRAM ===== -->
+<h2 id="architecture">End-to-End Data Protection Workflow</h2>
+
+<p>The following diagram shows the five phases of the VDP data protection lifecycle. Each phase maps to a set of API endpoints that automate that stage of the workflow.</p>
+
+<div class="process-diagram">
+  <div class="diagram-title">Figure 1: VDP Data Protection Lifecycle &mdash; API-Driven Workflow</div>
+  <svg viewBox="0 0 860 340" xmlns="http://www.w3.org/2000/svg" font-family="Source Sans Pro, sans-serif">
+    <!-- Background -->
+    <rect width="860" height="340" fill="#FAFBFC" rx="8"/>
+
+    <!-- Phase 1: Authenticate -->
+    <g transform="translate(30, 50)">
+      <rect width="140" height="110" rx="8" fill="#0D2B4E" stroke="#0D2B4E" stroke-width="1"/>
+      <text x="70" y="28" text-anchor="middle" fill="#79B8FF" font-size="11" font-weight="600" letter-spacing="1">PHASE 1</text>
+      <text x="70" y="52" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">Authenticate</text>
+      <text x="70" y="72" text-anchor="middle" fill="#B0C4DE" font-size="11">POST /session</text>
+      <text x="70" y="88" text-anchor="middle" fill="#B0C4DE" font-size="11">DELETE /session</text>
+      <rect x="25" y="95" width="90" height="4" rx="2" fill="#2E86C1"/>
+    </g>
+
+    <!-- Arrow 1 -->
+    <g transform="translate(170, 95)">
+      <line x1="0" y1="10" x2="30" y2="10" stroke="#2E86C1" stroke-width="2" stroke-dasharray="6,3"/>
+      <polygon points="30,5 40,10 30,15" fill="#2E86C1"/>
+    </g>
+
+    <!-- Phase 2: Discover -->
+    <g transform="translate(210, 50)">
+      <rect width="140" height="110" rx="8" fill="#fff" stroke="#2E86C1" stroke-width="2"/>
+      <text x="70" y="28" text-anchor="middle" fill="#2E86C1" font-size="11" font-weight="600" letter-spacing="1">PHASE 2</text>
+      <text x="70" y="52" text-anchor="middle" fill="#0D2B4E" font-size="15" font-weight="700">Discover</text>
+      <text x="70" y="72" text-anchor="middle" fill="#7F8C8D" font-size="11">GET /application</text>
+      <text x="70" y="88" text-anchor="middle" fill="#7F8C8D" font-size="11">GET /application/{id}</text>
+      <rect x="25" y="95" width="90" height="4" rx="2" fill="#2E86C1"/>
+    </g>
+
+    <!-- Arrow 2 -->
+    <g transform="translate(350, 95)">
+      <line x1="0" y1="10" x2="30" y2="10" stroke="#2E86C1" stroke-width="2" stroke-dasharray="6,3"/>
+      <polygon points="30,5 40,10 30,15" fill="#2E86C1"/>
+    </g>
+
+    <!-- Phase 3: Protect -->
+    <g transform="translate(390, 50)">
+      <rect width="140" height="110" rx="8" fill="#fff" stroke="#27AE60" stroke-width="2"/>
+      <text x="70" y="28" text-anchor="middle" fill="#27AE60" font-size="11" font-weight="600" letter-spacing="1">PHASE 3</text>
+      <text x="70" y="52" text-anchor="middle" fill="#0D2B4E" font-size="15" font-weight="700">Protect</text>
+      <text x="70" y="72" text-anchor="middle" fill="#7F8C8D" font-size="11">GET /sla</text>
+      <text x="70" y="88" text-anchor="middle" fill="#7F8C8D" font-size="11">POST /backup</text>
+      <rect x="25" y="95" width="90" height="4" rx="2" fill="#27AE60"/>
+    </g>
+
+    <!-- Arrow 3 -->
+    <g transform="translate(530, 95)">
+      <line x1="0" y1="10" x2="30" y2="10" stroke="#27AE60" stroke-width="2" stroke-dasharray="6,3"/>
+      <polygon points="30,5 40,10 30,15" fill="#27AE60"/>
+    </g>
+
+    <!-- Phase 4: Access -->
+    <g transform="translate(570, 50)">
+      <rect width="140" height="110" rx="8" fill="#fff" stroke="#F39C12" stroke-width="2"/>
+      <text x="70" y="28" text-anchor="middle" fill="#F39C12" font-size="11" font-weight="600" letter-spacing="1">PHASE 4</text>
+      <text x="70" y="52" text-anchor="middle" fill="#0D2B4E" font-size="15" font-weight="700">Access</text>
+      <text x="70" y="72" text-anchor="middle" fill="#7F8C8D" font-size="11">GET /backup</text>
+      <text x="70" y="88" text-anchor="middle" fill="#7F8C8D" font-size="11">POST /mount</text>
+      <rect x="25" y="95" width="90" height="4" rx="2" fill="#F39C12"/>
+    </g>
+
+    <!-- Arrow 4 -->
+    <g transform="translate(710, 95)">
+      <line x1="0" y1="10" x2="30" y2="10" stroke="#F39C12" stroke-width="2" stroke-dasharray="6,3"/>
+      <polygon points="30,5 40,10 30,15" fill="#F39C12"/>
+    </g>
+
+    <!-- Phase 5: Monitor -->
+    <g transform="translate(740, 50)">
+      <rect width="100" height="110" rx="8" fill="#fff" stroke="#8E44AD" stroke-width="2"/>
+      <text x="50" y="28" text-anchor="middle" fill="#8E44AD" font-size="11" font-weight="600" letter-spacing="1">PHASE 5</text>
+      <text x="50" y="52" text-anchor="middle" fill="#0D2B4E" font-size="15" font-weight="700">Monitor</text>
+      <text x="50" y="72" text-anchor="middle" fill="#7F8C8D" font-size="11">GET /jobstatus</text>
+      <rect x="5" y="95" width="90" height="4" rx="2" fill="#8E44AD"/>
+    </g>
+
+    <!-- Data flow section -->
+    <g transform="translate(30, 200)">
+      <rect width="800" height="120" rx="6" fill="#EBF5FB" stroke="#D4E6F1" stroke-width="1"/>
+      <text x="400" y="22" text-anchor="middle" fill="#2E86C1" font-size="11" font-weight="600" letter-spacing="1.5">DATA FLOW</text>
+
+      <!-- Production -->
+      <g transform="translate(30, 40)">
+        <rect width="100" height="50" rx="4" fill="#E74C3C" opacity="0.15"/>
+        <rect width="100" height="50" rx="4" fill="none" stroke="#E74C3C" stroke-width="1.5"/>
+        <text x="50" y="22" text-anchor="middle" fill="#E74C3C" font-size="12" font-weight="600">Production</text>
+        <text x="50" y="38" text-anchor="middle" fill="#E74C3C" font-size="10">Source Data</text>
+      </g>
+
+      <!-- Arrow -->
+      <g transform="translate(140, 58)">
+        <line x1="0" y1="7" x2="30" y2="7" stroke="#7F8C8D" stroke-width="1.5"/>
+        <polygon points="30,3 37,7 30,11" fill="#7F8C8D"/>
+        <text x="15" y="-3" text-anchor="middle" fill="#7F8C8D" font-size="9">CBT/API</text>
+      </g>
+
+      <!-- Staging Disk -->
+      <g transform="translate(185, 40)">
+        <rect width="100" height="50" rx="4" fill="#2E86C1" opacity="0.15"/>
+        <rect width="100" height="50" rx="4" fill="none" stroke="#2E86C1" stroke-width="1.5"/>
+        <text x="50" y="22" text-anchor="middle" fill="#2E86C1" font-size="12" font-weight="600">Staging Disk</text>
+        <text x="50" y="38" text-anchor="middle" fill="#2E86C1" font-size="10">Golden Copy</text>
+      </g>
+
+      <!-- Arrow -->
+      <g transform="translate(295, 58)">
+        <line x1="0" y1="7" x2="30" y2="7" stroke="#7F8C8D" stroke-width="1.5"/>
+        <polygon points="30,3 37,7 30,11" fill="#7F8C8D"/>
+        <text x="15" y="-3" text-anchor="middle" fill="#7F8C8D" font-size="9">Snapshot</text>
+      </g>
+
+      <!-- Snapshot Pool -->
+      <g transform="translate(340, 40)">
+        <rect width="100" height="50" rx="4" fill="#27AE60" opacity="0.15"/>
+        <rect width="100" height="50" rx="4" fill="none" stroke="#27AE60" stroke-width="1.5"/>
+        <text x="50" y="22" text-anchor="middle" fill="#27AE60" font-size="12" font-weight="600">Snapshot Pool</text>
+        <text x="50" y="38" text-anchor="middle" fill="#27AE60" font-size="10">Point-in-Time</text>
+      </g>
+
+      <!-- Arrow to Dedup -->
+      <g transform="translate(450, 58)">
+        <line x1="0" y1="7" x2="30" y2="7" stroke="#7F8C8D" stroke-width="1.5"/>
+        <polygon points="30,3 37,7 30,11" fill="#7F8C8D"/>
+        <text x="15" y="-3" text-anchor="middle" fill="#7F8C8D" font-size="9">Dedup</text>
+      </g>
+
+      <!-- Dedup Pool -->
+      <g transform="translate(495, 40)">
+        <rect width="100" height="50" rx="4" fill="#F39C12" opacity="0.15"/>
+        <rect width="100" height="50" rx="4" fill="none" stroke="#F39C12" stroke-width="1.5"/>
+        <text x="50" y="22" text-anchor="middle" fill="#F39C12" font-size="12" font-weight="600">Dedup Pool</text>
+        <text x="50" y="38" text-anchor="middle" fill="#F39C12" font-size="10">Long-Term</text>
+      </g>
+
+      <!-- Arrow to OnVault -->
+      <g transform="translate(605, 58)">
+        <line x1="0" y1="7" x2="30" y2="7" stroke="#7F8C8D" stroke-width="1.5"/>
+        <polygon points="30,3 37,7 30,11" fill="#7F8C8D"/>
+        <text x="15" y="-3" text-anchor="middle" fill="#7F8C8D" font-size="9">OnVault</text>
+      </g>
+
+      <!-- OnVault / Cloud -->
+      <g transform="translate(645, 40)">
+        <rect width="130" height="50" rx="4" fill="#8E44AD" opacity="0.15"/>
+        <rect width="130" height="50" rx="4" fill="none" stroke="#8E44AD" stroke-width="1.5"/>
+        <text x="65" y="22" text-anchor="middle" fill="#8E44AD" font-size="12" font-weight="600">OnVault / Cloud</text>
+        <text x="65" y="38" text-anchor="middle" fill="#8E44AD" font-size="10">AWS, GCP, Azure</text>
+      </g>
+    </g>
+  </svg>
+</div>
+
+<p>The diagram above shows two layers. The <strong>top row</strong> represents the five API workflow phases that an administrator or automation script executes. The <strong>bottom row</strong> shows how data physically moves through VDP's storage tiers: from production systems, through staging disks (golden copy), into snapshot pools (point-in-time recovery), dedup pools (long-term retention), and OnVault targets (cloud archive).</p>
+
+<div class="section-divider"></div>
+
+<!-- ===== PHASE 1: AUTHENTICATE ===== -->
+<div class="phase-marker" id="phase1"><span class="num">1</span> Authenticate</div>
+
+<h2>Phase 1: Session Management</h2>
+
+<h3>Business Context</h3>
+<p>Before any data protection operation can be performed, the calling application must establish an authenticated session with the Actifio appliance. VDP uses session-based authentication where a session ID acts as a temporary access token for all subsequent API calls. This session model ensures that each automation run operates within a defined security context with appropriate role-based permissions.</p>
+
+<p>The following data flow describes the authentication sequence:</p>
+
+<ul class="data-flow-list">
+  <li><strong>Client sends credentials</strong> via HTTP Basic Authentication to the session endpoint. The Actifio appliance validates the credentials against its local user store or connected directory service (LDAP/AD).</li>
+  <li><strong>Appliance returns a session ID</strong> (UUID format) along with the session timeout value. This session ID must be included in the <code>Authorization</code> header of every subsequent request.</li>
+  <li><strong>Client performs API operations</strong> using the session ID. Each request resets the inactivity timer.</li>
+  <li><strong>Client terminates the session</strong> explicitly via the DELETE endpoint when operations are complete. This frees server resources immediately rather than waiting for timeout.</li>
+</ul>
+
+<div class="callout tip">
+  <strong>Best Practice:</strong> Always wrap your API automation in a try/finally block that deletes the session on completion, even if an error occurs. Orphaned sessions consume server resources until they time out (default: 30 minutes).
+</div>
+
+<!-- Endpoint: Create Session -->
+<div class="endpoint-block" id="ep-create-session">
+  <div class="endpoint-header">
+    <span class="method-badge post">POST</span>
+    <span class="endpoint-path">/actifio/session</span>
+  </div>
+  <div class="endpoint-body">
+    <p>Authenticates with the Actifio appliance and returns a session ID for subsequent API calls.</p>
+
+    <h4>Authentication</h4>
+    <p>HTTP Basic Authentication. Pass credentials as <code>username:password</code> in the Authorization header.</p>
+
+    <h4>Sample Request</h4>
+    <div class="code-block">
+<span class="comment"># Authenticate and capture the session ID</span>
+curl -X POST \
+  --user admin:password \
+  -H <span class="string">"Content-Type: application/json"</span> \
+  -k https://10.0.0.1/actifio/session
+    </div>
+
+    <h4>Response Fields</h4>
+    <table>
+      <thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td><code>id</code></td><td>string</td><td>Session ID in UUID format. Include this in the Authorization header as <code>Actifio {id}</code> for all subsequent requests.</td></tr>
+        <tr><td><code>username</code></td><td>string</td><td>Authenticated username for this session.</td></tr>
+        <tr><td><code>timeout</code></td><td>integer</td><td>Session inactivity timeout in seconds. Default: 1800 (30 minutes).</td></tr>
+      </tbody>
+    </table>
+
+    <h4>Sample Response <span style="color: var(--success); font-weight: 400;">(200 OK)</span></h4>
+    <div class="code-block">
+{
+  <span class="key">"id"</span>: <span class="string">"61eaf9e3-eca3-487b-a62a-9d7d2931a84d"</span>,
+  <span class="key">"username"</span>: <span class="string">"admin"</span>,
+  <span class="key">"timeout"</span>: <span class="number">1800</span>
+}
+    </div>
+  </div>
+</div>
+
+<!-- Endpoint: Delete Session -->
+<div class="endpoint-block" id="ep-delete-session">
+  <div class="endpoint-header">
+    <span class="method-badge delete">DELETE</span>
+    <span class="endpoint-path">/actifio/session/{session_id}</span>
+  </div>
+  <div class="endpoint-body">
+    <p>Terminates an active session and releases server resources. Always call this endpoint after completing API operations.</p>
+
+    <h4>Path Parameters</h4>
+    <table>
+      <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td><code>session_id</code></td><td>string</td><td>The session ID returned by the POST /session endpoint.</td></tr>
+      </tbody>
+    </table>
+
+    <h4>Sample Request</h4>
+    <div class="code-block">
+curl -X DELETE \
+  -k https://10.0.0.1/actifio/session/61eaf9e3-eca3-487b-a62a-9d7d2931a84d
+    </div>
+    <p><strong>Response:</strong> <code>204 No Content</code> (empty body on success).</p>
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- ===== PHASE 2: DISCOVER ===== -->
+<div class="phase-marker" id="phase2" style="background: #2E86C1;"><span class="num">2</span> Discover</div>
+
+<h2>Phase 2: Application Discovery</h2>
+
+<h3>Business Context</h3>
+<p>Before you can protect data, you need to know what data exists. The Discovery phase retrieves the inventory of applications (databases, VMs, file systems) that the Actifio appliance has discovered on connected hosts. Each application represents a workload that can be protected by VDP.</p>
+
+<p>In a typical enterprise workflow, discovery happens in two stages:</p>
+
+<ul class="data-flow-list">
+  <li><strong>List all applications</strong> to get a broad inventory of what the appliance can see. Filter by application type (VMBackup, SQLServerWriter, OracleDB, FileSystem) to focus on specific workload categories.</li>
+  <li><strong>Inspect individual applications</strong> to retrieve detailed metadata including host information, current SLA assignment, protection status, and last backup timestamp. This determines which applications need protection policies applied.</li>
+</ul>
+
+<!-- Process Diagram: Discovery Flow -->
+<div class="process-diagram">
+  <div class="diagram-title">Figure 2: Application Discovery and Assessment Flow</div>
+  <svg viewBox="0 0 820 200" xmlns="http://www.w3.org/2000/svg" font-family="Source Sans Pro, sans-serif">
+    <rect width="820" height="200" fill="#FAFBFC" rx="6"/>
+
+    <!-- Step 1: Host Scan -->
+    <g transform="translate(20, 40)">
+      <rect width="160" height="70" rx="6" fill="#EBF5FB" stroke="#2E86C1" stroke-width="1.5"/>
+      <text x="80" y="30" text-anchor="middle" fill="#2E86C1" font-size="13" font-weight="600">Host Discovery</text>
+      <text x="80" y="48" text-anchor="middle" fill="#7F8C8D" font-size="11">Actifio Connector scans</text>
+      <text x="80" y="62" text-anchor="middle" fill="#7F8C8D" font-size="11">hosts for workloads</text>
+    </g>
+
+    <!-- Arrow -->
+    <g transform="translate(185, 70)"><line x1="0" y1="5" x2="25" y2="5" stroke="#2E86C1" stroke-width="1.5"/><polygon points="25,1 32,5 25,9" fill="#2E86C1"/></g>
+
+    <!-- Step 2: API List -->
+    <g transform="translate(220, 40)">
+      <rect width="160" height="70" rx="6" fill="#fff" stroke="#0D2B4E" stroke-width="1.5"/>
+      <text x="80" y="25" text-anchor="middle" fill="#0D2B4E" font-size="13" font-weight="600">GET /application</text>
+      <text x="80" y="43" text-anchor="middle" fill="#7F8C8D" font-size="11">Retrieve full inventory</text>
+      <text x="80" y="57" text-anchor="middle" fill="#7F8C8D" font-size="11">Filter by type, host, status</text>
+    </g>
+
+    <!-- Arrow -->
+    <g transform="translate(385, 70)"><line x1="0" y1="5" x2="25" y2="5" stroke="#2E86C1" stroke-width="1.5"/><polygon points="25,1 32,5 25,9" fill="#2E86C1"/></g>
+
+    <!-- Step 3: Assess -->
+    <g transform="translate(420, 40)">
+      <rect width="160" height="70" rx="6" fill="#fff" stroke="#F39C12" stroke-width="1.5"/>
+      <text x="80" y="25" text-anchor="middle" fill="#F39C12" font-size="13" font-weight="600">Assess Status</text>
+      <text x="80" y="43" text-anchor="middle" fill="#7F8C8D" font-size="11">Check protectionstatus</text>
+      <text x="80" y="57" text-anchor="middle" fill="#7F8C8D" font-size="11">Identify unprotected apps</text>
+    </g>
+
+    <!-- Arrow -->
+    <g transform="translate(585, 70)"><line x1="0" y1="5" x2="25" y2="5" stroke="#F39C12" stroke-width="1.5"/><polygon points="25,1 32,5 25,9" fill="#27AE60"/></g>
+
+    <!-- Step 4: Apply SLA -->
+    <g transform="translate(620, 40)">
+      <rect width="180" height="70" rx="6" fill="#E8F8F0" stroke="#27AE60" stroke-width="1.5"/>
+      <text x="90" y="25" text-anchor="middle" fill="#27AE60" font-size="13" font-weight="600">Apply SLA Policy</text>
+      <text x="90" y="43" text-anchor="middle" fill="#7F8C8D" font-size="11">Assign protection template</text>
+      <text x="90" y="57" text-anchor="middle" fill="#7F8C8D" font-size="11">&rarr; Proceed to Phase 3</text>
+    </g>
+
+    <!-- Decision diamond -->
+    <g transform="translate(480, 130)">
+      <polygon points="40,0 80,20 40,40 0,20" fill="#FEF9E7" stroke="#F39C12" stroke-width="1.5"/>
+      <text x="40" y="24" text-anchor="middle" fill="#F39C12" font-size="10" font-weight="600">Protected?</text>
+    </g>
+    <line x1="500" y1="110" x2="500" y2="130" stroke="#F39C12" stroke-width="1" stroke-dasharray="4,2"/>
+    <text x="515" y="165" fill="#27AE60" font-size="10" font-weight="600">No &rarr; Apply SLA</text>
+    <text x="420" y="165" fill="#7F8C8D" font-size="10">Yes &rarr; Skip</text>
+  </svg>
+</div>
+
+<!-- Endpoint: List Applications -->
+<div class="endpoint-block" id="ep-list-apps">
+  <div class="endpoint-header">
+    <span class="method-badge get">GET</span>
+    <span class="endpoint-path">/actifio/application</span>
+  </div>
+  <div class="endpoint-body">
+    <p>Retrieves the inventory of applications discovered by the Actifio appliance. Applications represent workloads (databases, VMs, file systems) that can be protected by VDP.</p>
+
+    <h4>Query Parameters</h4>
+    <table>
+      <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td><code>filter</code></td><td>string</td><td>No</td><td>Filter expression. Format: <code>field:==value</code>. Example: <code>apptype:==VMBackup</code></td></tr>
+        <tr><td><code>limit</code></td><td>integer</td><td>No</td><td>Maximum results. Default: 50. Maximum: 500.</td></tr>
+        <tr><td><code>offset</code></td><td>integer</td><td>No</td><td>Records to skip for pagination. Default: 0.</td></tr>
+        <tr><td><code>sort</code></td><td>string</td><td>No</td><td>Sort field and order. Format: <code>field:asc</code> or <code>field:desc</code>.</td></tr>
+      </tbody>
+    </table>
+
+    <h4>Sample Request</h4>
+    <div class="code-block">
+<span class="comment"># List all SQL Server applications</span>
+curl -X GET \
+  -H <span class="string">"Content-Type: application/json"</span> \
+  -H <span class="string">"Authorization: Actifio 61eaf9e3-eca3-487b-a62a-9d7d2931a84d"</span> \
+  -k <span class="string">"https://10.0.0.1/actifio/application?filter=apptype:==SQLServerWriter&limit=10"</span>
+    </div>
+
+    <h4>Response Fields</h4>
+    <table>
+      <thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td><code>id</code></td><td>string</td><td>Unique application identifier.</td></tr>
+        <tr><td><code>appname</code></td><td>string</td><td>Display name (database name, VM name, etc.).</td></tr>
+        <tr><td><code>apptype</code></td><td>string</td><td>Values: <code>VMBackup</code>, <code>SQLServerWriter</code>, <code>OracleDB</code>, <code>FileSystem</code>, <code>SystemState</code>.</td></tr>
+        <tr><td><code>hostname</code></td><td>string</td><td>Host on which the application resides.</td></tr>
+        <tr><td><code>sla</code></td><td>object</td><td>Assigned SLA policy. Contains <code>id</code> and <code>name</code>.</td></tr>
+        <tr><td><code>protectionstatus</code></td><td>string</td><td>Values: <code>protected</code>, <code>unprotected</code>, <code>partial</code>.</td></tr>
+        <tr><td><code>lastbackuptime</code></td><td>string</td><td>ISO 8601 timestamp of last successful backup.</td></tr>
+      </tbody>
+    </table>
+
+    <h4>Sample Response <span style="color: var(--success); font-weight: 400;">(200 OK)</span></h4>
+    <div class="code-block">
+{
+  <span class="key">"count"</span>: <span class="number">2</span>,
+  <span class="key">"items"</span>: [
+    {
+      <span class="key">"id"</span>: <span class="string">"40215"</span>,
+      <span class="key">"appname"</span>: <span class="string">"proddb_sqlserver"</span>,
+      <span class="key">"apptype"</span>: <span class="string">"SQLServerWriter"</span>,
+      <span class="key">"hostname"</span>: <span class="string">"sql-prod-01.corp.local"</span>,
+      <span class="key">"sla"</span>: { <span class="key">"id"</span>: <span class="string">"5021"</span>, <span class="key">"name"</span>: <span class="string">"Gold-4Hr-RPO"</span> },
+      <span class="key">"protectionstatus"</span>: <span class="string">"protected"</span>,
+      <span class="key">"lastbackuptime"</span>: <span class="string">"2021-11-15T04:30:00Z"</span>
+    }
+  ]
+}
+    </div>
+  </div>
+</div>
+
+<div class="callout info">
+  <strong>Automation Use Case:</strong> A common DevOps pattern is to run a nightly script that calls GET /application with <code>filter=protectionstatus:==unprotected</code>, then automatically assigns an SLA policy to any newly discovered workloads. This ensures no application goes unprotected after deployment.
+</div>
+
+<div class="section-divider"></div>
+
+<!-- ===== PHASE 3: PROTECT ===== -->
+<div class="phase-marker" id="phase3" style="background: #27AE60;"><span class="num">3</span> Protect</div>
+
+<h2>Phase 3: Backup Orchestration</h2>
+
+<h3>Business Context</h3>
+<p>Protection in VDP is policy-driven. Service Level Agreements (SLAs) define the backup frequency, retention period, and replication targets for each application. Once an SLA is applied to an application, VDP automatically executes backups according to the schedule. However, the API also supports on-demand backups for scenarios like pre-deployment snapshots, pre-migration captures, or compliance-triggered archival.</p>
+
+<p>The protection workflow involves three steps:</p>
+
+<ul class="data-flow-list">
+  <li><strong>List available SLA templates</strong> to understand what protection policies exist. Each SLA defines the RPO (Recovery Point Objective), retention window, and storage tier targets.</li>
+  <li><strong>Apply an SLA to an application</strong> to activate scheduled protection. The appliance begins executing backups according to the SLA schedule.</li>
+  <li><strong>Trigger on-demand backups</strong> when immediate protection is needed outside the scheduled window.</li>
+</ul>
+
+<!-- Endpoint: Run On-Demand Backup -->
+<div class="endpoint-block" id="ep-run-backup">
+  <div class="endpoint-header">
+    <span class="method-badge post">POST</span>
+    <span class="endpoint-path">/actifio/backup</span>
+  </div>
+  <div class="endpoint-body">
+    <p>Triggers an on-demand backup for a specific application. Use this when you need an immediate point-in-time capture outside the SLA schedule.</p>
+
+    <h4>Request Body</h4>
+    <table>
+      <thead><tr><th>Field</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td><code>appid</code></td><td>string</td><td>Yes</td><td>Application ID from the Discovery phase.</td></tr>
+        <tr><td><code>policyid</code></td><td>string</td><td>Yes</td><td>SLA policy ID. Determines backup type and retention.</td></tr>
+        <tr><td><code>label</code></td><td>string</td><td>No</td><td>Custom label for this backup (e.g., "pre-deploy-v2.4").</td></tr>
+      </tbody>
+    </table>
+
+    <h4>Sample Request</h4>
+    <div class="code-block">
+<span class="comment"># Trigger on-demand backup before deployment</span>
+curl -X POST \
+  -H <span class="string">"Content-Type: application/json"</span> \
+  -H <span class="string">"Authorization: Actifio 61eaf9e3-eca3-487b-a62a-9d7d2931a84d"</span> \
+  -d <span class="string">'{
+    "appid": "40215",
+    "policyid": "5021",
+    "label": "pre-deploy-v2.4"
+  }'</span> \
+  -k https://10.0.0.1/actifio/backup
+    </div>
+
+    <h4>Sample Response <span style="color: var(--success); font-weight: 400;">(200 OK)</span></h4>
+    <div class="code-block">
+{
+  <span class="key">"id"</span>: <span class="string">"92145"</span>,
+  <span class="key">"jobname"</span>: <span class="string">"Job_0092145"</span>,
+  <span class="key">"status"</span>: <span class="string">"running"</span>,
+  <span class="key">"progress"</span>: <span class="number">0</span>,
+  <span class="key">"appname"</span>: <span class="string">"proddb_sqlserver"</span>
+}
+    </div>
+
+    <div class="callout warning">
+      <strong>Important:</strong> The POST /backup endpoint returns immediately with the job ID and a <code>running</code> status. The backup executes asynchronously. Use the Phase 5 monitoring endpoint (<code>GET /jobstatus</code>) to track progress and confirm completion before proceeding with deployment.
+    </div>
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- ===== PHASE 4: ACCESS ===== -->
+<div class="phase-marker" id="phase4" style="background: #F39C12;"><span class="num">4</span> Access</div>
+
+<h2>Phase 4: Data Virtualisation and Instant Mount</h2>
+
+<h3>Business Context</h3>
+<p>This is where VDP's core value proposition comes to life. Traditional data recovery requires copying entire datasets back to production, which can take hours for large databases. VDP's instant mount technology presents a virtual read/write copy of backup data directly to a target host in <strong>minutes</strong>, regardless of dataset size. This enables:</p>
+
+<ul class="data-flow-list">
+  <li><strong>Test/Dev provisioning:</strong> Mount a production database copy to a development server for testing without moving terabytes of data.</li>
+  <li><strong>Disaster recovery:</strong> Instantly mount a backup image to a recovery host to restore service within minutes of an outage.</li>
+  <li><strong>Analytics and reporting:</strong> Mount a point-in-time copy to an analytics cluster without impacting production performance.</li>
+  <li><strong>Compliance and forensics:</strong> Access historical data from any retention point for audit or investigation purposes.</li>
+</ul>
+
+<!-- Process Diagram: Mount Workflow -->
+<div class="process-diagram">
+  <div class="diagram-title">Figure 3: Instant Mount Workflow for Test/Dev Provisioning</div>
+  <svg viewBox="0 0 820 180" xmlns="http://www.w3.org/2000/svg" font-family="Source Sans Pro, sans-serif">
+    <rect width="820" height="180" fill="#FAFBFC" rx="6"/>
+
+    <!-- Step 1 -->
+    <g transform="translate(20, 30)">
+      <rect width="150" height="65" rx="6" fill="#EBF5FB" stroke="#2E86C1" stroke-width="1.5"/>
+      <text x="75" y="27" text-anchor="middle" fill="#2E86C1" font-size="12" font-weight="600">List Backups</text>
+      <text x="75" y="45" text-anchor="middle" fill="#7F8C8D" font-size="10">GET /backup</text>
+      <text x="75" y="58" text-anchor="middle" fill="#7F8C8D" font-size="10">Filter by app + date</text>
+    </g>
+    <g transform="translate(175, 58)"><line x1="0" y1="5" x2="20" y2="5" stroke="#2E86C1" stroke-width="1.5"/><polygon points="20,1 27,5 20,9" fill="#2E86C1"/></g>
+
+    <!-- Step 2 -->
+    <g transform="translate(200, 30)">
+      <rect width="150" height="65" rx="6" fill="#FEF9E7" stroke="#F39C12" stroke-width="1.5"/>
+      <text x="75" y="27" text-anchor="middle" fill="#F39C12" font-size="12" font-weight="600">Select Image</text>
+      <text x="75" y="45" text-anchor="middle" fill="#7F8C8D" font-size="10">Choose point-in-time</text>
+      <text x="75" y="58" text-anchor="middle" fill="#7F8C8D" font-size="10">by consistencydate</text>
+    </g>
+    <g transform="translate(355, 58)"><line x1="0" y1="5" x2="20" y2="5" stroke="#F39C12" stroke-width="1.5"/><polygon points="20,1 27,5 20,9" fill="#F39C12"/></g>
+
+    <!-- Step 3 -->
+    <g transform="translate(380, 30)">
+      <rect width="150" height="65" rx="6" fill="#E8F8F0" stroke="#27AE60" stroke-width="1.5"/>
+      <text x="75" y="27" text-anchor="middle" fill="#27AE60" font-size="12" font-weight="600">Mount Image</text>
+      <text x="75" y="45" text-anchor="middle" fill="#7F8C8D" font-size="10">POST /backup/{id}/mount</text>
+      <text x="75" y="58" text-anchor="middle" fill="#7F8C8D" font-size="10">Specify target host</text>
+    </g>
+    <g transform="translate(535, 58)"><line x1="0" y1="5" x2="20" y2="5" stroke="#27AE60" stroke-width="1.5"/><polygon points="20,1 27,5 20,9" fill="#27AE60"/></g>
+
+    <!-- Step 4 -->
+    <g transform="translate(560, 30)">
+      <rect width="120" height="65" rx="6" fill="#F5EEF8" stroke="#8E44AD" stroke-width="1.5"/>
+      <text x="60" y="27" text-anchor="middle" fill="#8E44AD" font-size="12" font-weight="600">Monitor</text>
+      <text x="60" y="45" text-anchor="middle" fill="#7F8C8D" font-size="10">GET /jobstatus</text>
+      <text x="60" y="58" text-anchor="middle" fill="#7F8C8D" font-size="10">Wait for completion</text>
+    </g>
+    <g transform="translate(685, 58)"><line x1="0" y1="5" x2="20" y2="5" stroke="#8E44AD" stroke-width="1.5"/><polygon points="20,1 27,5 20,9" fill="#0D2B4E"/></g>
+
+    <!-- Step 5 -->
+    <g transform="translate(710, 30)">
+      <rect width="95" height="65" rx="6" fill="#0D2B4E"/>
+      <text x="47" y="27" text-anchor="middle" fill="#79B8FF" font-size="12" font-weight="600">Ready</text>
+      <text x="47" y="45" text-anchor="middle" fill="#B0C4DE" font-size="10">Virtual copy</text>
+      <text x="47" y="58" text-anchor="middle" fill="#B0C4DE" font-size="10">available on host</text>
+    </g>
+
+    <!-- Time annotation -->
+    <g transform="translate(20, 115)">
+      <line x1="0" y1="15" x2="785" y2="15" stroke="#E0E6ED" stroke-width="1" stroke-dasharray="4,3"/>
+      <rect x="300" y="5" width="220" height="22" rx="11" fill="#E8F8F0" stroke="#27AE60" stroke-width="1"/>
+      <text x="410" y="20" text-anchor="middle" fill="#27AE60" font-size="11" font-weight="600">Typical elapsed time: 2 to 5 minutes</text>
+      <text x="410" y="45" text-anchor="middle" fill="#7F8C8D" font-size="10" font-style="italic">Regardless of dataset size (100 GB or 100 TB)</text>
+    </g>
+  </svg>
+</div>
+
+<!-- Endpoint: Mount Backup -->
+<div class="endpoint-block" id="ep-mount">
+  <div class="endpoint-header">
+    <span class="method-badge post">POST</span>
+    <span class="endpoint-path">/actifio/backup/{backup_id}/mount</span>
+  </div>
+  <div class="endpoint-body">
+    <p>Creates a virtual read/write mount of a backup image on a target host. The mount is available within minutes regardless of the dataset size because VDP presents the data in-place from the snapshot pool without copying.</p>
+
+    <h4>Path Parameters</h4>
+    <table>
+      <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td><code>backup_id</code></td><td>string</td><td>Backup image ID from the GET /backup response.</td></tr>
+      </tbody>
+    </table>
+
+    <h4>Request Body</h4>
+    <table>
+      <thead><tr><th>Field</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td><code>host</code></td><td>string</td><td>Yes</td><td>Target host name or ID where the image will be mounted.</td></tr>
+        <tr><td><code>mountpoint</code></td><td>string</td><td>No</td><td>Custom mount path on the target host. If omitted, VDP assigns a default path.</td></tr>
+        <tr><td><code>label</code></td><td>string</td><td>No</td><td>Custom label for this mount (e.g., "qa-refresh-sprint-42").</td></tr>
+      </tbody>
+    </table>
+
+    <h4>Sample Request</h4>
+    <div class="code-block">
+<span class="comment"># Mount a database backup to the QA server</span>
+curl -X POST \
+  -H <span class="string">"Content-Type: application/json"</span> \
+  -H <span class="string">"Authorization: Actifio 61eaf9e3-eca3-487b-a62a-9d7d2931a84d"</span> \
+  -d <span class="string">'{
+    "host": "sql-qa-01.corp.local",
+    "label": "qa-refresh-sprint-42"
+  }'</span> \
+  -k https://10.0.0.1/actifio/backup/85082/mount
+    </div>
+
+    <h4>Sample Response <span style="color: var(--success); font-weight: 400;">(200 OK)</span></h4>
+    <div class="code-block">
+{
+  <span class="key">"id"</span>: <span class="string">"92301"</span>,
+  <span class="key">"jobname"</span>: <span class="string">"Job_0092301"</span>,
+  <span class="key">"status"</span>: <span class="string">"running"</span>,
+  <span class="key">"mounthost"</span>: <span class="string">"sql-qa-01.corp.local"</span>,
+  <span class="key">"sourcebackup"</span>: <span class="string">"85082"</span>
+}
+    </div>
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- ===== PHASE 5: MONITOR ===== -->
+<div class="phase-marker" id="phase5" style="background: #8E44AD;"><span class="num">5</span> Monitor</div>
+
+<h2>Phase 5: Job Monitoring</h2>
+
+<h3>Business Context</h3>
+<p>Backup and mount operations execute asynchronously. The monitoring phase provides visibility into job progress, status, and outcome. In automated pipelines, this endpoint is polled at intervals to determine when an operation has completed before proceeding to the next step (e.g., waiting for a backup to finish before starting a deployment, or waiting for a mount to complete before running test suites).</p>
+
+<div class="endpoint-block" id="ep-list-jobs">
+  <div class="endpoint-header">
+    <span class="method-badge get">GET</span>
+    <span class="endpoint-path">/actifio/jobstatus?filter=jobname:=={job_name}</span>
+  </div>
+  <div class="endpoint-body">
+    <p>Retrieves the current status and progress of a running or completed job.</p>
+
+    <h4>Response Fields</h4>
+    <table>
+      <thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td><code>jobname</code></td><td>string</td><td>System-generated job identifier.</td></tr>
+        <tr><td><code>status</code></td><td>string</td><td>Values: <code>running</code>, <code>succeeded</code>, <code>failed</code>, <code>cancelled</code>.</td></tr>
+        <tr><td><code>progress</code></td><td>integer</td><td>Percentage complete (0 to 100).</td></tr>
+        <tr><td><code>startdate</code></td><td>string</td><td>ISO 8601 timestamp when the job started.</td></tr>
+        <tr><td><code>duration</code></td><td>string</td><td>Elapsed time in human-readable format.</td></tr>
+        <tr><td><code>errorcode</code></td><td>integer</td><td>Error code if the job failed. 0 for success.</td></tr>
+        <tr><td><code>errormessage</code></td><td>string</td><td>Descriptive error message if applicable.</td></tr>
+      </tbody>
+    </table>
+
+    <h4>Polling Pattern</h4>
+    <div class="code-block">
+<span class="comment"># Poll every 30 seconds until job completes</span>
+JOB_NAME=<span class="string">"Job_0092301"</span>
+<span class="key">while</span> true; <span class="key">do</span>
+  STATUS=$(curl -sS -X GET \
+    -H <span class="string">"Authorization: Actifio $SESSION_ID"</span> \
+    -k <span class="string">"https://10.0.0.1/actifio/jobstatus?filter=jobname:==$JOB_NAME"</span> \
+    | jq -r <span class="string">'.items[0].status'</span>)
+
+  echo <span class="string">"Status: $STATUS"</span>
+
+  <span class="key">if</span> [ <span class="string">"$STATUS"</span> = <span class="string">"succeeded"</span> ] || [ <span class="string">"$STATUS"</span> = <span class="string">"failed"</span> ]; <span class="key">then</span>
+    <span class="key">break</span>
+  <span class="key">fi</span>
+
+  sleep <span class="number">30</span>
+<span class="key">done</span>
+    </div>
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- ===== ERROR CODES ===== -->
+<h2 id="errors">Error Codes Reference</h2>
+
+<table>
+  <thead><tr><th>Code</th><th>Message</th><th>Resolution</th></tr></thead>
+  <tbody>
+    <tr><td><code>401</code></td><td>Unauthorized</td><td>Session ID missing, invalid, or expired. Create a new session.</td></tr>
+    <tr><td><code>403</code></td><td>Forbidden</td><td>User lacks permissions. Verify role assignments with the Actifio administrator.</td></tr>
+    <tr><td><code>404</code></td><td>Not Found</td><td>The specified resource does not exist. Verify the ID and retry.</td></tr>
+    <tr><td><code>409</code></td><td>Conflict</td><td>Operation conflicts with current state (e.g., backup already running for this application).</td></tr>
+    <tr><td><code>500</code></td><td>Internal Server Error</td><td>Appliance-side error. Check appliance health via Actifio Desktop and contact support if persistent.</td></tr>
+    <tr><td><code>503</code></td><td>Service Unavailable</td><td>Appliance is under maintenance or overloaded. Implement retry with exponential backoff.</td></tr>
+  </tbody>
+</table>
+
+<div class="section-divider"></div>
+
+<!-- ===== BEST PRACTICES ===== -->
+<h2 id="best-practices">API Integration Best Practices</h2>
+
+<h3>Session Management</h3>
+<p>Always delete sessions explicitly after completing operations. Wrap your automation in try/finally blocks. Never store session IDs in logs or pass them as URL parameters.</p>
+
+<h3>Filtering and Pagination</h3>
+<p>Use filter parameters to limit result sets. Large unfiltered queries impact appliance performance. Implement pagination with <code>limit</code> and <code>offset</code> for datasets larger than 50 records.</p>
+
+<h3>Asynchronous Operations</h3>
+<p>Backup and mount operations return immediately with a job ID. Always poll <code>GET /jobstatus</code> to confirm completion before proceeding. Recommended polling interval: 30 seconds for backups, 15 seconds for mounts.</p>
+
+<h3>Error Handling</h3>
+<p>Implement retry logic with exponential backoff for 503 errors. For 401 errors, automatically re-authenticate and retry the failed request once. Log all 500 errors with the full response body for support escalation.</p>
+
+<h3>Security</h3>
+<p>Use HTTPS for all API communication. The <code>-k</code> flag in curl examples bypasses certificate verification for testing only. Production environments must use valid TLS certificates.</p>
+
+<div class="callout tip">
+  <strong>CI/CD Integration Pattern:</strong> Embed VDP API calls in your deployment pipeline: trigger a pre-deploy backup (Phase 3), wait for completion (Phase 5), proceed with deployment, then on failure, mount the pre-deploy image (Phase 4) to the production host for instant rollback.
+</div>
+
+<div style="margin-top: 64px; padding-top: 24px; border-top: 1px solid var(--border); font-size: 13px; color: var(--text-light);">
+  <p><strong>Document Information</strong></p>
+  <p>Author: Kalyan Voolse | Type: Recreated API Documentation Sample<br>
+  Based on work at Persistent Systems (Client: Actifio, acquired by Google) | October 2020 to January 2022<br>
+  Documentation approach: Business-process-driven API reference with embedded workflow diagrams</p>
+</div>
+
+</main>
+</div>
+
+</body>
+</html>
