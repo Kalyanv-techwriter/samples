@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Actifio 10.0 Platform Troubleshooting Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0d2b4e;
+  --body:#3d5166;
+  --muted:#7f98b2;
+  --bg:#f5f7fa;
+  --card:#fff;
+  --border:#dde4ed;
+  --navy:#0d2b4e;
+  --navy-mid:#1a4a7a;
+  --blue:#2e6cad;
+  --blue-light:#eaf1f8;
+  --green:#1e8449;
+  --green-light:#eafaf1;
+  --amber:#d4820a;
+  --amber-light:#fef9ee;
+  --red:#c0392b;
+  --red-light:#fdf3f2;
+  --tag-bg:#edf0f4;
+  --code-bg:#0d2b4e;
+  --code:#b0c9e0;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'DM Sans',-apple-system,sans-serif;background:var(--bg);color:var(--body);line-height:1.7;-webkit-font-smoothing:antialiased}
+.wrap{max-width:860px;margin:0 auto;padding:0 32px}
+
+/* HEADER */
+.doc-header{background:linear-gradient(135deg,#081e38 0%,#0d2b4e 50%,#1a4a7a 100%);color:#fff;padding:48px 0 40px}
+.doc-header .wrap{display:flex;flex-direction:column;gap:8px}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:rgba(255,255,255,.6);font-size:12px;text-decoration:none;margin-bottom:16px;transition:color .2s}
+.back-link:hover{color:#fff}
+.back-link svg{width:14px;height:14px}
+.doc-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:6px;padding:4px 12px;font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;width:fit-content;margin-bottom:8px}
+.doc-badge .dot{width:6px;height:6px;border-radius:50%;background:#5dade2}
+.doc-header h1{font-size:30px;font-weight:700;line-height:1.2;margin-bottom:8px}
+.doc-header .subtitle{font-size:16px;opacity:.85;max-width:660px}
+.doc-meta{display:flex;gap:20px;margin-top:16px;font-size:12px;opacity:.6;flex-wrap:wrap}
+
+/* APPROACH NOTE */
+.approach-note{background:#eafaf1;border:1.5px solid #a9dfbf;border-radius:10px;padding:20px 24px;margin:32px 0}
+.approach-note-title{font-size:13px;font-weight:700;color:#1e8449;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px}
+.approach-note p{font-size:14px;color:#1a5e35}
+.approach-note ul{font-size:13px;color:#1a5e35;margin-top:8px;padding-left:20px}
+.approach-note li{margin-bottom:4px}
+.approach-note a{color:#1e8449;text-decoration:underline}
+
+/* TOC */
+.toc{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:20px 24px;margin:24px 0}
+.toc-title{font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.toc ol{padding-left:20px;font-size:14px}
+.toc li{margin-bottom:4px}
+.toc a{color:var(--blue);text-decoration:none}
+.toc a:hover{text-decoration:underline}
+
+/* SECTION */
+.section{margin:44px 0}
+.section h2{font-size:22px;font-weight:700;color:var(--ink);margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid var(--border)}
+.section h3{font-size:17px;font-weight:700;color:var(--ink);margin:28px 0 12px}
+.section p{margin-bottom:14px;font-size:15px}
+.section ul,.section ol{font-size:14px;padding-left:22px;margin-bottom:14px}
+.section li{margin-bottom:6px;line-height:1.65}
+
+/* CALLOUTS */
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:14px;line-height:1.65}
+.callout-title{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px}
+.callout.info{background:var(--blue-light);border-left:4px solid var(--blue)}
+.callout.info .callout-title{color:var(--blue)}
+.callout.warn{background:var(--amber-light);border-left:4px solid var(--amber)}
+.callout.warn .callout-title{color:var(--amber)}
+.callout.danger{background:var(--red-light);border-left:4px solid var(--red)}
+.callout.danger .callout-title{color:var(--red)}
+.callout.success{background:var(--green-light);border-left:4px solid var(--green)}
+.callout.success .callout-title{color:var(--green)}
+
+/* CODE */
+.code-block{background:var(--code-bg);border-radius:8px;padding:18px 20px;margin:14px 0;overflow-x:auto;position:relative}
+.code-block code{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--code);line-height:1.7;white-space:pre}
+.code-label{position:absolute;top:8px;right:12px;font-family:'JetBrains Mono',monospace;font-size:10px;color:#4a7aa0;letter-spacing:1px;text-transform:uppercase}
+code.inline{font-family:'JetBrains Mono',monospace;font-size:12.5px;background:var(--tag-bg);padding:2px 6px;border-radius:4px;color:var(--ink)}
+
+/* TROUBLESHOOTING CARDS */
+.ts-grid{display:flex;flex-direction:column;gap:14px;margin:20px 0}
+.ts-item{background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.ts-header{background:var(--red-light);padding:14px 20px;border-bottom:1px solid #f5c6c2;display:flex;align-items:flex-start;gap:12px}
+.ts-icon{width:20px;height:20px;flex-shrink:0;margin-top:1px;color:var(--red)}
+.ts-symptom{font-size:14px;font-weight:700;color:#922b21;line-height:1.5;margin:0}
+.ts-body{padding:18px 20px}
+.ts-row{display:flex;gap:14px;margin-bottom:12px;align-items:baseline}
+.ts-row:last-child{margin-bottom:0}
+.ts-label{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;width:56px;flex-shrink:0;padding-top:2px}
+.ts-label.cause{color:var(--red)}
+.ts-label.fix{color:var(--green)}
+.ts-label.cmd{color:var(--blue)}
+.ts-text{font-size:14px;color:var(--body);line-height:1.65;flex:1}
+
+/* ERROR CODE TABLE */
+.err-table{width:100%;border-collapse:collapse;font-size:13px;margin:16px 0}
+.err-table th{background:var(--navy);color:#fff;padding:10px 14px;text-align:left;font-weight:600;font-size:12px;letter-spacing:.5px}
+.err-table td{padding:10px 14px;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.55}
+.err-table tr:hover td{background:var(--bg)}
+.err-code{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--red);font-weight:600}
+.sev{display:inline-block;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:700;letter-spacing:.5px}
+.sev-crit{background:#fdedec;color:#922b21}
+.sev-warn{background:var(--amber-light);color:#7d5a06}
+.sev-info{background:var(--blue-light);color:#1a5276}
+
+/* DIAGRAM */
+.diagram{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:24px;margin:24px 0;overflow-x:auto}
+.diagram-title{font-size:12px;font-weight:600;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:16px}
+
+/* STEPS */
+.steps{margin:20px 0}
+.step{display:flex;gap:16px;margin-bottom:22px;align-items:flex-start}
+.step-num{width:30px;height:30px;border-radius:50%;background:var(--navy);color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.step-content{flex:1;min-width:0}
+.step-content h4{font-size:15px;font-weight:700;color:var(--ink);margin-bottom:6px}
+.step-content p{font-size:14px;margin-bottom:8px;line-height:1.65}
+
+/* TAG */
+.tag{display:inline-block;padding:2px 10px;border-radius:4px;font-size:11px;font-weight:600;background:var(--tag-bg);color:var(--body);margin:2px}
+
+/* FOOTER */
+.doc-footer{background:var(--card);border-top:1px solid var(--border);padding:32px 0;margin-top:56px}
+.doc-footer .wrap{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--muted);flex-wrap:wrap;gap:12px}
+.doc-footer a{color:var(--blue);text-decoration:none}
+.doc-footer a:hover{text-decoration:underline}
+
+@media(max-width:700px){
+  .wrap{padding:0 16px}
+  .doc-header h1{font-size:24px}
+  .err-table{font-size:12px}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="doc-header">
+  <div class="wrap">
+    <a href="index.html" class="back-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+      Back to Writing Samples
+    </a>
+    <div class="doc-badge"><span class="dot"></span>Writing Sample · Actifio / Persistent Systems</div>
+    <h1>Actifio 10.0 Platform Troubleshooting Guide</h1>
+    <p class="subtitle">Diagnose and resolve common issues across backup jobs, replication, restore operations, and platform connectivity in the Actifio Virtual Data Pipeline.</p>
+    <div class="doc-meta">
+      <span>Troubleshooting Guide</span>
+      <span>Platform version: 10.0</span>
+      <span>Audience: System Administrators</span>
+      <span>Tools: FrameMaker · MadCap Flare</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+<!-- APPROACH NOTE -->
+<div class="approach-note">
+  <div class="approach-note-title">About This Sample</div>
+  <p>This page is an HTML rendering of the <a href="https://docs.actifio.com/10.0/PDFs/Troubleshooting.pdf" target="_blank">Actifio 10.0 Troubleshooting Guide PDF</a> that I authored at Persistent Systems. The original was delivered in FrameMaker and MadCap Flare. This version demonstrates how I would structure the same material for a web-native documentation platform, applying the following improvements:</p>
+  <ul>
+    <li>Symptom-first troubleshooting cards that surface the cause and fix at a glance</li>
+    <li>Diagnostic command blocks with inline CLI examples for each scenario</li>
+    <li>Error code reference table with severity ratings for fast triage</li>
+    <li>Callouts that separate warnings, notes, and critical safety steps from body text</li>
+    <li>Diagnostic flow diagram to guide administrators through a structured decision path</li>
+  </ul>
+</div>
+
+<!-- TOC -->
+<nav class="toc">
+  <div class="toc-title">In This Guide</div>
+  <ol>
+    <li><a href="#before-you-troubleshoot">Before You Troubleshoot</a></li>
+    <li><a href="#backup-failures">Backup Job Failures</a></li>
+    <li><a href="#replication-issues">Replication and StreamSnap Issues</a></li>
+    <li><a href="#restore-issues">Mount and Restore Issues</a></li>
+    <li><a href="#connectivity">Appliance and Network Connectivity</a></li>
+    <li><a href="#performance">Performance and Resource Issues</a></li>
+    <li><a href="#error-codes">Error Code Reference</a></li>
+  </ol>
+</nav>
+
+<!-- ============================================================ -->
+<!-- 1. BEFORE YOU TROUBLESHOOT                                    -->
+<!-- ============================================================ -->
+<div class="section" id="before-you-troubleshoot">
+  <h2>1. Before You Troubleshoot</h2>
+  <p>Before diving into a specific issue area, complete the following pre-checks to confirm the platform is in a known state. Many issues trace back to configuration drift or a failed upgrade that left the appliance in a degraded condition.</p>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <h4>Verify appliance health</h4>
+        <p>Log in to the Actifio Desktop or AGM (Actifio Global Manager) and check the <strong>Appliance Health</strong> dashboard. Confirm all services show <strong>Running</strong> status and that no active alerts are present.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <h4>Check the system event log</h4>
+        <p>Navigate to <strong>Monitor &gt; Events</strong> and filter by <strong>Error</strong> and <strong>Warning</strong> severity for the past 24 hours. Note any repeating event IDs — recurring events often indicate a systemic root cause rather than a transient failure.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <h4>Confirm licence validity</h4>
+        <p>Go to <strong>Manage &gt; Appliances &gt; Licence</strong>. Ensure the licence is not expired and that the consumed capacity is within the licensed limit. Capacity overruns cause new backup jobs to queue indefinitely.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-content">
+        <h4>Collect diagnostic bundle (if escalating)</h4>
+        <p>If you intend to contact Actifio Support, generate a diagnostic bundle before making any changes. Navigate to <strong>Manage &gt; Appliances</strong>, select the appliance, and click <strong>Collect Diagnostics</strong>. Attach the bundle to your support case.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout info">
+    <div class="callout-title">Diagnostic Flow</div>
+    Use the decision tree below to identify the relevant troubleshooting section for your symptom.
+  </div>
+
+  <div class="diagram">
+    <div class="diagram-title">Troubleshooting Entry Decision Tree</div>
+    <svg viewBox="0 0 780 230" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
+      <!-- Start -->
+      <rect x="10" y="85" width="120" height="60" rx="8" fill="#eaf1f8" stroke="#2e6cad" stroke-width="1.5"/>
+      <text x="70" y="111" text-anchor="middle" font-family="DM Sans" font-size="12" font-weight="700" fill="#0d2b4e">Symptom</text>
+      <text x="70" y="127" text-anchor="middle" font-family="DM Sans" font-size="12" font-weight="700" fill="#0d2b4e">observed</text>
+      <line x1="130" y1="115" x2="155" y2="115" stroke="#7f98b2" stroke-width="1.5" marker-end="url(#arr)"/>
+
+      <!-- Q1 -->
+      <rect x="155" y="80" width="130" height="70" rx="8" fill="#fef9ee" stroke="#d4820a" stroke-width="1.5"/>
+      <text x="220" y="106" text-anchor="middle" font-family="DM Sans" font-size="11" font-weight="600" fill="#7d5a06">Job failed or</text>
+      <text x="220" y="122" text-anchor="middle" font-family="DM Sans" font-size="11" font-weight="600" fill="#7d5a06">running too long?</text>
+      <text x="220" y="140" text-anchor="middle" font-family="DM Sans" font-size="10" fill="#d4820a">→ Section 2 or 5</text>
+
+      <line x1="285" y1="115" x2="310" y2="115" stroke="#7f98b2" stroke-width="1.5" marker-end="url(#arr)"/>
+
+      <!-- Q2 -->
+      <rect x="310" y="80" width="130" height="70" rx="8" fill="#fdf3f2" stroke="#c0392b" stroke-width="1.5"/>
+      <text x="375" y="106" text-anchor="middle" font-family="DM Sans" font-size="11" font-weight="600" fill="#922b21">Replication or</text>
+      <text x="375" y="122" text-anchor="middle" font-family="DM Sans" font-size="11" font-weight="600" fill="#922b21">StreamSnap lag?</text>
+      <text x="375" y="140" text-anchor="middle" font-family="DM Sans" font-size="10" fill="#c0392b">→ Section 3</text>
+
+      <line x1="440" y1="115" x2="465" y2="115" stroke="#7f98b2" stroke-width="1.5" marker-end="url(#arr)"/>
+
+      <!-- Q3 -->
+      <rect x="465" y="80" width="130" height="70" rx="8" fill="#eafaf1" stroke="#1e8449" stroke-width="1.5"/>
+      <text x="530" y="106" text-anchor="middle" font-family="DM Sans" font-size="11" font-weight="600" fill="#1a5e35">Mount or restore</text>
+      <text x="530" y="122" text-anchor="middle" font-family="DM Sans" font-size="11" font-weight="600" fill="#1a5e35">not working?</text>
+      <text x="530" y="140" text-anchor="middle" font-family="DM Sans" font-size="10" fill="#1e8449">→ Section 4</text>
+
+      <line x1="595" y1="115" x2="620" y2="115" stroke="#7f98b2" stroke-width="1.5" marker-end="url(#arr)"/>
+
+      <!-- Q4 -->
+      <rect x="620" y="80" width="140" height="70" rx="8" fill="#eaf1f8" stroke="#2e6cad" stroke-width="1.5"/>
+      <text x="690" y="106" text-anchor="middle" font-family="DM Sans" font-size="11" font-weight="600" fill="#1a4a7a">Appliance offline</text>
+      <text x="690" y="122" text-anchor="middle" font-family="DM Sans" font-size="11" font-weight="600" fill="#1a4a7a">or unreachable?</text>
+      <text x="690" y="140" text-anchor="middle" font-family="DM Sans" font-size="10" fill="#2e6cad">→ Section 5</text>
+
+      <defs><marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#7f98b2"/></marker></defs>
+    </svg>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- 2. BACKUP JOB FAILURES                                        -->
+<!-- ============================================================ -->
+<div class="section" id="backup-failures">
+  <h2>2. Backup Job Failures</h2>
+  <p>Backup job failures are the most common category of issue. Each failure generates an event with a specific error code. Use the <a href="#error-codes">Error Code Reference</a> to identify the category, then apply the matching resolution below.</p>
+
+  <div class="ts-grid">
+
+    <div class="ts-item">
+      <div class="ts-header">
+        <svg class="ts-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <p class="ts-symptom">Backup job remains in <em>Queued</em> state for more than 30 minutes</p>
+      </div>
+      <div class="ts-body">
+        <div class="ts-row">
+          <span class="ts-label cause">Cause</span>
+          <span class="ts-text">No available resource pool slots. The appliance is at maximum concurrent job capacity, or the SLA window has shifted so that multiple policies triggered simultaneously.</span>
+        </div>
+        <div class="ts-row">
+          <span class="ts-label fix">Fix</span>
+          <span class="ts-text">Navigate to <strong>Manage &gt; Appliances &gt; Resource Pools</strong> and check the current slot utilisation. If utilisation is at 100%, either wait for running jobs to complete or increase the pool size. To stagger concurrent triggers, edit the SLA template and offset the start times by 5–10 minutes.</span>
+        </div>
+        <div class="ts-row">
+          <span class="ts-label cmd">CLI</span>
+          <span class="ts-text"><code class="inline">udsinfo lsresourcepool</code> — lists all resource pools and current utilisation.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="ts-item">
+      <div class="ts-header">
+        <svg class="ts-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <p class="ts-symptom">Backup job fails with <em>Connection refused</em> or <em>Host unreachable</em> error</p>
+      </div>
+      <div class="ts-body">
+        <div class="ts-row">
+          <span class="ts-label cause">Cause</span>
+          <span class="ts-text">The Actifio connector on the source host is not running, or the host firewall is blocking the required ports (TCP 5106, 26257).</span>
+        </div>
+        <div class="ts-row">
+          <span class="ts-label fix">Fix</span>
+          <span class="ts-text">On the source host, verify the Actifio UDS Agent service is running: <code class="inline">systemctl status udsagent</code>. If stopped, start it: <code class="inline">systemctl start udsagent</code>. Confirm firewall rules allow inbound TCP 5106 and 26257 from the Actifio appliance IP.</span>
+        </div>
+        <div class="ts-row">
+          <span class="ts-label cmd">CLI</span>
+          <span class="ts-text"><code class="inline">udsinfo lshost -filtervalue hostname=&lt;hostname&gt;</code> — confirms the registered host status and last successful check-in time.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="ts-item">
+      <div class="ts-header">
+        <svg class="ts-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <p class="ts-symptom">Database backup fails immediately after a source DB failover or restart</p>
+      </div>
+      <div class="ts-body">
+        <div class="ts-row">
+          <span class="ts-label cause">Cause</span>
+          <span class="ts-text">Actifio retains a stale application discovery record pointing to the old DB instance. After a failover, the cached application state does not reflect the new primary.</span>
+        </div>
+        <div class="ts-row">
+          <span class="ts-label fix">Fix</span>
+          <span class="ts-text">Force a re-discovery of the application: navigate to <strong>Manage &gt; Applications</strong>, select the affected database, and click <strong>Discover Now</strong>. Wait for discovery to complete, then retry the backup job.</span>
+        </div>
+        <div class="ts-row">
+          <span class="ts-label cmd">CLI</span>
+          <span class="ts-text"><code class="inline">udstask discovercluster -host &lt;hostname&gt;</code></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="ts-item">
+      <div class="ts-header">
+        <svg class="ts-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <p class="ts-symptom">Backup completes but SLA compliance shows <em>Missed</em> in the dashboard</p>
+      </div>
+      <div class="ts-body">
+        <div class="ts-row">
+          <span class="ts-label cause">Cause</span>
+          <span class="ts-text">The backup completed outside the allowed SLA window. This is common when a preceding long-running job delayed the current job's start time past the window close.</span>
+        </div>
+        <div class="ts-row">
+          <span class="ts-label fix">Fix</span>
+          <span class="ts-text">Review the SLA template and extend the allowed window, or enable <strong>Catch-up Jobs</strong> on the policy so Actifio schedules a compensating run immediately after the window closes. If SLA misses are frequent, analyse the job duration trend in <strong>Monitor &gt; Reports &gt; Job Summary</strong> and adjust the window accordingly.</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="callout warn">
+    <div class="callout-title">Important</div>
+    Do not delete and re-add an application to resolve a recurring backup failure. This removes all existing image points and resets the protection history. Always use <strong>Discover Now</strong> or re-configure the SLA as the first remediation step.
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- 3. REPLICATION AND STREAMSNAP                                 -->
+<!-- ============================================================ -->
+<div class="section" id="replication-issues">
+  <h2>3. Replication and StreamSnap Issues</h2>
+  <p>Replication transfers backup images to a remote Actifio appliance. StreamSnap is the near-synchronous replication option for RPO-sensitive workloads. The issues below cover both technologies.</p>
+
+  <div class="ts-grid">
+
+    <div class="ts-item">
+      <div class="ts-header">
+        <svg class="ts-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <p class="ts-symptom">Replication lag exceeds the configured RPO threshold and generates a compliance alert</p>
+      </div>
+      <div class="ts-body">
+        <div class="ts-row">
+          <span class="ts-label cause">Cause</span>
+          <span class="ts-text">Insufficient WAN bandwidth between source and target appliances, or a temporary network congestion spike that caused the replication queue to back up.</span>
+        </div>
+        <div class="ts-row">
+          <span class="ts-label fix">Fix</span>
+          <span class="ts-text">Check the replication throughput in <strong>Monitor &gt; Replication</strong>. If throughput is consistently below the required rate, increase the replication bandwidth allocation in the network throttle settings. For temporary lag, allow the queue to drain before raising a support case.</span>
+        </div>
+        <div class="ts-row">
+          <span class="ts-label cmd">CLI</span>
+          <span class="ts-text"><code class="inline">udsinfo lsreplicationlag -targetappliance &lt;appliancename&gt;</code></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="ts-item">
+      <div class="ts-header">
+        <svg class="ts-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <p class="ts-symptom">StreamSnap jobs fail with <em>Remote appliance not reachable</em></p>
+      </div>
+      <div class="ts-body">
+        <div class="ts-row">
+          <span class="ts-label cause">Cause</span>
+          <span class="ts-text">The inter-appliance trust relationship has expired or was disrupted after a firmware update on either side.</span>
+        </div>
+        <div class="ts-row">
+          <span class="ts-label fix">Fix</span>
+          <span class="ts-text">Re-establish the trust relationship: in AGM, navigate to <strong>Manage &gt; Appliances</strong>, select the target appliance, and click <strong>Re-Trust</strong>. If AGM is not in use, run <code class="inline">udstask addcluster -target &lt;target_ip&gt;</code> from the source appliance CLI.</span>
+        </div>
+        <div class="ts-row">
+          <span class="ts-label cmd">CLI</span>
+          <span class="ts-text"><code class="inline">udsinfo lscluster</code> — verify the trust state of all paired appliances.</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="callout danger">
+    <div class="callout-title">Critical</div>
+    Do not remove a replication policy while a StreamSnap job is in progress. Doing so can leave the target appliance with a partial and unusable image set. Always wait for the current job to complete or explicitly cancel it before modifying the policy.
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- 4. MOUNT AND RESTORE ISSUES                                   -->
+<!-- ============================================================ -->
+<div class="section" id="restore-issues">
+  <h2>4. Mount and Restore Issues</h2>
+  <p>Actifio's instant virtualisation (mount) and restore operations are both served from backup images. The troubleshooting steps differ depending on whether you are mounting a virtual copy or initiating a full restore.</p>
+
+  <div class="ts-grid">
+
+    <div class="ts-item">
+      <div class="ts-header">
+        <svg class="ts-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <p class="ts-symptom">Instant mount succeeds but the mounted volume is not visible on the target host</p>
+      </div>
+      <div class="ts-body">
+        <div class="ts-row">
+          <span class="ts-label cause">Cause</span>
+          <span class="ts-text">The iSCSI initiator on the target host has not logged in to the Actifio target portal, or the multipath daemon is presenting the device under a non-standard path.</span>
+        </div>
+        <div class="ts-row">
+          <span class="ts-label fix">Fix</span>
+          <span class="ts-text">On the target host, run <code class="inline">iscsiadm -m session</code> to confirm the initiator session is active. If not, log in: <code class="inline">iscsiadm -m node --login</code>. Then rescan: <code class="inline">rescan-scsi-bus.sh</code> or <code class="inline">echo 1 &gt; /sys/class/scsi_host/host*/scan</code>. Verify the device appears with <code class="inline">lsblk</code>.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="ts-item">
+      <div class="ts-header">
+        <svg class="ts-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <p class="ts-symptom">Database restore fails with <em>Insufficient staging disk space</em></p>
+      </div>
+      <div class="ts-body">
+        <div class="ts-row">
+          <span class="ts-label cause">Cause</span>
+          <span class="ts-text">The staging area on the target host does not have enough free space to accommodate the uncompressed restore data. Actifio estimates staging space from the source image size, not the compressed on-appliance size.</span>
+        </div>
+        <div class="ts-row">
+          <span class="ts-label fix">Fix</span>
+          <span class="ts-text">Free at least 120% of the source database size on the staging path before retrying the restore. Alternatively, redirect the staging path to a volume with sufficient space via the restore wizard's <strong>Advanced Options &gt; Staging Path</strong> setting.</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- 5. CONNECTIVITY                                               -->
+<!-- ============================================================ -->
+<div class="section" id="connectivity">
+  <h2>5. Appliance and Network Connectivity</h2>
+
+  <div class="ts-grid">
+
+    <div class="ts-item">
+      <div class="ts-header">
+        <svg class="ts-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <p class="ts-symptom">Actifio Desktop cannot connect to the appliance — login page times out</p>
+      </div>
+      <div class="ts-body">
+        <div class="ts-row">
+          <span class="ts-label cause">Cause</span>
+          <span class="ts-text">The Actifio web service (port 443) is not responding, or the management network interface is down.</span>
+        </div>
+        <div class="ts-row">
+          <span class="ts-label fix">Fix</span>
+          <span class="ts-text">From a host on the management network, ping the appliance management IP. If ping fails, check the physical or virtual NIC connected to the management network. If ping succeeds but HTTPS times out, SSH to the appliance and run <code class="inline">service actifio status</code> to check the web service.</span>
+        </div>
+        <div class="ts-row">
+          <span class="ts-label cmd">CLI</span>
+          <span class="ts-text"><code class="inline">ssh admin@&lt;appliance_ip&gt;</code> then <code class="inline">service actifio restart</code> if the service is stopped.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="ts-item">
+      <div class="ts-header">
+        <svg class="ts-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <p class="ts-symptom">AGM shows appliance status as <em>Unreachable</em> even though the appliance is online</p>
+      </div>
+      <div class="ts-body">
+        <div class="ts-row">
+          <span class="ts-label cause">Cause</span>
+          <span class="ts-text">The AGM-to-appliance heartbeat uses port 26257. If a firewall rule change or network ACL update has blocked this port, AGM marks the appliance as unreachable even while it continues to protect data independently.</span>
+        </div>
+        <div class="ts-row">
+          <span class="ts-label fix">Fix</span>
+          <span class="ts-text">From the AGM server, confirm TCP 26257 is open to the appliance IP: <code class="inline">nc -zv &lt;appliance_ip&gt; 26257</code>. Restore the firewall rule if blocked. After connectivity is restored, AGM will automatically reconcile within 5 minutes — no manual resync is required.</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- 6. PERFORMANCE                                                -->
+<!-- ============================================================ -->
+<div class="section" id="performance">
+  <h2>6. Performance and Resource Issues</h2>
+
+  <div class="ts-grid">
+
+    <div class="ts-item">
+      <div class="ts-header">
+        <svg class="ts-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <p class="ts-symptom">Backup throughput drops significantly compared to previous runs of the same job</p>
+      </div>
+      <div class="ts-body">
+        <div class="ts-row">
+          <span class="ts-label cause">Cause</span>
+          <span class="ts-text">Storage pool fragmentation on the appliance, high concurrency competing for the same back-end pool, or the source host experiencing I/O saturation during business hours.</span>
+        </div>
+        <div class="ts-row">
+          <span class="ts-label fix">Fix</span>
+          <span class="ts-text">Run the storage pool defragmentation task: <strong>Manage &gt; Storage &gt; Defragment</strong>. Schedule high-throughput backup jobs to run outside business hours using SLA window controls. Review the source host I/O metrics during the backup window to confirm it is not the bottleneck.</span>
+        </div>
+        <div class="ts-row">
+          <span class="ts-label cmd">CLI</span>
+          <span class="ts-text"><code class="inline">udsinfo lsdiskpoolstatus</code> — shows fragmentation level and available capacity per pool.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="ts-item">
+      <div class="ts-header">
+        <svg class="ts-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <p class="ts-symptom">Appliance CPU utilisation stays above 90% for extended periods</p>
+      </div>
+      <div class="ts-body">
+        <div class="ts-row">
+          <span class="ts-label cause">Cause</span>
+          <span class="ts-text">Too many concurrent deduplication and compression threads are running simultaneously. This is common after a catchup burst following a maintenance window.</span>
+        </div>
+        <div class="ts-row">
+          <span class="ts-label fix">Fix</span>
+          <span class="ts-text">Temporarily reduce the maximum concurrent job count in <strong>Manage &gt; Appliances &gt; Resource Pools</strong> to allow the appliance CPU to recover. Increase the limit gradually after CPU drops below 70%.</span>
+        </div>
+        <div class="ts-row">
+          <span class="ts-label cmd">CLI</span>
+          <span class="ts-text"><code class="inline">udsinfo lsjobhistory -filtervalue status=running</code> — lists all currently running jobs and their start times.</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="callout success">
+    <div class="callout-title">Best Practice</div>
+    Enable <strong>Workload Balancing</strong> in the SLA policy settings to allow Actifio to automatically stagger concurrent jobs based on available appliance resources. This prevents peak-hour CPU spikes without requiring manual intervention.
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- 7. ERROR CODE REFERENCE                                       -->
+<!-- ============================================================ -->
+<div class="section" id="error-codes">
+  <h2>7. Error Code Reference</h2>
+  <p>The following error codes appear in <strong>Monitor &gt; Events</strong> and in job failure notifications. Use the <strong>Severity</strong> column to prioritise remediation.</p>
+
+  <table class="err-table">
+    <thead>
+      <tr>
+        <th>Error Code</th>
+        <th>Severity</th>
+        <th>Description</th>
+        <th>Resolution</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="err-code">AGM-0001</span></td>
+        <td><span class="sev sev-crit">Critical</span></td>
+        <td>Appliance unreachable from AGM</td>
+        <td>See <a href="#connectivity">Section 5</a> — check TCP 26257 connectivity</td>
+      </tr>
+      <tr>
+        <td><span class="err-code">JOB-1042</span></td>
+        <td><span class="sev sev-crit">Critical</span></td>
+        <td>Backup job failed — host agent not responding</td>
+        <td>Restart the UDS agent on the source host; verify firewall allows TCP 5106</td>
+      </tr>
+      <tr>
+        <td><span class="err-code">JOB-1101</span></td>
+        <td><span class="sev sev-warn">Warning</span></td>
+        <td>Backup completed outside SLA window</td>
+        <td>Enable catch-up jobs or extend the SLA window; see <a href="#backup-failures">Section 2</a></td>
+      </tr>
+      <tr>
+        <td><span class="err-code">REP-2010</span></td>
+        <td><span class="sev sev-crit">Critical</span></td>
+        <td>Replication target trust relationship invalid</td>
+        <td>Re-trust the remote appliance in AGM; see <a href="#replication-issues">Section 3</a></td>
+      </tr>
+      <tr>
+        <td><span class="err-code">REP-2055</span></td>
+        <td><span class="sev sev-warn">Warning</span></td>
+        <td>Replication queue depth exceeds threshold</td>
+        <td>Increase WAN bandwidth allocation or reduce concurrent replications</td>
+      </tr>
+      <tr>
+        <td><span class="err-code">STG-3001</span></td>
+        <td><span class="sev sev-crit">Critical</span></td>
+        <td>Storage pool capacity above 90%</td>
+        <td>Expire old images or add storage capacity to the pool immediately</td>
+      </tr>
+      <tr>
+        <td><span class="err-code">STG-3040</span></td>
+        <td><span class="sev sev-warn">Warning</span></td>
+        <td>Disk pool fragmentation above 25%</td>
+        <td>Run defragmentation task from <strong>Manage &gt; Storage</strong></td>
+      </tr>
+      <tr>
+        <td><span class="err-code">MNT-4012</span></td>
+        <td><span class="sev sev-warn">Warning</span></td>
+        <td>Mounted volume not visible on target host</td>
+        <td>Rescan iSCSI initiator on target; see <a href="#restore-issues">Section 4</a></td>
+      </tr>
+      <tr>
+        <td><span class="err-code">LIC-5001</span></td>
+        <td><span class="sev sev-info">Info</span></td>
+        <td>Licence capacity at 80% — approaching limit</td>
+        <td>Review image expiry policies or request a licence expansion</td>
+      </tr>
+      <tr>
+        <td><span class="err-code">LIC-5010</span></td>
+        <td><span class="sev sev-crit">Critical</span></td>
+        <td>Licence capacity exceeded — new jobs will not start</td>
+        <td>Immediately expire old images or contact Actifio Support for an emergency licence</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout info">
+    <div class="callout-title">Tip</div>
+    Filter the Events log by error code prefix (for example, <code class="inline">REP-</code>) to isolate all replication-related events for a given time range. This is faster than scrolling through mixed event types during an incident.
+  </div>
+</div>
+
+</div><!-- /wrap -->
+
+<!-- FOOTER -->
+<footer class="doc-footer">
+  <div class="wrap">
+    <span>Actifio 10.0 Platform Troubleshooting Guide · Writing sample by <strong>Kalyan Voolse</strong></span>
+    <span>
+      <a href="https://docs.actifio.com/10.0/PDFs/Troubleshooting.pdf" target="_blank">View Original PDF</a>
+      &nbsp;·&nbsp;
+      <a href="index.html">Back to Writing Samples</a>
+    </span>
+  </div>
+</footer>
+
+</body>
+</html>

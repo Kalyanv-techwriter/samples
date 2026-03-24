@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Actifio Short RPO Configuration Guide | Knowledge Base</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0d2b4e;
+  --body:#3d5166;
+  --muted:#7f98b2;
+  --bg:#f5f7fa;
+  --card:#fff;
+  --border:#dde4ed;
+  --navy:#0d2b4e;
+  --navy-mid:#1a4a7a;
+  --blue:#2e6cad;
+  --blue-light:#eaf1f8;
+  --green:#1e8449;
+  --green-light:#eafaf1;
+  --amber:#d4820a;
+  --amber-light:#fef9ee;
+  --red:#c0392b;
+  --red-light:#fdf3f2;
+  --purple:#6741d9;
+  --purple-light:#f0ecff;
+  --tag-bg:#edf0f4;
+  --code-bg:#0d2b4e;
+  --code:#b0c9e0;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'DM Sans',-apple-system,sans-serif;background:var(--bg);color:var(--body);line-height:1.7;-webkit-font-smoothing:antialiased}
+.wrap{max-width:860px;margin:0 auto;padding:0 32px}
+
+/* HEADER */
+.doc-header{background:linear-gradient(135deg,#081e38 0%,#0d2b4e 50%,#1a4a7a 100%);color:#fff;padding:48px 0 40px}
+.doc-header .wrap{display:flex;flex-direction:column;gap:8px}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:rgba(255,255,255,.6);font-size:12px;text-decoration:none;margin-bottom:16px;transition:color .2s}
+.back-link:hover{color:#fff}
+.back-link svg{width:14px;height:14px}
+.doc-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:6px;padding:4px 12px;font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;width:fit-content;margin-bottom:8px}
+.doc-badge .dot{width:6px;height:6px;border-radius:50%;background:#5dade2}
+.doc-header h1{font-size:30px;font-weight:700;line-height:1.2;margin-bottom:8px}
+.doc-header .subtitle{font-size:16px;opacity:.85;max-width:660px}
+.doc-meta{display:flex;gap:20px;margin-top:16px;font-size:12px;opacity:.6;flex-wrap:wrap}
+
+/* APPROACH NOTE */
+.approach-note{background:#eafaf1;border:1.5px solid #a9dfbf;border-radius:10px;padding:20px 24px;margin:32px 0}
+.approach-note-title{font-size:13px;font-weight:700;color:#1e8449;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px}
+.approach-note p{font-size:14px;color:#1a5e35}
+.approach-note ul{font-size:13px;color:#1a5e35;margin-top:8px;padding-left:20px}
+.approach-note li{margin-bottom:4px}
+.approach-note a{color:#1e8449;text-decoration:underline}
+
+/* TOC */
+.toc{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:20px 24px;margin:24px 0}
+.toc-title{font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.toc ol{padding-left:20px;font-size:14px}
+.toc li{margin-bottom:4px}
+.toc a{color:var(--blue);text-decoration:none}
+.toc a:hover{text-decoration:underline}
+
+/* SECTION */
+.section{margin:44px 0}
+.section h2{font-size:22px;font-weight:700;color:var(--ink);margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid var(--border)}
+.section h3{font-size:17px;font-weight:700;color:var(--ink);margin:28px 0 12px}
+.section p{margin-bottom:14px;font-size:15px}
+.section ul,.section ol{font-size:14px;padding-left:22px;margin-bottom:14px}
+.section li{margin-bottom:6px;line-height:1.65}
+
+/* CALLOUTS */
+.callout{border-radius:8px;padding:16px 20px;margin:16px 0;font-size:14px;line-height:1.65}
+.callout-title{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px}
+.callout.info{background:var(--blue-light);border-left:4px solid var(--blue)}
+.callout.info .callout-title{color:var(--blue)}
+.callout.warn{background:var(--amber-light);border-left:4px solid var(--amber)}
+.callout.warn .callout-title{color:var(--amber)}
+.callout.danger{background:var(--red-light);border-left:4px solid var(--red)}
+.callout.danger .callout-title{color:var(--red)}
+.callout.success{background:var(--green-light);border-left:4px solid var(--green)}
+.callout.success .callout-title{color:var(--green)}
+.callout.concept{background:var(--purple-light);border-left:4px solid var(--purple)}
+.callout.concept .callout-title{color:var(--purple)}
+
+/* CODE */
+.code-block{background:var(--code-bg);border-radius:8px;padding:18px 20px;margin:14px 0;overflow-x:auto;position:relative}
+.code-block code{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--code);line-height:1.7;white-space:pre}
+.code-label{position:absolute;top:8px;right:12px;font-family:'JetBrains Mono',monospace;font-size:10px;color:#4a7aa0;letter-spacing:1px;text-transform:uppercase}
+code.inline{font-family:'JetBrains Mono',monospace;font-size:12.5px;background:var(--tag-bg);padding:2px 6px;border-radius:4px;color:var(--ink)}
+
+/* STEPS */
+.steps{margin:20px 0}
+.step{display:flex;gap:16px;margin-bottom:24px;align-items:flex-start}
+.step-num{width:30px;height:30px;border-radius:50%;background:var(--navy);color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.step-content{flex:1;min-width:0}
+.step-content h4{font-size:15px;font-weight:700;color:var(--ink);margin-bottom:6px}
+.step-content p{font-size:14px;margin-bottom:8px;line-height:1.65}
+
+/* DIAGRAM */
+.diagram{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:24px;margin:24px 0;overflow-x:auto}
+.diagram-title{font-size:12px;font-weight:600;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:16px}
+
+/* COMPARISON TABLE */
+.cmp-table{width:100%;border-collapse:collapse;font-size:13px;margin:16px 0}
+.cmp-table th{background:var(--navy);color:#fff;padding:10px 14px;text-align:left;font-weight:600;font-size:12px;letter-spacing:.5px}
+.cmp-table td{padding:10px 14px;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.55}
+.cmp-table tr:hover td{background:var(--bg)}
+.tick{color:var(--green);font-weight:700}
+.cross{color:var(--red);font-weight:700}
+
+/* PREREQ CHECKLIST */
+.checklist{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:20px 24px;margin:20px 0}
+.checklist-title{font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+.check-item{display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid var(--border);font-size:14px}
+.check-item:last-child{border-bottom:none}
+.check-box{width:20px;height:20px;border:2px solid var(--border);border-radius:4px;flex-shrink:0;margin-top:1px;background:var(--bg)}
+.check-text{flex:1;line-height:1.55;color:var(--body)}
+.check-text strong{color:var(--ink)}
+
+/* FIELD LABEL GRID */
+.field-grid{display:flex;flex-direction:column;gap:0}
+.field-row{display:grid;grid-template-columns:200px 1fr;gap:0;border-bottom:1px solid var(--border);font-size:14px}
+.field-row:first-child{border-top:1px solid var(--border)}
+.field-name{padding:12px 16px;background:#f8fafb;font-weight:600;color:var(--ink);border-right:1px solid var(--border);line-height:1.5}
+.field-desc{padding:12px 16px;color:var(--body);line-height:1.55}
+
+/* TAG */
+.tag{display:inline-block;padding:2px 10px;border-radius:4px;font-size:11px;font-weight:600;background:var(--tag-bg);color:var(--body);margin:2px}
+
+/* FOOTER */
+.doc-footer{background:var(--card);border-top:1px solid var(--border);padding:32px 0;margin-top:56px}
+.doc-footer .wrap{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--muted);flex-wrap:wrap;gap:12px}
+.doc-footer a{color:var(--blue);text-decoration:none}
+.doc-footer a:hover{text-decoration:underline}
+
+@media(max-width:700px){
+  .wrap{padding:0 16px}
+  .doc-header h1{font-size:24px}
+  .field-row{grid-template-columns:1fr}
+  .field-name{border-right:none;border-bottom:1px solid var(--border);padding-bottom:4px}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="doc-header">
+  <div class="wrap">
+    <a href="index.html" class="back-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+      Back to Writing Samples
+    </a>
+    <div class="doc-badge"><span class="dot"></span>Writing Sample · Actifio / Persistent Systems</div>
+    <h1>Actifio Short RPO Configuration Guide</h1>
+    <p class="subtitle">Configure Short RPO (Recovery Point Objective) policies in Actifio 10.0 to protect high-priority workloads with sub-hour recovery points and near-continuous data protection.</p>
+    <div class="doc-meta">
+      <span>Knowledge Base Article</span>
+      <span>Platform version: 10.0</span>
+      <span>Audience: System Administrators</span>
+      <span>Tools: FrameMaker · MadCap Flare</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+<!-- APPROACH NOTE -->
+<div class="approach-note">
+  <div class="approach-note-title">About This Sample</div>
+  <p>This page is an HTML rendering of the <a href="https://docs.actifio.com/static/10.0/PDFs/ShortRPO.pdf" target="_blank">Actifio 10.0 Short RPO Configuration Guide PDF</a> that I authored at Persistent Systems. The original was delivered in FrameMaker and published through MadCap Flare. This version demonstrates how I would adapt the same content for a web-native help portal, with the following structural additions:</p>
+  <ul>
+    <li>A concept callout that defines Short RPO in plain language before the configuration steps</li>
+    <li>A comparison table contrasting Standard and Short RPO to help admins choose the right mode</li>
+    <li>A prerequisite checklist so admins can verify readiness before touching the SLA settings</li>
+    <li>Field-level descriptions in a structured reference grid, replacing dense prose</li>
+    <li>A verification section with CLI commands to confirm the configuration is working as expected</li>
+  </ul>
+</div>
+
+<!-- TOC -->
+<nav class="toc">
+  <div class="toc-title">In This Article</div>
+  <ol>
+    <li><a href="#what-is-short-rpo">What Is Short RPO?</a></li>
+    <li><a href="#when-to-use">When to Use Short RPO</a></li>
+    <li><a href="#prerequisites">Prerequisites</a></li>
+    <li><a href="#configure-sla">Configure the Short RPO SLA Template</a></li>
+    <li><a href="#apply-to-app">Apply the Policy to an Application</a></li>
+    <li><a href="#verify">Verify the Configuration</a></li>
+    <li><a href="#best-practices">Best Practices and Considerations</a></li>
+  </ol>
+</nav>
+
+<!-- ============================================================ -->
+<!-- 1. WHAT IS SHORT RPO                                          -->
+<!-- ============================================================ -->
+<div class="section" id="what-is-short-rpo">
+  <h2>1. What Is Short RPO?</h2>
+
+  <div class="callout concept">
+    <div class="callout-title">Concept</div>
+    <strong>Recovery Point Objective (RPO)</strong> is the maximum acceptable age of a backup that can be used to recover from data loss. A lower RPO means more frequent backups and less potential data loss in the event of a failure. Actifio's <strong>Short RPO</strong> mode enables backup intervals as low as every 15 minutes — far below the standard 1-hour minimum — using a lightweight change-block-tracking mechanism to capture only the data that has changed since the previous image.
+  </div>
+
+  <p>Standard Actifio SLA policies support backup frequencies of 1 hour to 24 hours. Short RPO extends this range downward, enabling frequencies of 15, 20, or 30 minutes. This is particularly valuable for workloads where even one hour of data loss is unacceptable — such as transactional databases, financial ledgers, and ERP systems running active business operations.</p>
+
+  <p>Short RPO images are taken as incremental-forever backups on top of a full baseline. Each incremental capture is lightweight and completes in seconds to minutes, depending on the change rate of the source data.</p>
+
+  <div class="diagram">
+    <div class="diagram-title">Short RPO Image Timeline vs Standard RPO</div>
+    <svg viewBox="0 0 780 180" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
+      <!-- Standard RPO row -->
+      <text x="10" y="48" font-family="DM Sans" font-size="12" font-weight="700" fill="#0d2b4e">Standard RPO (1 hr)</text>
+      <line x1="10" y1="70" x2="770" y2="70" stroke="#dde4ed" stroke-width="2"/>
+      <circle cx="10" cy="70" r="7" fill="#1e8449"/>
+      <circle cx="200" cy="70" r="7" fill="#1e8449"/>
+      <circle cx="390" cy="70" r="7" fill="#1e8449"/>
+      <circle cx="580" cy="70" r="7" fill="#1e8449"/>
+      <circle cx="770" cy="70" r="7" fill="#1e8449"/>
+      <text x="10" y="90" font-family="DM Sans" font-size="10" fill="#7f98b2" text-anchor="middle">0:00</text>
+      <text x="200" y="90" font-family="DM Sans" font-size="10" fill="#7f98b2" text-anchor="middle">1:00</text>
+      <text x="390" y="90" font-family="DM Sans" font-size="10" fill="#7f98b2" text-anchor="middle">2:00</text>
+      <text x="580" y="90" font-family="DM Sans" font-size="10" fill="#7f98b2" text-anchor="middle">3:00</text>
+      <text x="770" y="90" font-family="DM Sans" font-size="10" fill="#7f98b2" text-anchor="middle">4:00</text>
+      <!-- Max loss bracket -->
+      <line x1="10" y1="100" x2="200" y2="100" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+      <text x="105" y="116" font-family="DM Sans" font-size="10" fill="#c0392b" text-anchor="middle">Max loss: 60 min</text>
+
+      <!-- Short RPO row -->
+      <text x="10" y="145" font-family="DM Sans" font-size="12" font-weight="700" fill="#0d2b4e">Short RPO (15 min)</text>
+      <line x1="10" y1="165" x2="770" y2="165" stroke="#dde4ed" stroke-width="2"/>
+      <circle cx="10" cy="165" r="6" fill="#2e6cad"/>
+      <circle cx="60" cy="165" r="5" fill="#2e6cad"/>
+      <circle cx="110" cy="165" r="5" fill="#2e6cad"/>
+      <circle cx="160" cy="165" r="5" fill="#2e6cad"/>
+      <circle cx="210" cy="165" r="5" fill="#2e6cad"/>
+      <circle cx="260" cy="165" r="5" fill="#2e6cad"/>
+      <circle cx="310" cy="165" r="5" fill="#2e6cad"/>
+      <circle cx="360" cy="165" r="5" fill="#2e6cad"/>
+      <circle cx="410" cy="165" r="5" fill="#2e6cad"/>
+      <circle cx="460" cy="165" r="5" fill="#2e6cad"/>
+      <circle cx="510" cy="165" r="5" fill="#2e6cad"/>
+      <circle cx="560" cy="165" r="5" fill="#2e6cad"/>
+      <circle cx="610" cy="165" r="5" fill="#2e6cad"/>
+      <circle cx="660" cy="165" r="5" fill="#2e6cad"/>
+      <circle cx="710" cy="165" r="5" fill="#2e6cad"/>
+      <circle cx="760" cy="165" r="5" fill="#2e6cad"/>
+    </svg>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- 2. WHEN TO USE                                                -->
+<!-- ============================================================ -->
+<div class="section" id="when-to-use">
+  <h2>2. When to Use Short RPO</h2>
+  <p>Short RPO is designed for specific workload categories. Review the table below before enabling it — the additional resource overhead is only justified for workloads with strict RPO requirements.</p>
+
+  <table class="cmp-table">
+    <thead>
+      <tr>
+        <th>Criterion</th>
+        <th>Standard RPO (≥1 hr)</th>
+        <th>Short RPO (15–30 min)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>RPO requirement</td>
+        <td>1 hour to 24 hours acceptable</td>
+        <td>Less than 1 hour required</td>
+      </tr>
+      <tr>
+        <td>Workload type</td>
+        <td>File shares, dev/test, archival</td>
+        <td>Transactional databases, ERP, financial systems</td>
+      </tr>
+      <tr>
+        <td>Change rate on source</td>
+        <td>Low to medium</td>
+        <td>Medium to high (Short RPO is efficient regardless due to CBT)</td>
+      </tr>
+      <tr>
+        <td>Appliance resource impact</td>
+        <td><span class="tick">Low</span></td>
+        <td><span class="cross">Higher</span> — more frequent scheduling threads</td>
+      </tr>
+      <tr>
+        <td>Storage pool consumption</td>
+        <td><span class="tick">Lower</span></td>
+        <td><span class="cross">Higher</span> — more image points retained</td>
+      </tr>
+      <tr>
+        <td>Licence impact</td>
+        <td>Standard licence covers</td>
+        <td>Requires Short RPO licence entitlement</td>
+      </tr>
+      <tr>
+        <td>Supported application types</td>
+        <td>All applications</td>
+        <td>VMware VMs, Oracle, SQL Server, SAP HANA</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout warn">
+    <div class="callout-title">Licence Requirement</div>
+    Short RPO requires a specific licence entitlement. Verify that your Actifio licence includes Short RPO before proceeding. To check, navigate to <strong>Manage &gt; Appliances &gt; Licence</strong> and look for <strong>Short RPO</strong> in the feature list. If it is absent, contact your Actifio account representative.
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- 3. PREREQUISITES                                              -->
+<!-- ============================================================ -->
+<div class="section" id="prerequisites">
+  <h2>3. Prerequisites</h2>
+  <p>Verify all prerequisites before configuring a Short RPO policy. Applying Short RPO to an environment that does not meet these requirements will result in failed or queued jobs.</p>
+
+  <div class="checklist">
+    <div class="checklist-title">Pre-Configuration Checklist</div>
+    <div class="check-item">
+      <div class="check-box"></div>
+      <div class="check-text"><strong>Actifio appliance version 10.0 or later.</strong> Short RPO requires platform version 10.0. Earlier versions do not support sub-hourly scheduling.</div>
+    </div>
+    <div class="check-item">
+      <div class="check-box"></div>
+      <div class="check-text"><strong>Short RPO licence entitlement is active.</strong> Verified in <strong>Manage &gt; Appliances &gt; Licence</strong>.</div>
+    </div>
+    <div class="check-item">
+      <div class="check-box"></div>
+      <div class="check-text"><strong>UDS Agent version 10.0 or later installed on source host.</strong> Download the latest agent from the Actifio Support Portal and install it before applying the policy.</div>
+    </div>
+    <div class="check-item">
+      <div class="check-box"></div>
+      <div class="check-text"><strong>Change-block tracking (CBT) enabled on the source application.</strong> For VMware, CBT must be enabled on the VM. For Oracle and SQL Server, the Actifio agent enables this automatically on first backup.</div>
+    </div>
+    <div class="check-item">
+      <div class="check-box"></div>
+      <div class="check-text"><strong>Sufficient storage pool capacity.</strong> Short RPO retains more image points. Confirm the storage pool has at least 30% free capacity before enabling. Check in <strong>Manage &gt; Storage Pools</strong>.</div>
+    </div>
+    <div class="check-item">
+      <div class="check-box"></div>
+      <div class="check-text"><strong>Resource pool has available slots for sub-hourly job frequency.</strong> Each 15-minute interval generates a job thread. Ensure the resource pool maximum is set high enough to avoid persistent queuing during peak windows.</div>
+    </div>
+    <div class="check-item">
+      <div class="check-box"></div>
+      <div class="check-text"><strong>A successful standard backup image already exists.</strong> Short RPO incrementals are built on top of a full baseline image. If no baseline exists, Actifio runs a full backup before beginning sub-hourly incrementals.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- 4. CONFIGURE THE SLA TEMPLATE                                 -->
+<!-- ============================================================ -->
+<div class="section" id="configure-sla">
+  <h2>4. Configure the Short RPO SLA Template</h2>
+  <p>Short RPO is configured within an SLA template. You can create a new template specifically for Short RPO workloads or modify an existing template to enable sub-hourly scheduling.</p>
+
+  <div class="callout info">
+    <div class="callout-title">Recommendation</div>
+    Create a dedicated SLA template for Short RPO rather than modifying an existing one. This makes it easy to identify which applications are protected under Short RPO and to audit the configuration independently from standard policies.
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <h4>Open the SLA Architect</h4>
+        <p>In the Actifio Desktop or AGM, navigate to <strong>SLA Architect</strong> from the left navigation panel.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <h4>Create a new SLA template</h4>
+        <p>Click <strong>+ New Template</strong>. Enter a descriptive name such as <code class="inline">ShortRPO-15min-Production</code>. Select the application type (for example, <strong>VM</strong> or <strong>Oracle</strong>) from the <strong>Application Type</strong> dropdown.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <h4>Add a Snapshot policy and enable Short RPO</h4>
+        <p>Under the <strong>Snapshot</strong> policy section, click <strong>Add Policy</strong>. In the policy settings panel that appears, toggle <strong>Short RPO</strong> to <strong>Enabled</strong>. The scheduling frequency options will update to include sub-hourly intervals.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-content">
+        <h4>Set the Short RPO fields</h4>
+        <p>Configure the fields below. All fields become visible once Short RPO is enabled.</p>
+
+        <div class="field-grid" style="margin-top:14px;border-radius:8px;overflow:hidden;border:1px solid var(--border)">
+          <div class="field-row">
+            <div class="field-name">Frequency</div>
+            <div class="field-desc">How often Actifio captures an incremental image. Options: <strong>15 min</strong>, <strong>20 min</strong>, <strong>30 min</strong>. Choose 15 min only if the source workload change rate justifies it and resource pool slots are available.</div>
+          </div>
+          <div class="field-row">
+            <div class="field-name">Retention</div>
+            <div class="field-desc">How many Short RPO images to retain. Each image occupies storage pool space proportional to the source change rate. A typical setting is <strong>4 hours of rolling images</strong> (16 images at 15-min frequency).</div>
+          </div>
+          <div class="field-row">
+            <div class="field-name">Start Window</div>
+            <div class="field-desc">The time range within which Short RPO jobs are allowed to run. For always-on protection, set this to <strong>00:00 – 23:59</strong> (full day). Restrict the window if the source system has maintenance periods where backup should pause.</div>
+          </div>
+          <div class="field-row">
+            <div class="field-name">On Demand Retention</div>
+            <div class="field-desc">How long manually triggered Short RPO images are retained. Set independently from the scheduled retention. Useful for capturing a known-good baseline before a deployment window.</div>
+          </div>
+          <div class="field-row">
+            <div class="field-name">Enforce SLA</div>
+            <div class="field-desc">When enabled, Actifio generates a compliance event if a scheduled interval is missed. Enable this for production workloads so SLA misses are visible in <strong>Monitor &gt; Events</strong>.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">5</div>
+      <div class="step-content">
+        <h4>Save the template</h4>
+        <p>Click <strong>Save Template</strong>. The template is now available to assign to applications.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- 5. APPLY TO AN APPLICATION                                    -->
+<!-- ============================================================ -->
+<div class="section" id="apply-to-app">
+  <h2>5. Apply the Policy to an Application</h2>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <h4>Locate the application</h4>
+        <p>Navigate to <strong>Manage &gt; Applications</strong>. Use the search bar to find the application by name or host. Confirm that the application shows a status of <strong>Discovered</strong> before assigning a policy. If not, click <strong>Discover Now</strong> and wait for the status to update.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <h4>Assign the SLA template</h4>
+        <p>Right-click the application and select <strong>Manage SLA</strong>. In the <strong>Select SLA Template</strong> dropdown, choose the Short RPO template you created. Review the policy summary and click <strong>Apply</strong>.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <h4>Trigger the initial baseline backup</h4>
+        <p>If no prior snapshot exists for this application, Actifio automatically schedules a full baseline backup before starting Short RPO incrementals. You can monitor the baseline job in <strong>Monitor &gt; Jobs</strong>. The baseline may take significantly longer than subsequent incrementals depending on source data size.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-content">
+        <h4>Confirm the Short RPO schedule is active</h4>
+        <p>After the baseline completes, navigate to <strong>Manage &gt; Applications</strong>, select the application, and view the <strong>SLA Details</strong> tab. Confirm the next Short RPO job is scheduled and that the policy shows <strong>Short RPO: Enabled</strong>.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout warn">
+    <div class="callout-title">Important</div>
+    Assigning a Short RPO policy to an application that already has a standard policy replaces the existing policy entirely. If the existing policy includes a separate dedup or replication policy, you must re-add those policies to the new Short RPO template before saving.
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- 6. VERIFY THE CONFIGURATION                                   -->
+<!-- ============================================================ -->
+<div class="section" id="verify">
+  <h2>6. Verify the Configuration</h2>
+  <p>After applying the policy, verify that Short RPO is operating correctly before considering the configuration complete.</p>
+
+  <h3>Via the Actifio Desktop or AGM</h3>
+  <ul>
+    <li>Navigate to <strong>Monitor &gt; Jobs</strong> and filter by the application name. Confirm that Short RPO incremental jobs are appearing at the configured interval (for example, every 15 minutes).</li>
+    <li>Check the job duration — Short RPO incrementals should complete in under 5 minutes for typical workloads. Longer durations indicate a high change rate or resource contention.</li>
+    <li>Navigate to <strong>Manage &gt; Applications &gt; Images</strong> for the application and confirm multiple image points exist within the past hour, spaced at the configured interval.</li>
+  </ul>
+
+  <h3>Via the CLI</h3>
+  <div class="code-block">
+    <span class="code-label">udscli</span>
+    <code><span style="color:#7f98b2"># List the most recent image points for the application</span>
+udsinfo lsbackup -filtervalue appname=&lt;app_name&gt; \
+  -filtervalue jobclass=snapshot \
+  | head -20
+
+<span style="color:#7f98b2"># Confirm Short RPO is enabled on the SLA template</span>
+udsinfo lssla -filtervalue slaname=&lt;template_name&gt;
+
+<span style="color:#7f98b2"># View the scheduled next run time</span>
+udsinfo lsjobschedule -filtervalue appname=&lt;app_name&gt;</code>
+  </div>
+
+  <div class="callout success">
+    <div class="callout-title">Success Indicators</div>
+    The configuration is working correctly when: (1) incremental job entries appear in the job list at the configured frequency, (2) each job completes with a <strong>Succeeded</strong> status, and (3) the image list for the application shows distinct image points spaced at the configured interval.
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- 7. BEST PRACTICES                                             -->
+<!-- ============================================================ -->
+<div class="section" id="best-practices">
+  <h2>7. Best Practices and Considerations</h2>
+
+  <h3>Limit Short RPO to critical workloads</h3>
+  <p>Short RPO increases the scheduling frequency on the appliance and consumes more storage pool capacity per application. Apply it selectively — only to workloads that genuinely require sub-hour RPO. For other applications, standard hourly policies are more resource-efficient.</p>
+
+  <h3>Monitor storage pool growth</h3>
+  <p>Short RPO retains more image points, which accelerates storage pool consumption. Set a pool utilisation alert at 75% in <strong>Manage &gt; Storage Pools &gt; Alerts</strong> so you have lead time to either expire older images or expand capacity before hitting the 90% threshold that triggers job blocking.</p>
+
+  <h3>Align the SLA window with source system availability</h3>
+  <p>If the source system undergoes scheduled maintenance (for example, nightly database statistics rebuilds or OS patching), configure the Short RPO window to exclude these periods. Attempting to capture incremental images during a database restart will result in job failures and SLA misses.</p>
+
+  <h3>Test recovery at the configured RPO</h3>
+  <p>After enabling Short RPO, perform a test mount of the most recent incremental image to confirm it is recoverable. A Short RPO policy that captures images but cannot mount them successfully does not actually reduce your effective RPO.</p>
+
+  <div class="callout info">
+    <div class="callout-title">Related Articles</div>
+    <ul style="margin-top:8px;padding-left:20px;font-size:14px">
+      <li>Actifio SLA Templates: Concepts and Design Patterns</li>
+      <li>Instant Mount: Virtualising a Backup Image for Recovery Testing</li>
+      <li>StreamSnap: Near-Synchronous Replication for Remote DR</li>
+      <li><a href="actifio-troubleshooting-guide.html">Actifio 10.0 Platform Troubleshooting Guide</a></li>
+    </ul>
+  </div>
+</div>
+
+</div><!-- /wrap -->
+
+<!-- FOOTER -->
+<footer class="doc-footer">
+  <div class="wrap">
+    <span>Actifio Short RPO Configuration Guide · Writing sample by <strong>Kalyan Voolse</strong></span>
+    <span>
+      <a href="https://docs.actifio.com/static/10.0/PDFs/ShortRPO.pdf" target="_blank">View Original PDF</a>
+      &nbsp;·&nbsp;
+      <a href="index.html">Back to Writing Samples</a>
+    </span>
+  </div>
+</footer>
+
+</body>
+</html>
