@@ -55,12 +55,14 @@ body{font-family:'DM Sans',-apple-system,sans-serif;background:var(--bg);color:v
 .rec-no{background:var(--red-light);color:var(--red)}
 
 /* FRAMEWORK CARDS */
-.fw-grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:12px;margin:20px 0}
-.fw-card{background:var(--card);border:1.5px solid var(--border);border-radius:10px;padding:18px;transition:border-color .2s;cursor:default}
-.fw-card:hover{border-color:var(--blue)}
-.fw-card-icon{font-size:28px;margin-bottom:8px}
-.fw-card-name{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:4px}
-.fw-card-note{font-size:12px;color:var(--muted);line-height:1.5}
+.fw-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:20px 0}
+.fw-card{background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .2s,border-color .2s}
+.fw-card:hover{box-shadow:0 4px 20px rgba(0,0,0,.07);border-color:#c4cdd8}
+.fw-card-top{padding:14px 18px 12px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--border)}
+.fw-card-accent{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px}
+.fw-card-name{font-size:15px;font-weight:700;color:var(--ink)}
+.fw-card-tag{font-size:10px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);margin-top:1px}
+.fw-card-note{font-size:13px;color:var(--body);line-height:1.65;padding:14px 18px;flex:1}
 
 /* CODE BLOCK */
 .code-block{background:var(--code-bg);border-radius:8px;padding:18px 20px;margin:14px 0;overflow-x:auto;position:relative}
@@ -114,7 +116,7 @@ code.inline{font-family:'JetBrains Mono',monospace;font-size:13px;background:var
 @media(max-width:700px){
   .wrap{padding:0 16px}
   .doc-header h1{font-size:24px}
-  .fw-grid{grid-template-columns:1fr 1fr}
+  .fw-grid{grid-template-columns:1fr}
   .step{grid-template-columns:32px 1fr}
 }
 </style>
@@ -124,7 +126,7 @@ code.inline{font-family:'JetBrains Mono',monospace;font-size:13px;background:var
 <!-- HEADER -->
 <header class="doc-header">
   <div class="wrap">
-    <div class="doc-badge"><span class="dot"></span>Writing Sample: Documentation Improvement</div>
+    <div class="doc-badge"><span class="dot"></span>Writing Sample · VWO</div>
     <h1>Install and Configure VWO SmartCode</h1>
     <p class="subtitle">Set up VWO on your website in under 10 minutes. Choose your installation method, verify it works, and troubleshoot common issues.</p>
     <div class="doc-meta">
@@ -136,20 +138,6 @@ code.inline{font-family:'JetBrains Mono',monospace;font-size:13px;background:var
 </header>
 
 <div class="wrap">
-
-<!-- APPROACH NOTE -->
-<div class="improvement" style="background:#f0fff4;border-color:#68d391">
-  <div class="improvement-title" style="color:#276749">My Approach to This Article</div>
-  <p>I took the existing <a href="https://help.vwo.com/hc/en-us/articles/360019422834" target="_blank" style="color:#276749;text-decoration:underline">Configuring the VWO SmartCode</a> article and applied the documentation methods I use when joining a new team. The original content is solid and comprehensive. What I have done here is restructure it for faster comprehension by adding visual aids, consolidating related information that currently lives across multiple pages, and introducing patterns I have found effective in enterprise KB work:</p>
-  <ul style="color:#276749">
-    <li>A workflow diagram showing how SmartCode executes (visual learners absorb this in seconds)</li>
-    <li>A decision table for Async vs Sync (replaces prose comparison with scannable guidance)</li>
-    <li>Framework-specific cards with code examples (developers jump to their stack immediately)</li>
-    <li>An integrated troubleshooting section (reduces the need to navigate away from the guide)</li>
-    <li>A verification checklist with expected outcomes (closes the loop on installation)</li>
-    <li>Consolidated browser cookie settings (currently appears in two places in the original)</li>
-  </ul>
-</div>
 
 <!-- TOC -->
 <nav class="toc">
@@ -356,46 +344,71 @@ code.inline{font-family:'JetBrains Mono',monospace;font-size:13px;background:var
   <p>If your site uses a JavaScript framework or CMS, follow the specific method for your stack. Click your framework below.</p>
 
   <div class="fw-grid">
+
     <div class="fw-card">
-      <div class="fw-card-icon">&#9883;</div>
-      <div class="fw-card-name">Next.js</div>
-      <div class="fw-card-note">Install the NPM package: <code class="inline">npm install vwo-smartcode-nextjs</code>. For Page Router: add VWOScript in <code class="inline">_document.js</code>. For App Router: add to <code class="inline">app/layout.tsx</code> inside <code class="inline">&lt;head&gt;</code>. Do not add SmartCode manually without this package.</div>
+      <div class="fw-card-top" style="background:#fafafa">
+        <div class="fw-card-accent" style="background:#000;color:#fff;font-size:14px;font-weight:700">N</div>
+        <div><div class="fw-card-name">Next.js</div><div class="fw-card-tag">Page Router &amp; App Router</div></div>
+      </div>
+      <div class="fw-card-note">Install the NPM package: <code class="inline">npm install vwo-smartcode-nextjs</code>.<br><br><strong>Page Router:</strong> Import and add <code class="inline">VWOScript</code> in <code class="inline">_document.js</code> inside <code class="inline">&lt;Head&gt;</code>.<br><strong>App Router:</strong> Add <code class="inline">VWOScript</code> to <code class="inline">app/layout.tsx</code> inside the <code class="inline">&lt;head&gt;</code> element.<br><br>Do not add SmartCode manually — always use the NPM package for Next.js.</div>
     </div>
+
     <div class="fw-card">
-      <div class="fw-card-icon">&#9889;</div>
-      <div class="fw-card-name">Nuxt.js</div>
-      <div class="fw-card-note">Open <code class="inline">nuxt.config</code>. In <code class="inline">head.link</code> add: <code class="inline">{ rel: 'preconnect', href: 'https://dev.visualwebsiteoptimizer.com' }</code>. In <code class="inline">head.script</code> add your SmartCode using <code class="inline">innerHTML</code>.</div>
+      <div class="fw-card-top" style="background:#f0fdf7">
+        <div class="fw-card-accent" style="background:#00DC82;color:#003d22;font-size:14px;font-weight:700">N</div>
+        <div><div class="fw-card-name">Nuxt.js</div><div class="fw-card-tag">nuxt.config configuration</div></div>
+      </div>
+      <div class="fw-card-note">Open <code class="inline">nuxt.config</code>.<br><br>In <code class="inline">head.link</code>, add a preconnect entry for <code class="inline">https://dev.visualwebsiteoptimizer.com</code>.<br><br>In <code class="inline">head.script</code>, add your SmartCode snippet using <code class="inline">innerHTML</code> to prevent escaping.</div>
     </div>
+
     <div class="fw-card">
-      <div class="fw-card-icon">&#9733;</div>
-      <div class="fw-card-name">Gatsby (4.19.0+)</div>
-      <div class="fw-card-note">Create a component using <code class="inline">dangerouslySetInnerHTML</code> with your SmartCode (excluding the script tag) in the <code class="inline">__html</code> key. Add the component to your page layout. For earlier versions, use React Helmet.</div>
+      <div class="fw-card-top" style="background:#fdf6ff">
+        <div class="fw-card-accent" style="background:#663399;color:#fff;font-size:14px;font-weight:700">G</div>
+        <div><div class="fw-card-name">Gatsby</div><div class="fw-card-tag">Version 4.19.0 and later</div></div>
+      </div>
+      <div class="fw-card-note">Create a component that uses <code class="inline">dangerouslySetInnerHTML</code> with your SmartCode (script content only, without the wrapping <code class="inline">&lt;script&gt;</code> tag) in the <code class="inline">__html</code> key.<br><br>Add this component to your page layout. For Gatsby versions earlier than 4.19.0, use React Helmet instead.</div>
     </div>
+
     <div class="fw-card">
-      <div class="fw-card-icon">&#128736;</div>
-      <div class="fw-card-name">React Helmet</div>
-      <div class="fw-card-note">Wrap the SmartCode in brackets and backticks inside the <code class="inline">&lt;Helmet&gt;</code> tag. Use Asynchronous SmartCode only. Synchronous conflicts with React Helmet's async injection.</div>
+      <div class="fw-card-top" style="background:#f0fbff">
+        <div class="fw-card-accent" style="background:#61DAFB;color:#1a202c;font-size:14px;font-weight:700">R</div>
+        <div><div class="fw-card-name">React Helmet</div><div class="fw-card-tag">Asynchronous SmartCode only</div></div>
+      </div>
+      <div class="fw-card-note">Wrap your SmartCode in template literal backticks (&#96;…&#96;) and brackets inside the <code class="inline">&lt;Helmet&gt;</code> tag.<br><br><strong>Important:</strong> Use Asynchronous SmartCode only. Synchronous SmartCode conflicts with React Helmet's asynchronous script injection and will not execute correctly.</div>
     </div>
+
     <div class="fw-card">
-      <div class="fw-card-icon">&#128722;</div>
-      <div class="fw-card-name">Shopify Hydrogen</div>
-      <div class="fw-card-note"><strong>V1:</strong> Paste in <code class="inline">index.html</code> under <code class="inline">&lt;head&gt;</code>. <strong>V2:</strong> Define a <code class="inline">getVWOAsyncScript()</code> function in <code class="inline">app/root.jsx</code> returning your SmartCode via <code class="inline">__html</code>, then use <code class="inline">dangerouslySetInnerHTML</code> in a script tag at the start of <code class="inline">&lt;head&gt;</code>.</div>
+      <div class="fw-card-top" style="background:#f4fff6">
+        <div class="fw-card-accent" style="background:#5E8E3E;color:#fff;font-size:14px;font-weight:700">H</div>
+        <div><div class="fw-card-name">Shopify Hydrogen</div><div class="fw-card-tag">V1 and V2</div></div>
+      </div>
+      <div class="fw-card-note"><strong>V1:</strong> Paste SmartCode directly in <code class="inline">index.html</code> inside the <code class="inline">&lt;head&gt;</code> tag.<br><br><strong>V2:</strong> Define a <code class="inline">getVWOAsyncScript()</code> function in <code class="inline">app/root.jsx</code> that returns your SmartCode via the <code class="inline">__html</code> property. Render it using <code class="inline">dangerouslySetInnerHTML</code> at the very start of <code class="inline">&lt;head&gt;</code>.</div>
     </div>
+
     <div class="fw-card">
-      <div class="fw-card-icon">&#128196;</div>
-      <div class="fw-card-name">WordPress</div>
-      <div class="fw-card-note">Install the VWO plugin from the WordPress Plugin Directory. It automatically adds SmartCode to all pages. No manual code editing needed.</div>
+      <div class="fw-card-top" style="background:#f0f6ff">
+        <div class="fw-card-accent" style="background:#21759B;color:#fff;font-size:14px;font-weight:700">W</div>
+        <div><div class="fw-card-name">WordPress</div><div class="fw-card-tag">Plugin — no code editing needed</div></div>
+      </div>
+      <div class="fw-card-note">Install the <strong>VWO plugin</strong> from the WordPress Plugin Directory.<br><br>Once activated, the plugin automatically adds SmartCode to every page on your site. No manual code editing is needed. The plugin also provides a SmartCode verification tool directly from the WordPress admin panel.</div>
     </div>
+
     <div class="fw-card">
-      <div class="fw-card-icon">&#9729;</div>
-      <div class="fw-card-name">Cloudflare (Rocket Loader)</div>
-      <div class="fw-card-note">Add <code class="inline">data-cfasync="false"</code> to the script tag to prevent Rocket Loader from deferring SmartCode execution.</div>
+      <div class="fw-card-top" style="background:#fff8f2">
+        <div class="fw-card-accent" style="background:#F38020;color:#fff;font-size:14px;font-weight:700">CF</div>
+        <div><div class="fw-card-name">Cloudflare</div><div class="fw-card-tag">Rocket Loader conflict fix</div></div>
+      </div>
+      <div class="fw-card-note">Cloudflare's Rocket Loader defers all JavaScript, including SmartCode, which breaks execution order and causes flicker.<br><br>To prevent this, add <code class="inline">data-cfasync="false"</code> to your SmartCode <code class="inline">&lt;script&gt;</code> tag. This tells Rocket Loader to skip this script and let it execute synchronously.</div>
     </div>
+
     <div class="fw-card">
-      <div class="fw-card-icon">&#128268;</div>
-      <div class="fw-card-name">Other CMS / Plugins</div>
-      <div class="fw-card-note">VWO provides plugins for Drupal, Joomla, Wix, and other platforms. See <a href="https://help.vwo.com/hc/en-us/articles/360038382013" target="_blank" style="color:var(--blue);font-size:12px">Extensions and Plugins in VWO SmartCode</a> for the full list.</div>
+      <div class="fw-card-top" style="background:#f7f8fa">
+        <div class="fw-card-accent" style="background:var(--blue-dark);color:#fff;font-size:14px;font-weight:700">+</div>
+        <div><div class="fw-card-name">Other CMS &amp; Platforms</div><div class="fw-card-tag">Drupal · Joomla · Wix · and more</div></div>
+      </div>
+      <div class="fw-card-note">VWO provides dedicated plugins for Drupal, Joomla, Wix, and other platforms. Each plugin automatically handles SmartCode placement — no manual <code class="inline">&lt;head&gt;</code> editing required.<br><br>See <a href="https://help.vwo.com/hc/en-us/articles/360038382013" target="_blank" style="color:var(--blue)">Extensions and Plugins in VWO SmartCode</a> for the full list with installation links.</div>
     </div>
+
   </div>
 
   <div class="callout warn">
@@ -403,10 +416,6 @@ code.inline{font-family:'JetBrains Mono',monospace;font-size:13px;background:var
     Do not use the Synchronous SmartCode with React Helmet. React Helmet injects scripts asynchronously, which conflicts with synchronous execution. Use Asynchronous SmartCode only.
   </div>
 
-  <div class="callout info">
-    <div class="callout-title">Screenshot Reference</div>
-    The original VWO article includes annotated screenshots for Nuxt config, React Helmet implementation, Gatsby component setup, and Shopify Hydrogen V1/V2 root file structure. In a production version of this guide, those screenshots would be embedded inline below each framework card with callout annotations highlighting the specific code placement.
-  </div>
 </div>
 
 <!-- ============================================================ -->
@@ -533,6 +542,10 @@ code.inline{font-family:'JetBrains Mono',monospace;font-size:13px;background:var
 <!-- FOOTER -->
 <footer class="doc-footer">
   <div class="wrap">
-    <div>
-      <strong>Writing Sample by Kalyan Voolse</strong> | Lead Technical Writer and AI Documentation Architect
-      <br><span style="font-size:12px">Redesigned from the existing VWO SmartCode KB article to demonstrate documentation improvement capability.</spa
+    <span>Install and Configure VWO SmartCode &middot; Writing sample by <strong>Kalyan Voolse</strong></span>
+    <a href="index.html">Back to Writing Samples</a>
+  </div>
+</footer>
+
+</body>
+</html>
